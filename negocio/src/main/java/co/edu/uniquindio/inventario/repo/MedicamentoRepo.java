@@ -12,4 +12,7 @@ public interface MedicamentoRepo extends JpaRepository<Medicamento, Integer> {
 
     @Query("select m from Medicamento m")
     List<Medicamento> listaMedicamentos();
+
+    @Query("select m from Medicamento m where m.principioActivo = :principioActivo")
+    Medicamento comprobarPrincipioA(String principioActivo);
 }

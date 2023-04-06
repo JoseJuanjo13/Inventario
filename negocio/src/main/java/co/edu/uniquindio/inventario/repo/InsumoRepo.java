@@ -12,4 +12,7 @@ public interface InsumoRepo extends JpaRepository<Insumo, Integer> {
 
     @Query("select i from Insumo i")
     List<Insumo> listaInsumos();
+
+    @Query("select i from Insumo i where i.nombre = :nombre")
+    Insumo comprobarNombre(String nombre);
 }

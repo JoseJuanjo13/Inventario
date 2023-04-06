@@ -22,31 +22,31 @@ public interface UsuarioServicio {
 
 
     // Bodega
-    Bodega crearBodega(Bodega bodega);
+    Bodega crearBodega(Bodega bodega) throws Exception;
 
-    Bodega actualizarBodega(Bodega bodega);
+    Bodega actualizarBodega(Bodega bodega) throws Exception;
 
-    Boolean eliminarBodega(Bodega bodega);
+    Boolean eliminarBodega(Bodega bodega) throws Exception;
 
     List<Bodega> listarBodegas(Bodega bodega);
 
     // Insumos
 
-    Insumo crearInsumo(Insumo insumo);
+    Insumo crearInsumo(Insumo insumo) throws Exception;
 
-    Insumo actualizarInsumo(Insumo insumo);
+    Insumo actualizarInsumo(Insumo insumo) throws Exception;
 
-    Boolean eliminarInsumo(Insumo insumo);
+    Boolean eliminarInsumo(Insumo insumo) throws Exception;
 
     List<Insumo> listarInsumo(Insumo insumo);
 
     // Medicamento
 
-    Medicamento crearMedicamento(Medicamento medicamento);
+    Medicamento crearMedicamento(Medicamento medicamento) throws Exception;
 
-    Medicamento actualizarMedicamento(Medicamento medicamento);
+    Medicamento actualizarMedicamento(Medicamento medicamento) throws Exception;
 
-    Boolean eliminarMedicamento(Medicamento medicamento);
+    Boolean eliminarMedicamento(Medicamento medicamento) throws Exception;
 
     List<Medicamento> listarMedicamento(Medicamento medicamento);
 
