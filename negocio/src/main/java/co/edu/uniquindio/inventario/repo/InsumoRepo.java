@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface InsumoRepo extends JpaRepository<Insumo, Integer> {
 
-    @Query("select i from Insumo i where i.estado = 'Activo'")
+    @Query("select i from Insumo i")
     List<Insumo> listaInsumos();
 }

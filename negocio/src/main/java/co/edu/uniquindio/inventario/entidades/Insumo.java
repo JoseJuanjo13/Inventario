@@ -40,6 +40,9 @@ public class Insumo implements Serializable {
     @Column(nullable = true)
     private LocalDate fecha;
 
+    @Column(nullable = true)
+    private String usuarioCreacion;
+
     @OneToMany(mappedBy = "insumo")
     private List<DetalleOrdenCompra> detalleOrdenCompras;
 }

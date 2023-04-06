@@ -40,6 +40,9 @@ public class OrdenCompra implements Serializable {
     @Column(nullable = true)
     private Double total;
 
+    @Column(nullable = true)
+    private String usuarioCreacion;
+
     @ManyToOne
     private Proveedor proveedor;
 

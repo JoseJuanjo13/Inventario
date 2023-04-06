@@ -37,6 +37,9 @@ public class DevolucionCompra implements Serializable {
     @Column(nullable = true)
     private LocalDate fecha;
 
+    @Column(nullable = true)
+    private String usuarioCreacion;
+
     @ManyToOne
     private Bodega bodega;
 

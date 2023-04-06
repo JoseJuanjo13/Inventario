@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface OrdenCompraRepo extends JpaRepository<OrdenCompra, Integer> {
 
-    @Query("select or from OrdenCompra or where or.estado = 'Activo'")
+    @Query("select oc from OrdenCompra oc")
     List<OrdenCompra> listaOrdenesCompra();
 }

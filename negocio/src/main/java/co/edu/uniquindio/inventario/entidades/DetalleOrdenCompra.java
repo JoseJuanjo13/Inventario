@@ -36,6 +36,9 @@ public class DetalleOrdenCompra implements Serializable {
     @Column(nullable = true)
     private Double total;
 
+    @Column(nullable = true)
+    private String usuarioCreacion;
+
     // Si el detalle no guarda un medicamento se pone valor 0
     // Ese valor 0 lo podemos guardar como un registro inactivo
     @ManyToOne

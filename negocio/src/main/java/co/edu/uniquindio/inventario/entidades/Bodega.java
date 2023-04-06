@@ -38,17 +38,24 @@ public class Bodega implements Serializable {
     @Column(nullable = true)
     private String estado;
 
+    @Column(nullable = true)
+    private String usuarioCreacion;
+
     @OneToMany(mappedBy = "bodega")
     private List<DevolucionCompra> devolucionCompras;
 
     @OneToMany(mappedBy = "bodega")
     private List<OrdenCompra> ordenCompras;
 
-    public Bodega(String nombre, String abreviacion, String direccion, List<String> telefono) {
+    public Bodega(String nombre, String abreviacion, String direccion, List<String> telefono, String estado) {
         this.nombre = nombre;
         this.abreviacion = abreviacion;
         this.direccion = direccion;
         this.telefono = telefono;
-        this.estado = "Activo";
+        this.estado = estado;
+    }
+
+    public Bodega() {
+
     }
 }

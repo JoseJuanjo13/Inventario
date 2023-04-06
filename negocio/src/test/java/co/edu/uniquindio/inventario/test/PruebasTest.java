@@ -22,7 +22,7 @@ public class PruebasTest {
     public void registrar(){
         ArrayList<String> tel = new ArrayList<>();
         tel.add("3137708899");
-        Bodega bodega = new Bodega("Bodega 1", "Bod1", "Centro", tel);
+        Bodega bodega = new Bodega("Bodega 1", "Bod1", "Centro", tel, "Activo");
         Bodega guardado = bodegaRepo.save(bodega);
         Assertions.assertEquals(bodega.getNombre(), guardado.getNombre());
     }

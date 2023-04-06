@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface BodegaRepo extends JpaRepository<Bodega, Integer> {
 
-    @Query("select b from Bodega b where b.estado = 'Activo' ")
+    @Query("select b from Bodega b")
     List<Bodega> listaBodegas();
 }

@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface DevolucionCompraRepo extends JpaRepository<DevolucionCompra, Integer> {
 
-    @Query("select de from DevolucionCompra de where de.estado = 'Activo'")
+    @Query("select de from DevolucionCompra de")
     List<DevolucionCompra> listaDevolucionesCompra();
     
 }

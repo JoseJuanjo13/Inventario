@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface MedicamentoRepo extends JpaRepository<Medicamento, Integer> {
 
-    @Query("select m from Medicamento m where m.estado = 'Activo' ")
+    @Query("select m from Medicamento m")
     List<Medicamento> listaMedicamentos();
 }

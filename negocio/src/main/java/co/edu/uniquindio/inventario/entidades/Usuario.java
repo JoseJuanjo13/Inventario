@@ -1,5 +1,6 @@
 package co.edu.uniquindio.inventario.entidades;
 
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,39 +15,30 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-public class Proveedor implements Serializable {
+public class Usuario implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     @Column(nullable = false)
-    private String numeroIdentificacion;
-
-    @Column(nullable = true)
-    private String tipoIdentificacion;
+    private String cedula;
 
     @Column(nullable = true)
     private String nombre;
 
     @Column(nullable = true)
-    private String razonSocial;
+    private String apellido;
 
     @Column(nullable = true)
-    private String direccion;
+    private String email;
 
     @Column(nullable = true)
-    private String usuarioCreacion;
+    private String contrasena;
 
     @ElementCollection
     @Column(nullable = true)
     private List<String> telefono;
 
-    @Column(nullable = true)
-    private String correo;
+    public Usuario() {
 
-    @OneToMany(mappedBy = "proveedor")
-    private List<OrdenCompra> ordenCompras;
-
-    @OneToMany(mappedBy = "bodega")
-    private List<OrdenCompra> bodega;
+    }
 }

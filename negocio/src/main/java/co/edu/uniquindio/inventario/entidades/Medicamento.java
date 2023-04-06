@@ -46,6 +46,9 @@ public class Medicamento implements Serializable {
     @Column(nullable = true)
     private LocalDate fecha;
 
+    @Column(nullable = true)
+    private String usuarioCreacion;
+
     @OneToMany(mappedBy = "medicamento")
     private List<DetalleOrdenCompra> detalleOrdenCompras;
 
