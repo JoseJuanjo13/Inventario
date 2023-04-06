@@ -14,9 +14,9 @@ public interface UsuarioServicio {
     // Usuario
     Usuario crearUsuario(Usuario usuario) throws Exception;
 
-    Usuario actualizarUsuario(Usuario usuario);
+    Usuario actualizarUsuario(Usuario usuario) throws Exception;
 
-    Boolean eliminarUsuario(Usuario usuario);
+    Boolean eliminarUsuario(Usuario usuario) throws Exception;
 
     List<Usuario> listarUsuario(Usuario usuario);
 

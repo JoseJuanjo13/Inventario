@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioServicioImpl implements UsuarioServicio{
@@ -47,18 +48,28 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     }
 
     @Override
-    public Usuario actualizarUsuario(Usuario usuario) {
-        return null;
+    public Usuario actualizarUsuario(Usuario usuario) throws Exception {
+        Optional<Usuario> guardado = usuarioRepo.findById(usuario.getCedula());
+        if (guardado.isEmpty()){
+            throw new Exception("El usuario no existe");
+        }
+        return usuarioRepo.save(usuario);
     }
 
     @Override
-    public Boolean eliminarUsuario(Usuario usuario) {
-        return null;
+    public Boolean eliminarUsuario(Usuario usuario) throws Exception {
+        Optional<Usuario> guardado = usuarioRepo.findById(usuario.getCedula());
+        if (guardado.isEmpty()){
+            throw new Exception("El usuario no existe");
+        }else {
+            usuarioRepo.delete(guardado.get());
+            return true;
+        }
     }
 
     @Override
     public List<Usuario> listarUsuario(Usuario usuario) {
-        return null;
+        return usuarioRepo.findAll();
     }
 
     @Override
