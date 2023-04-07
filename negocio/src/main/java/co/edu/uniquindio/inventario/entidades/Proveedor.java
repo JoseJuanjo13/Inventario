@@ -17,7 +17,6 @@ import java.util.List;
 public class Proveedor implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     @Column(nullable = false)
     private String numeroIdentificacion;
