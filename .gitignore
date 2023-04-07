@@ -1,2 +1,4 @@
 /.idea/
 /negocio/build/
+/.gradle/
+/src/
