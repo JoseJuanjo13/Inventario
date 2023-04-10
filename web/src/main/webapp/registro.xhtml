@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Registro Usuario</title>
+</h:head>
+<h:body>
+
+    <p:panel header="Registro Usuario">
+
+        <h:form>
+            <h:panelGrid columns="3" cellpadding="5">
+
+                <p:outputLabel for="cedula" value="Cédula: " />
+                <p:inputText id="cedula" value="#{usuarioBean.usuario.cedula}" required="true" />
+                <p:message for="cedula"/>
+
+                <p:outputLabel for="nombre" value="Nombre: " />
+                <p:inputText id="nombre" value="#{usuarioBean.usuario.nombre}" required="true" />
+                <p:message for="nombre"/>
+
+                <p:outputLabel for="apellido" value="Apellido: " />
+                <p:inputText id="apellido" value="#{usuarioBean.usuario.apellido}" required="true" />
+                <p:message for="apellido"/>
+
+                <p:outputLabel for="correo" value="Correo electrónico: " />
+                <p:inputText id="correo" value="#{usuarioBean.usuario.email}" required="true" />
+                <p:message for="correo"/>
+
+                <p:outputLabel for="contrasena" value="Contraseña: " />
+                <p:password id="contrasena" value="#{usuarioBean.usuario.contrasena}" toggleMask="true"  required="true" />
+                <p:message for="contrasena"/>
+
+                <p:outputLabel for="contrasena_confir" value="Confirmar contraseña: " />
+                <p:password id="contrasena_confir" value="#{usuarioBean.confirmarContrasena}" toggleMask="true" required="true" />
+                <p:message for="contrasena_confir"/>
+
+            </h:panelGrid>
+            <p:commandButton value="Registrarse"  styleClass="ui-button-raised" action="#{usuarioBean.registrarUsuario}" update="@form" />
+            <p:growl for="mensaje_bean" showDetail="true"/>
+        </h:form>
+
+    </p:panel>
+
+
+</h:body>
+</html>

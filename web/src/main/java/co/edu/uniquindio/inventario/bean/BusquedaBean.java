@@ -9,7 +9,12 @@ import java.io.Serializable;
 
 @Component
 @ViewScoped
-public class InicioBean implements Serializable {
+public class BusquedaBean implements Serializable {
 
+    @Getter @Setter
+    private String query;
 
+    public void buscar() {
+
+    }
 }

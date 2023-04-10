@@ -44,7 +44,7 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     @Override
     public Usuario crearUsuario(Usuario usuario) throws Exception {
         if(esRepetido(usuario.getEmail(), usuario.getCedula())){
-            throw new Exception("El correo o la cedula se encuentran registrados");
+            throw new Exception("El correo o la cédula se encuentran registrados");
         }else {
             return usuarioRepo.save(usuario);
         }
@@ -117,7 +117,7 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     }
 
     @Override
-    public List<Bodega> listarBodegas(Bodega bodega) {
+    public List<Bodega> listarBodegas() {
         return bodegaRepo.findAll();
     }
 

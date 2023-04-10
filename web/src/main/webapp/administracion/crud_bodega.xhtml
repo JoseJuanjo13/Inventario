@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Gestión Bodegas</title>
+</h:head>
+<h:body>
+
+    <p:dataTable></p:dataTable>
+
+    <p:panel header="Gestión Bodegas">
+
+        <h:form>
+            <h:panelGrid columns="3" cellpadding="5">
+
+                <p:outputLabel for="abreviacion" value="Abreviación: " />
+                <p:inputText id="abreviacion" value="#{bodegaBean.bodega.abreviacion}" required="true" />
+                <p:message for="abreviacion"/>
+
+                <p:outputLabel for="direccion" value="Dirección: " />
+                <p:inputText id="direccion" value="#{bodegaBean.bodega.direccion}" required="true" />
+                <p:message for="direccion"/>
+
+                <p:outputLabel for="estado" value="Estado: " />
+                <p:inputText id="estado" value="#{bodegaBean.bodega.estado}" required="true" />
+                <p:message for="estado"/>
+
+                <p:outputLabel for="nombre" value="Nombre: " />
+                <p:inputText id="nombre" value="#{bodegaBean.bodega.nombre}" required="true" />
+                <p:message for="nombre"/>
+
+            </h:panelGrid>
+            <p:commandButton value="Registrar Bodega"  styleClass="ui-button-raised" action="#{bodegaBean.crearBodega()}" update="@form" />
+            <p:growl for="mensaje_bean" showDetail="true"/>
+        </h:form>
+
+    </p:panel>
+
+
+</h:body>
+</html>

@@ -1,0 +1,10 @@
+
+
+/* Side bar */
+.wrapper {
+    display: flex;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+
