@@ -12,4 +12,10 @@ h2 {
     color: black;
 }
 
+.ui-datatable .no-filter .ui-column-filter {
+    display: none;
+}
+
+
+
 

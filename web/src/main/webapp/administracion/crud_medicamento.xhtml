@@ -27,10 +27,19 @@
                     </p:toolbarGroup>
                 </p:toolbar>
 
-                <p:dataTable id="lista-medicamentos" value="#{medicamentoBean.medicamentos}"
+                <p:dataTable id="lista-medicamentos" widgetVar="listaMedicamentos" value="#{medicamentoBean.medicamentos}"
                              var="medicamento" rowKey="#{medicamento.idMedicamento}"
                              paginator="true" rows="10" paginatorPosition="bottom"
                              selection="#{medicamentoBean.medicamentosSeleccionados}" rowSelectMode="add">
+
+                    <f:facet name="header">
+                        <div class="products-table-header">
+                            <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"/>
+                        <p:inputText id="globalFilter" onkeyup="PF('listaMedicamentos').filter()" placeholder="Busca una medicamento"
+                                     style="width: 500px"/>
+                    </span>
+                        </div>
+                    </f:facet>
 
                     <p:column selectionMode="multiple" exportable="false"/>
 
@@ -40,31 +49,31 @@
                     <p:ajax event="rowUnselectCheckbox" update="crud-medicamento:btn-borrar" />
                     <p:ajax event="toggleSelect" update="crud-medicamento:btn-borrar" />
 
-                    <p:column headerText="Principio activo">
+                    <p:column headerText="Principio activo" sortBy="#{medicamento.principioActivo}" filterBy="#{medicamento.principioActivo}" filterMatchMode="contains" styleClass="no-filter">
                         <h:outputText value="#{medicamento.principioActivo}"/>
                     </p:column>
 
-                    <p:column headerText="Concentración">
+                    <p:column headerText="Concentración" sortBy="#{medicamento.concentracion}" filterBy="#{medicamento.concentracion}" filterMatchMode="contains" styleClass="no-filter">
                         <h:outputText value="#{medicamento.concentracion}"/>
                     </p:column>
 
-                    <p:column headerText="Unidad">
+                    <p:column headerText="Unidad" sortBy="#{medicamento.unidad}" filterBy="#{medicamento.unidad}" filterMatchMode="contains" styleClass="no-filter">
                         <h:outputText value="#{medicamento.unidad}"/>
                     </p:column>
 
-                    <p:column headerText="Presentación">
+                    <p:column headerText="Presentación" sortBy="#{medicamento.presentacion}" filterBy="#{medicamento.presentacion}" filterMatchMode="contains" styleClass="no-filter">
                         <h:outputText value="#{medicamento.presentacion}"/>
                     </p:column>
 
-                    <p:column headerText="Vía de administración">
+                    <p:column headerText="Vía de administración" sortBy="#{medicamento.viaAdministracion}" filterBy="#{medicamento.viaAdministracion}" filterMatchMode="contains" styleClass="no-filter">
                         <h:outputText value="#{medicamento.viaAdministracion}"/>
                     </p:column>
 
-                    <p:column headerText="Fecha vencimiento">
+                    <p:column headerText="Fecha vencimiento" sortBy="#{medicamento.fechaVencimiento}" filterBy="#{medicamento.fechaVencimiento}" filterMatchMode="contains" styleClass="no-filter">
                         <h:outputText value="#{medicamento.fechaVencimiento}"/>
                     </p:column>
 
-                    <p:column headerText="Estado">
+                    <p:column headerText="Estado" sortBy="#{medicamento.estado}" filterBy="#{medicamento.estado}" filterMatchMode="contains" styleClass="no-filter">
                         <h:outputText value="#{medicamento.estado}"/>
                     </p:column>
 

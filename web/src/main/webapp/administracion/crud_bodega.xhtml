@@ -27,10 +27,19 @@
                     </p:toolbarGroup>
                 </p:toolbar>
 
-                <p:dataTable id="lista-bodegas" value="#{bodegaBean.bodegas}"
+                <p:dataTable id="lista-bodegas" widgetVar="listaBodegas" value="#{bodegaBean.bodegas}"
                              var="bodega" rowKey="#{bodega.idBodega}"
                              paginator="true" rows="10" paginatorPosition="bottom"
                              selection="#{bodegaBean.bodegasSeleccionadas}" rowSelectMode="add">
+
+                    <f:facet name="header">
+                        <div class="products-table-header">
+                            <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"/>
+                        <p:inputText id="globalFilter" onkeyup="PF('listaBodegas').filter()" placeholder="Busca una bodega"
+                                     style="width: 500px"/>
+                    </span>
+                        </div>
+                    </f:facet>
 
                     <p:column selectionMode="multiple" exportable="false"/>
 
@@ -40,21 +49,22 @@
                     <p:ajax event="rowUnselectCheckbox" update="crud-bodega:btn-borrar" />
                     <p:ajax event="toggleSelect" update="crud-bodega:btn-borrar" />
 
-                    <p:column headerText="Abreviación">
+                    <p:column headerText="Nombre" sortBy="#{bodega.nombre}" filterBy="#{bodega.nombre}" filterMatchMode="contains" styleClass="no-filter">
+                        <h:outputText value="#{bodega.nombre}"/>
+                    </p:column>
+
+                    <p:column headerText="Abreviación" sortBy="#{bodega.abreviacion}" filterBy="#{bodega.abreviacion}" filterMatchMode="contains" styleClass="no-filter">
                         <h:outputText value="#{bodega.abreviacion}"/>
                     </p:column>
 
-                    <p:column headerText="Dirección">
+                    <p:column headerText="Dirección" sortBy="#{bodega.direccion}" filterBy="#{bodega.direccion}" filterMatchMode="contains" styleClass="no-filter">
                         <h:outputText value="#{bodega.direccion}"/>
                     </p:column>
 
-                    <p:column headerText="Estado">
+                    <p:column headerText="Estado" sortBy="#{bodega.estado}" filterBy="#{bodega.estado}" filterMatchMode="contains" styleClass="no-filter">
                         <h:outputText value="#{bodega.estado}"/>
                     </p:column>
 
-                    <p:column headerText="Nombre">
-                        <h:outputText value="#{bodega.nombre}"/>
-                    </p:column>
 
                     <p:column headerText="">
                         <p:commandButton icon="pi pi-pencil" styleClass="edit-button rounded-button ui-button-secondary"
