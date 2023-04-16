@@ -1,10 +1,15 @@
 
+/* Body */
+.content-body {
+    color: #0a53be;
+    width: 80%;
+    position: absolute;
+    right: 23px;
+    top: 35px;
+}
 
-/* Side bar */
-.wrapper {
-    display: flex;
-    text-decoration: none;
-    transition: all 0.3s;
+h2 {
+    color: black;
 }
 
 

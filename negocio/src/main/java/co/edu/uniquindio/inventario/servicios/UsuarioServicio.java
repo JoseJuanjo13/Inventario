@@ -38,7 +38,7 @@ public interface UsuarioServicio {
 
     Boolean eliminarInsumo(Insumo insumo) throws Exception;
 
-    List<Insumo> listarInsumo(Insumo insumo);
+    List<Insumo> listarInsumo();
 
     // Medicamento
 
@@ -48,7 +48,7 @@ public interface UsuarioServicio {
 
     Boolean eliminarMedicamento(Medicamento medicamento) throws Exception;
 
-    List<Medicamento> listarMedicamento(Medicamento medicamento);
+    List<Medicamento> listarMedicamento();
 
     //
 }

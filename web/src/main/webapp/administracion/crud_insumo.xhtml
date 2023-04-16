@@ -6,12 +6,114 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Gestión Insumo</title>
-</h:head>
-<h:body>
+<ui:composition template="/WEB-INF/template.xhtml">
+    <ui:define name="content">
 
-</h:body>
+        <div class="content-body">
+            <h2>Gestión de insumos</h2>
+            <h:form id="crud-insumo">
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="Agregar" icon="pi pi-plus" styleClass="ui-button-raised ui-button-success me-3" oncomplete="PF('crear-insumo').show()"
+                                         action="#{insumoBean.dialogoSeleccionInsumo(null)}" update="dialogo-gestion-insumo"/>
+
+                        <p:commandButton id="btn-borrar" value="#{insumoBean.mensajeEliminar} " icon="pi pi-trash" styleClass="ui-button-raised ui-button-danger"
+                                         action="#{insumoBean.eliminarInsumos}" disabled="#{insumoBean.insumosSeleccionados.size() == 0}"
+                                         update="crud-insumo:lista-insumos, @this"/>
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+                <p:dataTable id="lista-insumos" value="#{insumoBean.insumos}"
+                             var="insumo" rowKey="#{insumo.idInsumo}"
+                             paginator="true" rows="10" paginatorPosition="bottom"
+                             selection="#{insumoBean.insumosSeleccionados}" rowSelectMode="add">
+
+                    <f:facet name="header">
+                        <div class="products-table-header">
+                            <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"/>
+                        <p:inputText id="globalFilter" onkeyup="PF('dtProducts').filter()" placeholder="Busca un insumo" />
+                    </span>
+                        </div>
+                    </f:facet>
+
+                    <p:column selectionMode="multiple" exportable="false"/>
+
+                    <p:ajax event="rowSelect" update="crud-insumo:btn-borrar" />
+                    <p:ajax event="rowUnselect" update="crud-insumo:btn-borrar" />
+                    <p:ajax event="rowSelectCheckbox" update="crud-insumo:btn-borrar" />
+                    <p:ajax event="rowUnselectCheckbox" update="crud-insumo:btn-borrar" />
+                    <p:ajax event="toggleSelect" update="crud-insumo:btn-borrar" />
+
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{insumo.nombre}"/>
+                    </p:column>
+
+                    <p:column headerText="Presentación">
+                        <h:outputText value="#{insumo.presentacion}"/>
+                    </p:column>
+
+                    <p:column headerText="Tipo de insumo">
+                        <h:outputText value="#{insumo.tipoInsumo}"/>
+                    </p:column>
+
+                    <p:column headerText="Vida útil">
+                        <h:outputText value="#{insumo.vidaUtil}"/>
+                    </p:column>
+
+                    <p:column headerText="Estado">
+                        <h:outputText value="#{insumo.estado}"/>
+                    </p:column>
+
+                    <p:column headerText="Fecha">
+                        <h:outputText value="#{insumo.fecha}"/>
+                    </p:column>
+
+                    <p:column headerText="">
+                        <p:commandButton icon="pi pi-pencil" styleClass="edit-button rounded-button ui-button-secondary"
+                                         action="#{insumoBean.dialogoSeleccionInsumo(insumo)}" oncomplete="PF('crear-insumo').show()"
+                                         update="dialogo-gestion-insumo"/>
+                    </p:column>
+                </p:dataTable>
+
+            </h:form>
+
+            <p:dialog id="dialogo-gestion-insumo" header="#{insumoBean.textoDialogo}" widgetVar="crear-insumo" modal="true" showEffect="fade">
+                <h:form>
+                    <h:panelGrid columns="3" cellpadding="5">
+
+                        <p:outputLabel for="nombre" value="Nombre: " />
+                        <p:inputText id="nombre" value="#{insumoBean.insumo.nombre}" required="true" />
+                        <p:message for="nombre"/>
+
+                        <p:outputLabel for="presentacion" value="Presentación: " />
+                        <p:inputText id="presentacion" value="#{insumoBean.insumo.presentacion}" required="true" />
+                        <p:message for="presentacion"/>
+
+                        <p:outputLabel for="tipo-insumo" value="Tipo insumo: "/>
+                        <p:inputText id="tipo-insumo" value="#{insumoBean.insumo.tipoInsumo}" required="true" />
+                        <p:message for="tipo-insumo"/>
+
+                        <p:outputLabel for="vida-util" value="Vida útil: " />
+                        <p:inputText id="vida-util" value="#{insumoBean.insumo.vidaUtil}" required="true" />
+                        <p:message for="vida-util"/>
+
+                        <p:outputLabel for="estado" value="Estado: " />
+                        <p:inputText id="estado" value="#{insumoBean.insumo.estado}" required="true" />
+                        <p:message for="estado"/>
+
+                        <p:outputLabel for="fecha" value="Fecha: " />
+                        <p:datePicker id="fecha" value="#{insumoBean.insumo.fecha}" required="true" monthNavigator="true" yearNavigator="true" showWeek="true"/>
+                        <p:message for="fecha"/>
+
+                    </h:panelGrid>
+
+                    <p:commandButton value="#{insumoBean.textoDialogo}"  styleClass="ui-button-raised"
+                                     action="#{insumoBean.gestionarInsumo}" update="@form, crud-insumo:lista-insumos" />
+                    <p:growl for="mensaje_bean" showDetail="true"/>
+                </h:form>
+            </p:dialog>
+        </div>
+
+    </ui:define>
+</ui:composition>
 </html>

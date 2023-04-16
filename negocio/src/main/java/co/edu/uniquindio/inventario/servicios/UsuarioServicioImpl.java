@@ -156,7 +156,7 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     }
 
     @Override
-    public List<Insumo> listarInsumo(Insumo insumo) {
+    public List<Insumo> listarInsumo() {
         return insumoRepo.findAll();
     }
 
@@ -195,7 +195,7 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     }
 
     @Override
-    public List<Medicamento> listarMedicamento(Medicamento medicamento) {
+    public List<Medicamento> listarMedicamento() {
         return medicamentoRepo.findAll();
     }
 
