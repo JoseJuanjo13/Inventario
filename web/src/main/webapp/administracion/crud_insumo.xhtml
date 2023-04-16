@@ -22,9 +22,23 @@
 
                         <p:commandButton id="btn-borrar" value="#{insumoBean.mensajeEliminar} " icon="pi pi-trash"
                                          styleClass="ui-button-raised ui-button-danger"
-                                         action="#{insumoBean.eliminarInsumos}"
                                          disabled="#{insumoBean.insumosSeleccionados.size() == 0}"
-                                         update="crud-insumo:lista-insumos, @this"/>
+                                         onclick="PF('confirmDialog').show()"  update="crud-insumo:lista-insumos, @this"/>
+
+                        <p:confirmDialog widgetVar="confirmDialog" responsive="true"
+                                         hideEffect="fade" showEffect="fade"
+                                         header="Eliminar Insumo"
+                                         message="¿Eliminar los insumos seleccionados?">
+                            <p:commandButton value="Sí" icon="pi pi-check" iconPos="left"
+                                             styleClass="ui-button-raised ui-button-danger"
+                                             oncomplete="PF('confirmDialog').hide()"
+                                             action="#{insumoBean.eliminarInsumos}"
+                                             update="crud-insumo:lista-insumos, @this crud-insumo:btn-borrar"/>
+                            <p:commandButton value="No" icon="pi pi-times"
+                                             styleClass="ui-button-raised ui-button-primary"
+                                             onclick="PF('confirmDialog').hide()"
+                                             type="button" />
+                        </p:confirmDialog>
                     </p:toolbarGroup>
                 </p:toolbar>
 
@@ -62,8 +76,10 @@
                         <h:outputText value="#{insumo.tipoInsumo}"/>
                     </p:column>
 
-                    <p:column headerText="Vida útil"  sortBy="#{insumo.vidaUtil}" filterBy="#{insumo.vidaUtil}" filterMatchMode="contains" styleClass="no-filter">
-                        <h:outputText value="#{insumo.vidaUtil}"/>
+                    <p:column headerText="Vida útil"  sortBy="#{insumo.vidaUtil}" filterBy="#{insumo.vidaUtil}"
+                              filterMatchMode="contains" styleClass="no-filter">
+                        <h:outputLabel for="input9" value="Positive"/>
+                        <p:inputNumber id="input9" value="#{insumo.vidaUtil}" minValue="1" decimalPlaces="0" />
                     </p:column>
 
                     <p:column headerText="Estado" sortBy="#{insumo.estado}" filterBy="#{insumo.estado}" filterMatchMode="contains" styleClass="no-filter">

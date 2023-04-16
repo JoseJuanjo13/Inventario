@@ -79,7 +79,6 @@ public class MedicamentoBean implements Serializable {
     }
 
     public String getMensajeEliminar() {
-        System.out.print("entra");
 
         if(medicamentosSeleccionados.isEmpty()) {
 

@@ -2,7 +2,7 @@
 /* Body */
 .content-body {
     color: #0a53be;
-    width: 80%;
+    width: 81%;
     position: absolute;
     right: 23px;
     top: 35px;
@@ -15,6 +15,11 @@ h2 {
 .ui-datatable .no-filter .ui-column-filter {
     display: none;
 }
+
+.content-body {
+    align-content: center;
+}
+
 
 
 

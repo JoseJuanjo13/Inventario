@@ -20,10 +20,24 @@
                                          action="#{bodegaBean.dialogoSeleccionBodega(null)}" update="dialogo-gestion-bodega"/>
 
                         <p:commandButton id="btn-borrar" value="#{bodegaBean.mensajeEliminar} " icon="pi pi-trash" styleClass="ui-button-raised ui-button-danger"
-                                         action="#{bodegaBean.eliminarBodegas}" disabled="#{bodegaBean.bodegasSeleccionadas.size() == 0}"
-                                         update="crud-bodega:lista-bodegas, @this">
+                                         disabled="#{bodegaBean.bodegasSeleccionadas.size() == 0}"
+                                         onclick="PF('confirmDialog').show()"  update="crud-bodega:lista-bodegas, @this"/>
 
-                        </p:commandButton>
+                        <p:confirmDialog widgetVar="confirmDialog" responsive="true"
+                                         hideEffect="fade" showEffect="fade"
+                                         header="Eliminar Bodega"
+                                         message="¿Eliminar las bodegas seleccionadas?">
+                            <p:commandButton value="Sí" icon="pi pi-check" iconPos="left"
+                                             styleClass="ui-button-raised ui-button-danger"
+                                             oncomplete="PF('confirmDialog').hide()"
+                                             action="#{bodegaBean.eliminarBodegas}"
+                                             update="crud-bodega:lista-bodegas, @this crud-bodega:btn-borrar"/>
+                            <p:commandButton value="No" icon="pi pi-times"
+                                             styleClass="ui-button-raised ui-button-primary"
+                                             onclick="PF('confirmDialog').hide()"
+                                             type="button" />
+                        </p:confirmDialog>
+
                     </p:toolbarGroup>
                 </p:toolbar>
 

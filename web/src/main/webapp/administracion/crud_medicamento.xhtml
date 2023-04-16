@@ -16,14 +16,30 @@
 
                 <p:toolbar>
                     <p:toolbarGroup>
-                        <p:commandButton value="Agregar" icon="pi pi-plus" styleClass="ui-button-raised ui-button-success me-3" oncomplete="PF('crear-medicamento').show()"
+                        <p:commandButton value="Agregar" icon="pi pi-plus" styleClass="ui-button-raised ui-button-success me-3"
+                                         oncomplete="PF('crear-medicamento').show()"
                                          action="#{medicamentoBean.dialogoSeleccionMedicamento(null)}" update="dialogo-gestion-medicamento"/>
 
                         <p:commandButton id="btn-borrar" value="#{medicamentoBean.mensajeEliminar} " icon="pi pi-trash" styleClass="ui-button-raised ui-button-danger"
-                                         action="#{medicamentoBean.eliminarMedicamento}" disabled="#{medicamentoBean.medicamentosSeleccionados.size() == 0}"
-                                         update="crud-medicamento:lista-medicamentos, @this">
+                                         disabled="#{medicamentoBean.medicamentosSeleccionados.size() == 0}"
+                                         onclick="PF('confirmDialog').show()" update="crud-medicamento:lista-medicamentos, @this"/>
 
-                        </p:commandButton>
+                            <p:confirmDialog widgetVar="confirmDialog" responsive="true"
+                                             hideEffect="fade" showEffect="fade"
+                                             header="Eliminar Medicamento"
+                                             message="¿Eliminar los medicamentos seleccionados?">
+                                <p:commandButton value="Sí" icon="pi pi-check" iconPos="left"
+                                                 styleClass="ui-button-raised ui-button-danger"
+                                                 oncomplete="PF('confirmDialog').hide()"
+                                                 action="#{medicamentoBean.eliminarMedicamento}"
+                                                 update="crud-medicamento:lista-medicamentos, @this crud-medicamento:btn-borrar"/>
+                                <p:commandButton value="No" icon="pi pi-times"
+                                                 styleClass="ui-button-raised ui-button-primary"
+                                                 onclick="PF('confirmDialog').hide()"
+                                                 type="button" />
+                            </p:confirmDialog>
+
+
                     </p:toolbarGroup>
                 </p:toolbar>
 
@@ -35,13 +51,13 @@
                     <f:facet name="header">
                         <div class="products-table-header">
                             <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"/>
-                        <p:inputText id="globalFilter" onkeyup="PF('listaMedicamentos').filter()" placeholder="Busca una medicamento"
+                        <p:inputText id="globalFilter" onkeyup="PF('listaMedicamentos').filter()" placeholder="Busca un medicamento"
                                      style="width: 500px"/>
                     </span>
                         </div>
                     </f:facet>
 
-                    <p:column selectionMode="multiple" exportable="false"/>
+                    <p:column selectionMode="multiple" exportable="false" width="40" styleClass="fc-icon-x"/>
 
                     <p:ajax event="rowSelect" update="crud-medicamento:btn-borrar" />
                     <p:ajax event="rowUnselect" update="crud-medicamento:btn-borrar" />
@@ -49,35 +65,49 @@
                     <p:ajax event="rowUnselectCheckbox" update="crud-medicamento:btn-borrar" />
                     <p:ajax event="toggleSelect" update="crud-medicamento:btn-borrar" />
 
-                    <p:column headerText="Principio activo" sortBy="#{medicamento.principioActivo}" filterBy="#{medicamento.principioActivo}" filterMatchMode="contains" styleClass="no-filter">
+                    <p:column headerText="Principio activo" sortBy="#{medicamento.principioActivo}"
+                              filterBy="#{medicamento.principioActivo}" filterMatchMode="contains"
+                              styleClass="no-filter align-content-center">
                         <h:outputText value="#{medicamento.principioActivo}"/>
                     </p:column>
 
-                    <p:column headerText="Concentración" sortBy="#{medicamento.concentracion}" filterBy="#{medicamento.concentracion}" filterMatchMode="contains" styleClass="no-filter">
+                    <p:column headerText="Concentración" sortBy="#{medicamento.concentracion}"
+                              filterBy="#{medicamento.concentracion}" filterMatchMode="contains"
+                              styleClass="no-filter">
                         <h:outputText value="#{medicamento.concentracion}"/>
                     </p:column>
 
-                    <p:column headerText="Unidad" sortBy="#{medicamento.unidad}" filterBy="#{medicamento.unidad}" filterMatchMode="contains" styleClass="no-filter">
+                    <p:column headerText="Unidad" sortBy="#{medicamento.unidad}"
+                              filterBy="#{medicamento.unidad}" filterMatchMode="contains"
+                              styleClass="no-filter">
                         <h:outputText value="#{medicamento.unidad}"/>
                     </p:column>
 
-                    <p:column headerText="Presentación" sortBy="#{medicamento.presentacion}" filterBy="#{medicamento.presentacion}" filterMatchMode="contains" styleClass="no-filter">
+                    <p:column headerText="Presentación" sortBy="#{medicamento.presentacion}"
+                              filterBy="#{medicamento.presentacion}" filterMatchMode="contains"
+                              styleClass="no-filter">
                         <h:outputText value="#{medicamento.presentacion}"/>
                     </p:column>
 
-                    <p:column headerText="Vía de administración" sortBy="#{medicamento.viaAdministracion}" filterBy="#{medicamento.viaAdministracion}" filterMatchMode="contains" styleClass="no-filter">
+                    <p:column headerText="Vía de administración" sortBy="#{medicamento.viaAdministracion}"
+                              filterBy="#{medicamento.viaAdministracion}" filterMatchMode="contains"
+                              styleClass="no-filter">
                         <h:outputText value="#{medicamento.viaAdministracion}"/>
                     </p:column>
 
-                    <p:column headerText="Fecha vencimiento" sortBy="#{medicamento.fechaVencimiento}" filterBy="#{medicamento.fechaVencimiento}" filterMatchMode="contains" styleClass="no-filter">
+                    <p:column headerText="Fecha vencimiento" sortBy="#{medicamento.fechaVencimiento}"
+                              filterBy="#{medicamento.fechaVencimiento}" filterMatchMode="contains"
+                              styleClass="no-filter">
                         <h:outputText value="#{medicamento.fechaVencimiento}"/>
                     </p:column>
 
-                    <p:column headerText="Estado" sortBy="#{medicamento.estado}" filterBy="#{medicamento.estado}" filterMatchMode="contains" styleClass="no-filter">
+                    <p:column headerText="Estado" sortBy="#{medicamento.estado}"
+                              filterBy="#{medicamento.estado}" filterMatchMode="contains"
+                              styleClass="no-filter">
                         <h:outputText value="#{medicamento.estado}"/>
                     </p:column>
 
-                    <p:column headerText="">
+                    <p:column headerText="" width="40">
                         <p:commandButton icon="pi pi-pencil" styleClass="edit-button rounded-button ui-button-secondary"
                                          action="#{medicamentoBean.dialogoSeleccionMedicamento(medicamento)}" oncomplete="PF('crear-medicamento').show()"
                                          update="dialogo-gestion-medicamento"/>
