@@ -43,6 +43,7 @@ public class DevolucionCompra implements Serializable {
     @ManyToOne
     private Bodega bodega;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "devolucionCompra")
     private List<DetalleDevolucionCompra> detalleOrdenCompras;
 

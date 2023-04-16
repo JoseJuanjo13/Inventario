@@ -43,9 +43,11 @@ public class Proveedor implements Serializable {
     @Column(nullable = true)
     private String correo;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "proveedor")
     private List<OrdenCompra> ordenCompras;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "bodega")
     private List<OrdenCompra> bodega;
 }

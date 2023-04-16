@@ -56,7 +56,7 @@
                         </div>
                     </f:facet>
 
-                    <p:column selectionMode="multiple" exportable="false"/>
+                    <p:column selectionMode="multiple" exportable="false" width="40"/>
 
                     <p:ajax event="rowSelect" update="crud-insumo:btn-borrar"/>
                     <p:ajax event="rowUnselect" update="crud-insumo:btn-borrar"/>
@@ -72,14 +72,13 @@
                         <h:outputText value="#{insumo.presentacion}"/>
                     </p:column>
 
-                    <p:column headerText="Tipo de insumo"  sortBy="#{insumo.tipoInsumo}" filterBy="#{insumo.tipoInsumo}" filterMatchMode="contains" styleClass="no-filter">
+                    <p:column headerText="Tipo de insumo"  sortBy="#{insumo.tipoInsumo}" filterBy="#{insumo.tipoInsumo}" filterMatchMode="contains" styleClass="no-filter" width="150">
                         <h:outputText value="#{insumo.tipoInsumo}"/>
                     </p:column>
 
                     <p:column headerText="Vida útil"  sortBy="#{insumo.vidaUtil}" filterBy="#{insumo.vidaUtil}"
                               filterMatchMode="contains" styleClass="no-filter">
-                        <h:outputLabel for="input9" value="Positive"/>
-                        <p:inputNumber id="input9" value="#{insumo.vidaUtil}" minValue="1" decimalPlaces="0" />
+                        <h:outputText value="#{insumo.vidaUtil}"/>
                     </p:column>
 
                     <p:column headerText="Estado" sortBy="#{insumo.estado}" filterBy="#{insumo.estado}" filterMatchMode="contains" styleClass="no-filter">
@@ -90,7 +89,7 @@
                         <h:outputText value="#{insumo.fecha}"/>
                     </p:column>
 
-                    <p:column headerText="">
+                    <p:column headerText="" width="40">
                         <p:commandButton icon="pi pi-pencil" styleClass="edit-button rounded-button ui-button-secondary"
                                          action="#{insumoBean.dialogoSeleccionInsumo(insumo)}"
                                          oncomplete="PF('crear-insumo').show()"
@@ -118,7 +117,7 @@
                         <p:message for="tipo-insumo"/>
 
                         <p:outputLabel for="vida-util" value="Vida útil: "/>
-                        <p:inputText id="vida-util" value="#{insumoBean.insumo.vidaUtil}" required="true"/>
+                        <p:inputNumber id="vida-util" value="#{insumoBean.insumo.vidaUtil}" required="true" minValue="0" decimalPlaces="0"/>
                         <p:message for="vida-util"/>
 
                         <p:outputLabel for="estado" value="Estado: "/>

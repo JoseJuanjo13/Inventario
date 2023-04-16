@@ -43,6 +43,7 @@ public class Insumo implements Serializable {
     @Column(nullable = true)
     private String usuarioCreacion;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "insumo")
     private List<DetalleOrdenCompra> detalleOrdenCompras;
 }

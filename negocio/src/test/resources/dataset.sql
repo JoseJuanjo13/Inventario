@@ -1,0 +1,121 @@
+INSERT INTO bodega (abreviacion, direccion, estado, nombre, usuario_creacion)
+VALUES ('BDC', 'Calle 123', 'Activo', 'Bodega Central', 'Admin');
+INSERT INTO bodega (abreviacion, direccion, estado, nombre, usuario_creacion)
+VALUES ('BDS','Calle 456', 'Activo', 'Bodega Secundaria', 'Admin');
+INSERT INTO bodega (abreviacion, direccion, estado, nombre, usuario_creacion)
+VALUES ('BDP','Calle 745', 'Activo', 'Bodega Principal', 'Admin');
+INSERT INTO bodega (abreviacion, direccion, estado, nombre, usuario_creacion)
+VALUES ('BDN','Calle 712', 'Activo', 'Bodega Norte', 'Admin');
+INSERT INTO bodega (abreviacion, direccion, estado, nombre, usuario_creacion)
+VALUES ('BDSS','Calle 999', 'Activo', 'Bodega Sur', 'Admin');
+
+INSERT INTO bodega_telefono (bodega_id_bodega, telefono)
+VALUES (1, '555-1234');
+INSERT INTO bodega_telefono (bodega_id_bodega, telefono)
+VALUES (2, '555-5678'), (2, '555-4321');
+INSERT INTO bodega_telefono (bodega_id_bodega, telefono)
+VALUES (3, '555-8765');
+INSERT INTO bodega_telefono (bodega_id_bodega, telefono)
+VALUES (4, '555-2468'), (4, '555-1357');
+INSERT INTO bodega_telefono (bodega_id_bodega, telefono)
+VALUES (5, '555-3690');
+
+INSERT INTO insumo (estado, fecha, nombre, presentacion, tipo_insumo, usuario_creacion, vida_util)
+VALUES ('Activo', '2023-04-15', 'Mascarilla N95', 'Caja de 20 unidades', 'Protección respiratoria', 'admin', 2);
+INSERT INTO insumo (estado, fecha, nombre, presentacion, tipo_insumo, usuario_creacion, vida_util)
+VALUES ('Activo', '2023-04-15', 'Guantes de nitrilo', 'Caja de 100 unidades', 'Protección de manos', 'admin', 3);
+INSERT INTO insumo (estado, fecha, nombre, presentacion, tipo_insumo, usuario_creacion, vida_util)
+VALUES ('Activo', '2023-04-15', 'Termómetro digital', 'Unidad', 'Medición de temperatura', 'admin', 2);
+INSERT INTO insumo (estado, fecha, nombre, presentacion, tipo_insumo, usuario_creacion, vida_util)
+VALUES ('Activo', '2023-04-15', 'Jeringa descartable', 'Caja de 50 unidades', 'Administración de medicamentos', 'admin', 2);
+INSERT INTO insumo (estado, fecha, nombre, presentacion, tipo_insumo, usuario_creacion, vida_util)
+VALUES ('Activo', '2023-04-15', 'Agua oxigenada', 'Botella de 500 ml', 'Limpieza de heridas', 'admin', 1);
+INSERT INTO insumo (estado, fecha, nombre, presentacion, tipo_insumo, usuario_creacion, vida_util)
+VALUES ('Activo', '2023-04-15', 'Gasas estériles', 'Paquete de 10 unidades', 'Curación de heridas', 'admin', 2);
+INSERT INTO insumo (estado, fecha, nombre, presentacion, tipo_insumo, usuario_creacion, vida_util)
+VALUES ('Activo', '2023-04-15', 'Esparadrapo', 'Rollo de 5 metros', 'Fijación de vendajes', 'admin', 2);
+INSERT INTO insumo (estado, fecha, nombre, presentacion, tipo_insumo, usuario_creacion, vida_util)
+VALUES ('Activo', '2023-04-15', 'Tijeras quirúrgicas', 'Unidad', 'Corte de materiales médicos', 'admin', 4);
+INSERT INTO insumo (estado, fecha, nombre, presentacion, tipo_insumo, usuario_creacion, vida_util)
+VALUES ('Activo', '2023-04-15', 'Sutura quirúrgica', 'Paquete de 10 unidades', 'Cierre de heridas', 'admin', 3);
+INSERT INTO insumo (estado, fecha, nombre, presentacion, tipo_insumo, usuario_creacion, vida_util)
+VALUES ('Activo', '2023-04-15', 'Gasa de algodón', 'Paquete de 10 unidades', 'Limpieza de heridas', 'admin', 2);
+INSERT INTO insumo (estado, fecha, nombre, presentacion, tipo_insumo, usuario_creacion, vida_util)
+VALUES ('Activo', '2023-04-15', 'Gel antibacterial', 'Frasco de 250 ml', 'Desinfección de manos', 'admin', 1);
+INSERT INTO insumo (estado, fecha, nombre, presentacion, tipo_insumo, usuario_creacion, vida_util)
+VALUES ('Activo', '2023-04-15', 'Guantes de nitrilo', 'Caja de 100 unidades', 'Protección de manos', 'admin', 3);
+INSERT INTO insumo (estado, fecha, nombre, presentacion, tipo_insumo, usuario_creacion, vida_util)
+VALUES ('Activo', '2023-04-15', 'Termómetro infrarrojo', 'Unidad', 'Medición de temperatura', 'admin', 5);
+INSERT INTO insumo (estado, fecha, nombre, presentacion, tipo_insumo, usuario_creacion, vida_util)
+VALUES ('Activo', '2023-04-15', 'Jeringa de 1ml', 'Caja de 100 unidades', 'Inyección', 'admin', 2);
+INSERT INTO insumo (estado, fecha, nombre, presentacion, tipo_insumo, usuario_creacion, vida_util)
+VALUES ('Activo', '2023-04-15', 'Sutura quirúrgica', 'Caja de 12 unidades', 'Cirugía', 'admin', 3);
+
+INSERT INTO medicamento (concentracion, estado, fecha, fecha_vencimiento, presentacion, principio_activo, unidad, usuario_creacion, via_administracion)
+VALUES ('10 mg/mL', 'activo', '2023-04-15', '2024-04-15', 'Ampolla', 'Paracetamol', 'ml', 'Admin', 'Oral');
+INSERT INTO medicamento (concentracion, estado, fecha, fecha_vencimiento, presentacion, principio_activo, unidad, usuario_creacion, via_administracion)
+VALUES ('20 mg', 'activo', '2023-04-15', '2024-04-15', 'Tableta', 'Ibuprofeno', 'mg', 'Admin', 'Oral');
+INSERT INTO medicamento (concentracion, estado, fecha, fecha_vencimiento, presentacion, principio_activo, unidad, usuario_creacion, via_administracion)
+VALUES ('100 mg', 'activo', '2023-04-15', '2024-04-15', 'Tableta', 'Diclofenaco', 'mg', 'Admin', 'Oral');
+INSERT INTO medicamento (concentracion, estado, fecha, fecha_vencimiento, presentacion, principio_activo, unidad, usuario_creacion, via_administracion)
+VALUES ('5 mg/mL', 'activo', '2023-04-15', '2024-04-15', 'Frasco Ampolla', 'Aspirina', 'ml', 'Admin', 'Intravenosa');
+INSERT INTO medicamento (concentracion, estado, fecha, fecha_vencimiento, presentacion, principio_activo, unidad, usuario_creacion, via_administracion)
+VALUES ('10 mg', 'activo', '2023-04-15', '2024-04-15', 'Tableta', 'Loratadina', 'mg', 'Admin', 'Oral');
+INSERT INTO medicamento (concentracion, estado, fecha, fecha_vencimiento, presentacion, principio_activo, unidad, usuario_creacion, via_administracion)
+VALUES ('50 mg/mL', 'activo', '2023-04-15', '2024-04-15', 'Ampolla', 'Ranitidina', 'ml', 'Admin', 'Intravenosa');
+INSERT INTO medicamento (concentracion, estado, fecha, fecha_vencimiento, presentacion, principio_activo, unidad, usuario_creacion, via_administracion)
+VALUES ('100 mg', 'activo', '2023-04-15', '2024-04-15', 'Tableta', 'Clorfenamina', 'mg', 'Admin', 'Oral');
+INSERT INTO medicamento (concentracion, estado, fecha, fecha_vencimiento, presentacion, principio_activo, unidad, usuario_creacion, via_administracion)
+VALUES ('50 mg', 'activo', '2022-01-01', '2023-01-01', 'comprimido', 'paracetamol', 'mg', 'admin', 'oral');
+INSERT INTO medicamento (concentracion, estado, fecha, fecha_vencimiento, presentacion, principio_activo, unidad, usuario_creacion, via_administracion)
+VALUES ('10 mg', 'activo', '2022-01-02', '2023-01-02', 'cápsula', 'Clonazepam', 'mg', 'admin', 'oral');
+INSERT INTO medicamento (concentracion, estado, fecha, fecha_vencimiento, presentacion, principio_activo, unidad, usuario_creacion, via_administracion)
+VALUES ('1 g', 'activo', '2022-01-03', '2023-01-03', 'inyección', 'amoxicilina', 'mg', 'admin', 'intravenosa');
+INSERT INTO medicamento (concentracion, estado, fecha, fecha_vencimiento, presentacion, principio_activo, unidad, usuario_creacion, via_administracion)
+VALUES ('100 mg', 'activo', '2022-01-04', '2023-01-04', 'jarabe', 'dextrometorfano', 'mg', 'admin', 'oral');
+INSERT INTO medicamento (concentracion, estado, fecha, fecha_vencimiento, presentacion, principio_activo, unidad, usuario_creacion, via_administracion)
+VALUES ('5 mg', 'activo', '2022-01-05', '2023-01-05', 'comprimido', 'Metoclopramida', 'mg', 'admin', 'oral');
+INSERT INTO medicamento (concentracion, estado, fecha, fecha_vencimiento, presentacion, principio_activo, unidad, usuario_creacion, via_administracion)
+VALUES ('20 mg', 'activo', '2022-01-06', '2023-01-06', 'cápsula', 'omeprazol', 'mg', 'admin', 'oral');
+INSERT INTO medicamento (concentracion, estado, fecha, fecha_vencimiento, presentacion, principio_activo, unidad, usuario_creacion, via_administracion)
+VALUES ('500 mg', 'activo', '2022-01-07', '2023-01-07', 'inyección', 'cefalexina', 'mg', 'admin', 'intravenosa');
+INSERT INTO medicamento (concentracion, estado, fecha, fecha_vencimiento, presentacion, principio_activo, unidad, usuario_creacion, via_administracion)
+VALUES ('25 mg', 'activo', '2022-01-08', '2023-01-08', 'jarabe', 'prometazina', 'mg', 'admin', 'oral');
+
+INSERT INTO proveedor(numero_identificacion, correo, direccion, nombre, razon_social, tipo_identificacion, usuario_creacion)
+VALUES ('123456789', 'proveedor1@ejemplo.com', 'Calle 1 #123', 'Proveedor Uno', 'Razón Social Uno', 'NIT', 'Admin');
+INSERT INTO proveedor(numero_identificacion, correo, direccion, nombre, razon_social, tipo_identificacion, usuario_creacion)
+VALUES ('987654321', 'proveedor2@ejemplo.com', 'Calle 2 #456', 'Proveedor Dos', 'Razón Social Dos', 'NIT', 'Admin');
+INSERT INTO proveedor(numero_identificacion, correo, direccion, nombre, razon_social, tipo_identificacion, usuario_creacion)
+VALUES ('111222333', 'proveedor3@ejemplo.com', 'Calle 3 #789', 'Proveedor Tres', 'Razón Social Tres', 'NIT', 'Admin');
+INSERT INTO proveedor(numero_identificacion, correo, direccion, nombre, razon_social, tipo_identificacion, usuario_creacion)
+VALUES ('444555666', 'proveedor4@ejemplo.com', 'Calle 4 #012', 'Proveedor Cuatro', 'Razón Social Cuatro', 'NIT', 'Admin');
+INSERT INTO proveedor(numero_identificacion, correo, direccion, nombre, razon_social, tipo_identificacion, usuario_creacion)
+VALUES ('777888999', 'proveedor5@ejemplo.com', 'Calle 5 #345', 'Proveedor Cinco', 'Razón Social Cinco', 'NIT', 'Admin');
+INSERT INTO proveedor(numero_identificacion, correo, direccion, nombre, razon_social, tipo_identificacion, usuario_creacion)
+VALUES ('222333444', 'proveedor6@ejemplo.com', 'Calle 6 #678', 'Proveedor Seis', 'Razón Social Seis', 'NIT', 'Admin');
+INSERT INTO proveedor(numero_identificacion, correo, direccion, nombre, razon_social, tipo_identificacion, usuario_creacion)
+VALUES ('555666777', 'proveedor7@ejemplo.com', 'Calle 7 #901', 'Proveedor Siete', 'Razón Social Siete', 'NIT', 'Admin');
+INSERT INTO proveedor(numero_identificacion, correo, direccion, nombre, razon_social, tipo_identificacion, usuario_creacion)
+VALUES ('888999000', 'proveedor8@ejemplo.com', 'Calle 8 #234', 'Proveedor Ocho', 'Razón Social Ocho', 'NIT', 'Admin');
+INSERT INTO proveedor(numero_identificacion, correo, direccion, nombre, razon_social, tipo_identificacion, usuario_creacion)
+VALUES ('333444555', 'proveedor9@ejemplo.com', 'Calle 9 #567', 'Proveedor Nueve', 'Razón Social Nueve', 'NIT', 'Admin');
+INSERT INTO proveedor(numero_identificacion, correo, direccion, nombre, razon_social, tipo_identificacion, usuario_creacion)
+VALUES ('666777888', 'proveedor10@ejemplo.com', 'Calle 10 #890', 'Proveedor Diez', 'Razón Social Diez', 'NIT', 'Admin');
+
+INSERT INTO usuario (cedula, apellido, contrasena, email, nombre)
+VALUES ('1234567890', 'Ortiz', 'password123', 'perez@gmail.com', 'Juan');
+INSERT INTO usuario (cedula, apellido, contrasena, email, nombre)
+VALUES ('2345678901', 'Ospina', 'qwerty123', 'gonzalez@yahoo.com', 'Jessica');
+INSERT INTO usuario (cedula, apellido, contrasena, email, nombre)
+VALUES ('3456789012', 'Echeverry', 'password123', 'lopez@gmail.com', 'Johana');
+INSERT INTO usuario (cedula, apellido, contrasena, email, nombre)
+VALUES ('4567890123', 'Martínez', 'qwerty123', 'martinez@hotmail.com', 'Ana');
+INSERT INTO usuario (cedula, apellido, contrasena, email, nombre)
+VALUES ('5678901234', 'Rodríguez', 'password123', 'rodriguez@gmail.com', 'Diego');
+
+INSERT INTO usuario_telefono (usuario_cedula, telefono) VALUES ('1234567890', '555-1234');
+INSERT INTO usuario_telefono (usuario_cedula, telefono) VALUES ('2345678901', '555-5678');
+INSERT INTO usuario_telefono (usuario_cedula, telefono) VALUES ('3456789012', '555-9012');
+INSERT INTO usuario_telefono (usuario_cedula, telefono) VALUES ('4567890123', '555-3456');
+INSERT INTO usuario_telefono (usuario_cedula, telefono) VALUES ('5678901234', '555-7890');

@@ -49,6 +49,7 @@ public class  Medicamento implements Serializable {
     @Column(nullable = true)
     private String usuarioCreacion;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "medicamento")
     private List<DetalleOrdenCompra> detalleOrdenCompras;
 

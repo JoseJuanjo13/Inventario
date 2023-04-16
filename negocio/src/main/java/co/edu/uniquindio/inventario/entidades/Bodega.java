@@ -41,9 +41,11 @@ public class Bodega implements Serializable {
     @Column(nullable = true)
     private String usuarioCreacion;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "bodega")
     private List<DevolucionCompra> devolucionCompras;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "bodega")
     private List<OrdenCompra> ordenCompras;
 
