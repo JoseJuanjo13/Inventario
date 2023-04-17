@@ -77,7 +77,7 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     }
 
     @Override
-    public List<Usuario> listarUsuario(Usuario usuario) {
+    public List<Usuario> listarUsuario() {
         return usuarioRepo.findAll();
     }
 

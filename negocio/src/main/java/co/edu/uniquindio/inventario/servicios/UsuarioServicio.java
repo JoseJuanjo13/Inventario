@@ -18,7 +18,7 @@ public interface UsuarioServicio {
 
     Boolean eliminarUsuario(Usuario usuario) throws Exception;
 
-    List<Usuario> listarUsuario(Usuario usuario);
+    List<Usuario> listarUsuario();
 
 
     // Bodega
