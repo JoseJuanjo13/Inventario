@@ -1,13 +1,7 @@
 package co.edu.uniquindio.inventario.servicios;
 
-import co.edu.uniquindio.inventario.entidades.Bodega;
-import co.edu.uniquindio.inventario.entidades.Insumo;
-import co.edu.uniquindio.inventario.entidades.Medicamento;
-import co.edu.uniquindio.inventario.entidades.Usuario;
-import co.edu.uniquindio.inventario.repo.BodegaRepo;
-import co.edu.uniquindio.inventario.repo.InsumoRepo;
-import co.edu.uniquindio.inventario.repo.MedicamentoRepo;
-import co.edu.uniquindio.inventario.repo.UsuarioRepo;
+import co.edu.uniquindio.inventario.entidades.*;
+import co.edu.uniquindio.inventario.repo.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,12 +18,15 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     private final InsumoRepo insumoRepo;
     private final MedicamentoRepo medicamentoRepo;
 
+    private final ProveedorRepo proveedorRepo;
+
     public UsuarioServicioImpl(UsuarioRepo usuarioRepo, BodegaRepo bodegaRepo, InsumoRepo insumoRepo,
-                               MedicamentoRepo medicamentoRepo) {
+                               MedicamentoRepo medicamentoRepo, ProveedorRepo proveedorRepo) {
         this.usuarioRepo = usuarioRepo;
         this.bodegaRepo = bodegaRepo;
         this.insumoRepo = insumoRepo;
         this.medicamentoRepo = medicamentoRepo;
+        this.proveedorRepo = proveedorRepo;
     }
 
     @Override
@@ -197,6 +194,46 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     @Override
     public List<Medicamento> listarMedicamento() {
         return medicamentoRepo.findAll();
+    }
+
+
+    @Override
+    public Proveedor crearProveedor(Proveedor proveedor) throws Exception {
+        if(proveedorRepetido( proveedor.getNumeroIdentificacion() )){
+            throw new Exception("El proveedor ya se encuentra registrado");
+        }else {
+            return proveedorRepo.save(proveedor);
+        }
+    }
+
+    private boolean proveedorRepetido(String identificacion) {
+        Proveedor proveedorRegistrado = proveedorRepo.comprobarIdentificacion(identificacion);
+        return proveedorRegistrado != null;
+    }
+
+    @Override
+    public Proveedor actualizarProveedor(Proveedor proveedor) throws Exception {
+        Optional<Proveedor> guardado = proveedorRepo.findById(Integer.valueOf(proveedor.getNumeroIdentificacion()));
+        if (guardado.isEmpty()){
+            throw new Exception("El proveedor no existe");
+        }
+        return proveedorRepo.save(proveedor);
+    }
+
+    @Override
+    public Boolean eliminarProveedor(Proveedor proveedor) throws Exception {
+        Optional<Proveedor> guardado = proveedorRepo.findById(Integer.valueOf(proveedor.getNumeroIdentificacion()));
+        if (guardado.isEmpty()){
+            throw new Exception("El proveedor no existe");
+        }else {
+            proveedorRepo.delete(guardado.get());
+            return true;
+        }
+    }
+
+    @Override
+    public List<Proveedor> listarProveedores() {
+        return proveedorRepo.findAll();
     }
 
 }

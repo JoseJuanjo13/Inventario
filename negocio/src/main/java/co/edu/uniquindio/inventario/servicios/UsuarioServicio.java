@@ -1,9 +1,6 @@
 package co.edu.uniquindio.inventario.servicios;
 
-import co.edu.uniquindio.inventario.entidades.Bodega;
-import co.edu.uniquindio.inventario.entidades.Insumo;
-import co.edu.uniquindio.inventario.entidades.Medicamento;
-import co.edu.uniquindio.inventario.entidades.Usuario;
+import co.edu.uniquindio.inventario.entidades.*;
 
 import java.util.List;
 
@@ -50,5 +47,13 @@ public interface UsuarioServicio {
 
     List<Medicamento> listarMedicamento();
 
-    //
+    // Proveedor
+
+    Proveedor crearProveedor(Proveedor proveedor) throws Exception;
+
+    Proveedor actualizarProveedor(Proveedor proveedor) throws Exception;
+
+    Boolean eliminarProveedor(Proveedor proveedor) throws Exception;
+
+    List<Proveedor> listarProveedores();
 }

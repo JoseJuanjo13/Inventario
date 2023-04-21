@@ -50,4 +50,6 @@ public class Proveedor implements Serializable {
     @ToString.Exclude
     @OneToMany(mappedBy = "bodega")
     private List<OrdenCompra> bodega;
+
+    public Proveedor(){}
 }
