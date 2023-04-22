@@ -36,9 +36,8 @@ public class Proveedor implements Serializable {
     @Column(nullable = true)
     private String usuarioCreacion;
 
-    @ElementCollection
     @Column(nullable = true)
-    private List<String> telefono;
+    private String telefono;
 
     @Column(nullable = true)
     private String correo;

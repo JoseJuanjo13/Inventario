@@ -4,6 +4,7 @@ import co.edu.uniquindio.inventario.entidades.Proveedor;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -29,7 +30,7 @@ public class ProveedorBean implements Serializable {
 
     private boolean editarProveedor;
 
-    @Getter @Setter
+    @Autowired
     private UsuarioServicio usuarioServicio;
 
     @PostConstruct

@@ -213,7 +213,7 @@ public class UsuarioServicioImpl implements UsuarioServicio{
 
     @Override
     public Proveedor actualizarProveedor(Proveedor proveedor) throws Exception {
-        Optional<Proveedor> guardado = proveedorRepo.findById(Integer.valueOf(proveedor.getNumeroIdentificacion()));
+        Optional<Proveedor> guardado = proveedorRepo.findById(String.valueOf(proveedor.getNumeroIdentificacion()));
         if (guardado.isEmpty()){
             throw new Exception("El proveedor no existe");
         }
@@ -222,7 +222,7 @@ public class UsuarioServicioImpl implements UsuarioServicio{
 
     @Override
     public Boolean eliminarProveedor(Proveedor proveedor) throws Exception {
-        Optional<Proveedor> guardado = proveedorRepo.findById(Integer.valueOf(proveedor.getNumeroIdentificacion()));
+        Optional<Proveedor> guardado = proveedorRepo.findById(String.valueOf(proveedor.getNumeroIdentificacion()));
         if (guardado.isEmpty()){
             throw new Exception("El proveedor no existe");
         }else {
