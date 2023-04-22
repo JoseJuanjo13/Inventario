@@ -51,11 +51,19 @@
                             <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"/>
                         <p:inputText id="globalFilter" onkeyup="PF('listaBodegas').filter()" placeholder="Busca una bodega"
                                      style="width: 500px"/>
-                    </span>
+                            </span>
+                        </div>
+
+                        <div class="button-columns">
+                            <p:commandButton id="toggler" type="button" value="Columnas" icon="pi pi-align-justify"/>
+                            <p:columnToggler datasource="lista-bodegas" trigger="toggler">
+                                <p:ajax />
+                            </p:columnToggler>
                         </div>
                     </f:facet>
 
-                    <p:column selectionMode="multiple" exportable="false"/>
+
+                    <p:column selectionMode="multiple"/>
 
                     <p:ajax event="rowSelect" update="crud-bodega:btn-borrar" />
                     <p:ajax event="rowUnselect" update="crud-bodega:btn-borrar" />
@@ -80,7 +88,7 @@
                     </p:column>
 
 
-                    <p:column headerText="">
+                    <p:column headerText="Editar">
                         <p:commandButton icon="pi pi-pencil" styleClass="edit-button rounded-button ui-button-secondary"
                                          action="#{bodegaBean.dialogoSeleccionBodega(bodega)}" oncomplete="PF('crear-bodega').show()"
                                          update="dialogo-gestion-bodega"/>

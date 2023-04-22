@@ -55,6 +55,13 @@
                                      style="width: 500px"/>
                     </span>
                         </div>
+
+                        <div class="button-columns">
+                            <p:commandButton id="toggler" type="button" value="Columnas" icon="pi pi-align-justify"/>
+                            <p:columnToggler datasource="lista-medicamentos" trigger="toggler">
+                                <p:ajax />
+                            </p:columnToggler>
+                        </div>
                     </f:facet>
 
                     <p:column selectionMode="multiple" exportable="false" width="40" styleClass="fc-icon-x"/>
@@ -107,17 +114,13 @@
                         <h:outputText value="#{medicamento.estado}"/>
                     </p:column>
 
-                    <p:column headerText="" width="40">
+                    <p:column headerText="Editar" width="40">
                         <p:commandButton icon="pi pi-pencil" styleClass="edit-button rounded-button ui-button-secondary"
                                          action="#{medicamentoBean.dialogoSeleccionMedicamento(medicamento)}" oncomplete="PF('crear-medicamento').show()"
                                          update="dialogo-gestion-medicamento"/>
                     </p:column>
-
                 </p:dataTable>
-
             </h:form>
-
-
 
             <p:dialog id="dialogo-gestion-medicamento" header="#{medicamentoBean.textoDialogo}" widgetVar="crear-medicamento" modal="true" showEffect="fade">
 

@@ -20,6 +20,18 @@ h2 {
     align-content: center;
 }
 
+.button-columns {
+    display: inline-block;
+    float: right;
+    margin-top: -40px;
+}
+
+body .ui-chkbox .ui-chkbox-box .ui-chkbox-icon {
+   top: 35%;
+
+
+}
+
 
 
 

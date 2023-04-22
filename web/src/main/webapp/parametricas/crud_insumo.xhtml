@@ -52,7 +52,14 @@
                             <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"/>
                         <p:inputText id="globalFilter" onkeyup="PF('listaInsumos').filter()" placeholder="Busca un insumo"
                                      style="width: 500px"/>
-                    </span>
+                            </span>
+                        </div>
+
+                        <div class="button-columns">
+                            <p:commandButton id="toggler" type="button" value="Columnas" icon="pi pi-align-justify"/>
+                            <p:columnToggler datasource="lista-insumos" trigger="toggler">
+                                <p:ajax />
+                            </p:columnToggler>
                         </div>
                     </f:facet>
 
@@ -89,7 +96,7 @@
                         <h:outputText value="#{insumo.fecha}"/>
                     </p:column>
 
-                    <p:column headerText="" width="40">
+                    <p:column headerText="Editar" width="40">
                         <p:commandButton icon="pi pi-pencil" styleClass="edit-button rounded-button ui-button-secondary"
                                          action="#{insumoBean.dialogoSeleccionInsumo(insumo)}"
                                          oncomplete="PF('crear-insumo').show()"
