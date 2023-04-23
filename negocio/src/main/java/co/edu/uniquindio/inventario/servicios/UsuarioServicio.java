@@ -99,4 +99,8 @@ public interface UsuarioServicio {
 
     List<DetalleDevolucionCompra> listarDetallesDevolucionesCompra();
 
+
+    List<TiposIdentificacion> listarTiposIdentificacion();
+
+    TiposIdentificacion obtenerTipoIdentificacion(Integer idIdentificacion) throws Exception;
 }

@@ -119,3 +119,12 @@ INSERT INTO usuario_telefono (usuario_cedula, telefono) VALUES ('2345678901', '5
 INSERT INTO usuario_telefono (usuario_cedula, telefono) VALUES ('3456789012', '555-9012');
 INSERT INTO usuario_telefono (usuario_cedula, telefono) VALUES ('4567890123', '555-3456');
 INSERT INTO usuario_telefono (usuario_cedula, telefono) VALUES ('5678901234', '555-7890');
+
+
+INSERT INTO tipos_identificacion (id_tipo_identificacion, descripcion) VALUES (1, 'CEDULA CIUDADANIA');
+INSERT INTO tipos_identificacion (id_tipo_identificacion, descripcion) VALUES (2, 'TARJETA IDENTIDAD');
+INSERT INTO tipos_identificacion (id_tipo_identificacion, descripcion) VALUES (3, 'PASAPORTE');
+INSERT INTO tipos_identificacion (id_tipo_identificacion, descripcion) VALUES (4, 'PERMISO PERMANENCIA');
+INSERT INTO tipos_identificacion (id_tipo_identificacion, descripcion) VALUES (5, 'TARJETA PROFESIONAL');
+INSERT INTO tipos_identificacion (id_tipo_identificacion, descripcion) VALUES (6, 'REGISTRO CIVIL');
+INSERT INTO tipos_identificacion (id_tipo_identificacion, descripcion) VALUES (7, 'TARJETA MILITAR');

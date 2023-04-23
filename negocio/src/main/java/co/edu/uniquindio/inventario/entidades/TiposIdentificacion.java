@@ -1,11 +1,32 @@
 package co.edu.uniquindio.inventario.entidades;
 
-public enum TiposIdentificacion {
-    CEDULA_CIUDADANIA,
-    TARJETA_IDENTIDAD,
-    PASAPORTE,
-    PERMISO_PERMANENCIA,
-    TARJETA_PROFESIONAL,
-    REGISTRO_CIVIL,
-    TARJETA_MILITAR
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
+
+
+@Entity
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString
+public class TiposIdentificacion implements Serializable {
+    @Id
+    @EqualsAndHashCode.Include
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
+    private Integer idTipoIdentificacion;
+
+
+    @Column(nullable = true)
+    private String descripcion;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "tipoIdentificacion")
+    private List<Proveedor> proveedor;
+
 }
