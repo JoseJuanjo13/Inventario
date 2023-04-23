@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -22,18 +23,23 @@ public class  Medicamento implements Serializable {
     @Column
     private Integer idMedicamento;
 
+    @Length(max = 150)
     @Column(nullable = true)
     private String principioActivo;
 
+    @Length(max = 150)
     @Column(nullable = true)
     private String concentracion;
 
+    @Length(max = 150)
     @Column(nullable = true)
     private String unidad;
 
+    @Length(max = 150)
     @Column(nullable = true)
     private String presentacion;
 
+    @Length(max = 150)
     @Column(nullable = true)
     private String viaAdministracion;
 
@@ -46,6 +52,7 @@ public class  Medicamento implements Serializable {
     @Column(nullable = true)
     private LocalDate fecha;
 
+    @Length(max = 15)
     @Column(nullable = true)
     private String usuarioCreacion;
 

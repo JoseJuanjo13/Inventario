@@ -56,4 +56,47 @@ public interface UsuarioServicio {
     Boolean eliminarProveedor(Proveedor proveedor) throws Exception;
 
     List<Proveedor> listarProveedores();
+
+
+    // Compras
+
+    OrdenCompra crearOrdenCompra(OrdenCompra ordenCompra) throws Exception;
+
+    OrdenCompra actualizarOrdenCompra(OrdenCompra ordenCompra) throws Exception;
+
+    Boolean eliminarOrdenCompra(OrdenCompra ordenCompra) throws Exception;
+
+    List<OrdenCompra> listarOrdenesCompra();
+
+
+    // Detalles Compra
+
+    DetalleOrdenCompra crearDetalleOrdenCompra(DetalleOrdenCompra detalleOrdenCompra) throws Exception;
+
+    DetalleOrdenCompra actualizarOrdenCompra(DetalleOrdenCompra detalleOrdenCompra) throws Exception;
+
+    Boolean eliminarOrdenCompra(DetalleOrdenCompra detalleOrdenCompra) throws Exception;
+
+    List<DetalleOrdenCompra> listarDetallesOrdenesCompra();
+
+    // Devoluciones Compra
+
+    DevolucionCompra crearDevolucionCompra(DevolucionCompra devolucionCompra) throws Exception;
+
+    DevolucionCompra actualizarDevolucionCompra(DevolucionCompra devolucionCompra) throws Exception;
+
+    Boolean eliminarDevolucionCompra(DevolucionCompra devolucionCompra) throws Exception;
+
+    List<DevolucionCompra> listarDevolucionesCompra();
+
+    //Detalles Devolucion compra
+
+    DetalleDevolucionCompra crearDetalleDevolucionCompra(DetalleDevolucionCompra detalleDevolucionCompra) throws Exception;
+
+    DetalleDevolucionCompra actualizarDetalleDevolucionCompra(DetalleDevolucionCompra detalleDevolucionCompra) throws Exception;
+
+    Boolean eliminarDetalleDevolucionCompra(DetalleDevolucionCompra detalleDevolucionCompra) throws Exception;
+
+    List<DetalleDevolucionCompra> listarDetallesDevolucionesCompra();
+
 }
