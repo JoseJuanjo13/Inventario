@@ -4,8 +4,10 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.util.List;
 
@@ -18,27 +20,36 @@ public class Proveedor implements Serializable {
 
     @Id
     @EqualsAndHashCode.Include
+    @Length(max = 15)
     @Column(nullable = false)
     private String numeroIdentificacion;
 
+    @Length(max = 100)
     @Column(nullable = true)
     private String tipoIdentificacion;
 
+    @Length(max = 100)
     @Column(nullable = true)
     private String nombre;
 
+    @Length(max = 150)
     @Column(nullable = true)
     private String razonSocial;
 
+    @Length(max = 150)
     @Column(nullable = true)
     private String direccion;
 
+    @Length(max = 15)
     @Column(nullable = true)
     private String usuarioCreacion;
 
+    @Length(max = 15)
     @Column(nullable = true)
     private String telefono;
 
+    @Email
+    @Length(max = 150)
     @Column(nullable = true)
     private String correo;
 

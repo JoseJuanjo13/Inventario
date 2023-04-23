@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -22,12 +23,15 @@ public class Bodega implements Serializable {
     @Column(nullable = false)
     private Integer idBodega;
 
+    @Length(max = 150)
     @Column(nullable = true)
     private String nombre;
 
+    @Length(max = 150)
     @Column(nullable = true)
     private String abreviacion;
 
+    @Length(max = 150)
     @Column(nullable = true)
     private String direccion;
 
@@ -35,9 +39,11 @@ public class Bodega implements Serializable {
     @Column
     private List<String> telefono;
 
+    @Length(max = 150)
     @Column(nullable = true)
     private String estado;
 
+    @Length(max = 15)
     @Column(nullable = true)
     private String usuarioCreacion;
 
