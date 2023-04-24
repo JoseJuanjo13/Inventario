@@ -81,9 +81,6 @@ public class OrdenCompraBean implements Serializable {
                 FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
             } else {
 
-                nombreProveedor = ordenCompra.getProveedor().getNombre();
-                nombreBodega = ordenCompra.getBodega().getNombre();
-
                 proveedor = validarProveedor(nombreProveedor);
                 bodega = validarBodega(nombreBodega);
 
