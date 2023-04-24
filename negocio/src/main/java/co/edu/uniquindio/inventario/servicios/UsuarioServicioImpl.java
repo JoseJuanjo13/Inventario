@@ -305,8 +305,11 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     }
 
     @Override
-    public List<DetalleOrdenCompra> listarDetallesOrdenesCompra() {
-        return detalleOrdenCompraRepo.findAll();
+    public List<DetalleOrdenCompra> listarDetallesOrdenesCompra(Integer idOrdenCompra) {
+        if (idOrdenCompra == null) {
+            throw new IllegalArgumentException("El id de la orden de compra no puede ser nulo");
+        }
+        return detalleOrdenCompraRepo.detallesCompra(idOrdenCompra);
     }
 
     @Override
@@ -365,8 +368,11 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     }
 
     @Override
-    public List<DetalleDevolucionCompra> listarDetallesDevolucionesCompra() {
-        return detalleDevolucionCompraRepo.findAll();
+    public List<DetalleDevolucionCompra> listarDetallesDevolucionesCompra(Integer idDevolucionCompra) {
+        if (idDevolucionCompra == null) {
+            throw new IllegalArgumentException("El id de la devolucion de compra no puede ser nulo");
+        }
+        return detalleDevolucionCompraRepo.detallesDevolucion(idDevolucionCompra);
     }
 
     @Override

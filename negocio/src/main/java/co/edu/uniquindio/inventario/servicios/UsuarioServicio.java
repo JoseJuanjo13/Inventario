@@ -77,7 +77,7 @@ public interface UsuarioServicio {
 
     Boolean eliminarOrdenCompra(DetalleOrdenCompra detalleOrdenCompra) throws Exception;
 
-    List<DetalleOrdenCompra> listarDetallesOrdenesCompra();
+    List<DetalleOrdenCompra> listarDetallesOrdenesCompra(Integer idOrdenCompra);
 
     // Devoluciones Compra
 
@@ -97,7 +97,7 @@ public interface UsuarioServicio {
 
     Boolean eliminarDetalleDevolucionCompra(DetalleDevolucionCompra detalleDevolucionCompra) throws Exception;
 
-    List<DetalleDevolucionCompra> listarDetallesDevolucionesCompra();
+    List<DetalleDevolucionCompra> listarDetallesDevolucionesCompra(Integer idDevolucionCompra);
 
 
     List<TiposIdentificacion> listarTiposIdentificacion();
