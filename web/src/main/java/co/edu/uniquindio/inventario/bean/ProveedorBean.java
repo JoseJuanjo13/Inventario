@@ -1,6 +1,7 @@
 package co.edu.uniquindio.inventario.bean;
 
 import co.edu.uniquindio.inventario.entidades.Proveedor;
+import co.edu.uniquindio.inventario.entidades.TiposIdentificacion;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,12 +34,16 @@ public class ProveedorBean implements Serializable {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
+    @Getter @Setter
+    private List<TiposIdentificacion> tiposIdentificacion;
+
     @PostConstruct
     public void init() {
         proveedor = new Proveedor();
         editarProveedor = false;
         proveedoresSeleccionados = new ArrayList<>();
         proveedores = usuarioServicio.listarProveedores();
+        tiposIdentificacion = usuarioServicio.listarTiposIdentificacion();
     }
 
     public void gestionarProveedor() {

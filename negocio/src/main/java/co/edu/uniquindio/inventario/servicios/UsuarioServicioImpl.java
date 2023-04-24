@@ -23,10 +23,12 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     private final DevolucionCompraRepo devolucionCompraRepo;
     private final DetalleDevolucionCompraRepo detalleDevolucionCompraRepo;
 
+    private final TiposIdentificacionRepo tiposIdentificacionRepo;
+
     public UsuarioServicioImpl(UsuarioRepo usuarioRepo, BodegaRepo bodegaRepo, InsumoRepo insumoRepo,
                                MedicamentoRepo medicamentoRepo, ProveedorRepo proveedorRepo, OrdenCompraRepo ordenCompraRepo,
                                DetalleOrdenCompraRepo detalleOrdenCompraRepo, DevolucionCompraRepo devolucionCompraRepo,
-                               DetalleDevolucionCompraRepo detalleDevolucionCompraRepo) {
+                               DetalleDevolucionCompraRepo detalleDevolucionCompraRepo, TiposIdentificacionRepo tiposIdentificacionRepo) {
         this.usuarioRepo = usuarioRepo;
         this.bodegaRepo = bodegaRepo;
         this.insumoRepo = insumoRepo;
@@ -36,6 +38,7 @@ public class UsuarioServicioImpl implements UsuarioServicio{
         this.detalleOrdenCompraRepo = detalleOrdenCompraRepo;
         this.devolucionCompraRepo = devolucionCompraRepo;
         this.detalleDevolucionCompraRepo = detalleDevolucionCompraRepo;
+        this.tiposIdentificacionRepo = tiposIdentificacionRepo;
     }
 
     @Override
@@ -302,8 +305,11 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     }
 
     @Override
-    public List<DetalleOrdenCompra> listarDetallesOrdenesCompra() {
-        return detalleOrdenCompraRepo.findAll();
+    public List<DetalleOrdenCompra> listarDetallesOrdenesCompra(Integer idOrdenCompra) {
+        if (idOrdenCompra == null) {
+            throw new IllegalArgumentException("El id de la orden de compra no puede ser nulo");
+        }
+        return detalleOrdenCompraRepo.detallesCompra(idOrdenCompra);
     }
 
     @Override
@@ -362,8 +368,25 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     }
 
     @Override
-    public List<DetalleDevolucionCompra> listarDetallesDevolucionesCompra() {
-        return detalleDevolucionCompraRepo.findAll();
+    public List<DetalleDevolucionCompra> listarDetallesDevolucionesCompra(Integer idDevolucionCompra) {
+        if (idDevolucionCompra == null) {
+            throw new IllegalArgumentException("El id de la devolucion de compra no puede ser nulo");
+        }
+        return detalleDevolucionCompraRepo.detallesDevolucion(idDevolucionCompra);
+    }
+
+    @Override
+    public List<TiposIdentificacion> listarTiposIdentificacion() {
+        return tiposIdentificacionRepo.findAll();
+    }
+
+    @Override
+    public TiposIdentificacion obtenerTipoIdentificacion(Integer idIdentificacion) throws Exception {
+        if (idIdentificacion == null || idIdentificacion < 0) {
+            throw new IllegalArgumentException("El ID de identificación es inválido: " + idIdentificacion);
+        }
+        return tiposIdentificacionRepo.findById(idIdentificacion)
+                .orElseThrow(() -> new Exception("No se encontró el tipo de identificación con el ID: " + idIdentificacion));
     }
 
 

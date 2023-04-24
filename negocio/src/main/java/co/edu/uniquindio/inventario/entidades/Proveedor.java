@@ -24,9 +24,8 @@ public class Proveedor implements Serializable {
     @Column(nullable = false)
     private String numeroIdentificacion;
 
-    @Length(max = 100)
-    @Column(nullable = true)
-    private String tipoIdentificacion;
+    @ManyToOne
+    private TiposIdentificacion tipoIdentificacion;
 
     @Length(max = 100)
     @Column(nullable = true)
