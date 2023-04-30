@@ -117,17 +117,12 @@
             <p:dialog id="dialogo-gestion-proveedor" header="#{proveedorBean.textoDialogo}" widgetVar="crear-proveedor"
                       modal="true" showEffect="fade">
                 <h:form>
-                    <h:panelGrid columns="3" cellpadding="6">
-
-                        <!--<p:outputLabel for="tipo-identificacion" value="Tipo de identificacion: "/>
-                        <p:inputText id="tipo-identificacion" value="#{proveedorBean.proveedor.tipoIdentificacion}" required="true"/>
-                        <p:message for="tipo-identificacion"/>-->
+                    <h:panelGrid columns="3" cellpadding="5">
 
                         <p:outputLabel for="tipo-identificacion" value="Tipo de identificacion: "/>
-                        <p:selectOneMenu id="tipo-identificacion" value="#{proveedorBean.proveedor.tipoIdentificacion}" converter="#{tipoIdentificacionConverter}">
+                        <p:selectOneMenu id="tipo-identificacion" value="#{proveedorBean.proveedor.tipoIdentificacion}" converter="#{tipoIdentificacionConverter}" required="true">
                             <f:selectItem itemLabel="Selecciona uno..." noSelectionOption="true" itemValue="#{null}"/>
-                            <f:selectItems var="identificacion" value="#{proveedorBean.tiposIdentificacion}"
-                                           itemLabel="#{identificacion.getDescripcion()}" itemValue="#{identificacion}"/>
+                            <f:selectItems var="identificacion" value="#{proveedorBean.tiposIdentificacion}" itemLabel="#{identificacion.getDescripcion()}" itemValue="#{identificacion}"/>
                         </p:selectOneMenu>
                         <p:message for="tipo-identificacion"/>
 

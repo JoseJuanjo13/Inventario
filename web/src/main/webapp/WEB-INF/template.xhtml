@@ -25,7 +25,7 @@
                 <button class="btn-toggle align-items-center rounded border-0 button-link" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
                     Paramétricas
                 </button>
-                <div class="collapse show" id="home-collapse">
+                <div class="collapse" id="home-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                         <li><a href="/administracion/crud_bodega.xhtml" class="link-body-emphasis nav-link text-black-50">Bodegas</a></li>
                         <li><a href="/administracion/crud_medicamento.xhtml" class="link-body-emphasis nav-link text-black-50">Medicamentos</a></li>
@@ -65,13 +65,15 @@
                 <button class="btn-toggle d-inline-flex align-items-center rounded border-0 collapsed button-link" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
                     Cuenta
                 </button>
-                <div class="collapse" id="account-collapse">
+                <div class="collapse show" id="account-collapse">
+                    <h:form>
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                         <li><a href="/registro.xhtml" class="link-dark nav-link text-black-50">Nuevo registro</a></li>
-                        <li><a href="#" class="link-dark nav-link text-black-50">Perfil</a></li>
-                        <li><a href="#" class="link-dark nav-link text-black-50">Settings</a></li>
-                        <li><a href="#" class="link-dark nav-link text-black-50">Cerrar sesión</a></li>
+                        <li><p:commandButton rendered="#{seguridadBean.autenticado}" value="Hola, #{seguridadBean.usuario.nombre}" styleClass="ui-button-secondary ui-button-flat"/></li>
+                        <li><p:commandButton rendered="#{!seguridadBean.autenticado}" value="Iniciar Sesión" oncomplete="PF('login').show()" styleClass="ui-button-secondary ui-button-flat"/></li>
+                        <li><p:commandButton rendered="#{seguridadBean.autenticado}" value="Cerrar Sesión" action="#{seguridadBean.cerrarSesion}" styleClass="ui-button-secondary ui-button-flat"/></li>
                     </ul>
+                    </h:form>
                 </div>
             </li>
         </ul>
@@ -80,6 +82,22 @@
     <div id="contenido" class="content">
         <ui:insert name="content"></ui:insert>
     </div>
-
+    <p:dialog header="Iniciar sesión" showEffect="fade" widgetVar="login" modal="true"
+              rendered="#{!seguridadBean.autenticado}">
+        <h:form>
+            <h:panelGrid columns="3" cellpadding="5">
+                <p:outputLabel for="email_login" value="Email:"/>
+                <p:inputText id="email_login" value="#{seguridadBean.email}" required="true"/>
+                <p:message for="email_login"/>
+                <p:outputLabel for="password_login" value="Password:"/>
+                <p:password id="password_login" value="#{seguridadBean.password}" required="true" toggleMask="true" redisplay="true"
+                />
+                <p:message for="password_login"/>
+            </h:panelGrid>
+            <p:commandButton value="Iniciar Sesión" action="#{seguridadBean.iniciarSesion}"
+                             styleClass="mt-4" update="@form" icon="pi pi-sign-in" iconPos="left"/>
+            <p:growl for="login-bean" showDetail="true"/>
+        </h:form>
+    </p:dialog>
 </h:body>
 </html>
