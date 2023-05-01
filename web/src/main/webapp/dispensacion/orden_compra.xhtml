@@ -112,26 +112,18 @@
                                          actionListener="#{detalleOrdenCompraBean.dialogoSeleccionDetalleOrdenCompra(detalle)}"/>
                         <p:tooltip for="agregar-detalle" value="Agregar detalle" showEffect="clip" hideEffect="fold"/>
 
+                        <p:growl id="message" showDetail="true"/>
                         <p:commandButton id="realizar-compra" icon="pi pi-check" styleClass="ui-button-raised ui-button-success ui-button-flat"
-                                         action="#{ordenCompraBean.dialogoSeleccionOrdenCompra(ordenCompra)}"
                                          onclick="PF('confirmCompra').show()"/>
                         <p:tooltip for="realizar-compra" value="Realizar compra" showEffect="clip" hideEffect="fold"/>
 
                         <p:confirmDialog widgetVar="confirmCompra" responsive="true"
-                                         hideEffect="fade" showEffect="fade"
-                                         header="Realizar Compra"
+                                         hideEffect="fade" showEffect="fade" header="Realizar Compra"
                                          message="¿Está seguro de realizar la compra?">
-                            <p:commandButton value="Sí" icon="pi pi-check" iconPos="left"
-                                             styleClass="ui-button-raised ui-button-success"
-                                             oncomplete="PF('confirmCompra').hide()"
-                                             action="#{detalleOrdenCompraBean.eliminarDetallesCompra}"/>
-<!--
-                                             update="crud-detalle:lista-detalles, @this crud-detalle:btn-borrar-detalle"
--->
-                            <p:commandButton value="No" icon="pi pi-times"
-                                             styleClass=""
-                                             onclick="PF('confirmDialog').hide()"
-                                             type="button" />
+                            <p:commandButton value="Sí" icon="pi pi-check" iconPos="left" action="#{ordenCompraBean.dialogoConfirmacionCompra}" update="message"
+                                             styleClass="ui-button-raised ui-button-success" oncomplete="PF('confirmCompra').hide()"/>
+                            <p:commandButton value="No" icon="pi pi-times" onclick="PF('confirmDialog').hide()"
+                                             type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
                         </p:confirmDialog>
 
                     </p:column>
@@ -163,7 +155,8 @@
                     </h:panelGrid>
 
                     <p:commandButton value="#{ordenCompraBean.textoDialogo}" styleClass="ui-button-raised"
-                                     action="#{ordenCompraBean.gestionarOrdenCompra}" update="@form, crud-orden-compra:lista-ordenes-compras"/>
+                                     action="#{ordenCompraBean.gestionarOrdenCompra}"
+                                     update="@form, crud-orden-compra:lista-ordenes-compras"/>
                     <p:growl for="mensaje_bean" showDetail="true"/>
                 </h:form>
             </p:dialog>

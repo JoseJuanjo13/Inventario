@@ -14,7 +14,6 @@ import org.springframework.web.context.annotation.SessionScope;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -147,6 +146,11 @@ public class OrdenCompraBean implements Serializable {
             }
         });
         ordenesComprasSeleccionadas.clear();
+    }
+
+    public void dialogoConfirmacionCompra() {
+        FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Orden de compra", "¡Se ha realizado su compra con éxito!");
+        FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
     }
 
     public String getMensajeEliminar() {

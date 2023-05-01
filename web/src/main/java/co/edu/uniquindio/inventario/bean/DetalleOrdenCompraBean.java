@@ -105,7 +105,7 @@ public class DetalleOrdenCompraBean implements Serializable {
                 DetalleOrdenCompra nuevoDetalleOrdenCompra = usuarioServicio.crearDetalleOrdenCompra(detalleOrdenCompra);
                 detallesCompra.add(nuevoDetalleOrdenCompra);
 
-                setTotalDetallesCompra();
+                getTotalDetallesCompra();
                 detalleOrdenCompra = new DetalleOrdenCompra();
                 medicamento = new Medicamento();
                 insumo = new Insumo();
@@ -135,7 +135,7 @@ public class DetalleOrdenCompraBean implements Serializable {
 
                 usuarioServicio.actualizarOrdenCompra(detalleOrdenCompra);
 
-                setTotalDetallesCompra();
+                getTotalDetallesCompra();
                 detalleOrdenCompra = new DetalleOrdenCompra();
                 medicamento = new Medicamento();
                 insumo = new Insumo();
@@ -240,12 +240,13 @@ public class DetalleOrdenCompraBean implements Serializable {
         return nombreInsumos;
     }
 
-    private void setTotalDetallesCompra() {
+    public void getTotalDetallesCompra() throws Exception {
         List<DetalleOrdenCompra> detalles = usuarioServicio.listarDetallesOrdenesCompra(idOrdenCompra);
         double totalCompra = detalles.stream().mapToDouble(DetalleOrdenCompra::getSubtotal).sum();
 
         OrdenCompra ordenCompra = buscarOrdenCompra(idOrdenCompra);
         ordenCompra.setTotal(totalCompra);
+        usuarioServicio.actualizarOrdenCompra(ordenCompra);
     }
 
     public void habilitarOpcion() {

@@ -81,28 +81,6 @@ VALUES ('500 mg', 'activo', '2022-01-07', '2023-01-07', 'inyección', 'cefalexin
 INSERT INTO medicamento (concentracion, estado, fecha, fecha_vencimiento, presentacion, principio_activo, unidad, usuario_creacion, via_administracion)
 VALUES ('25 mg', 'activo', '2022-01-08', '2023-01-08', 'jarabe', 'prometazina', 'mg', 'admin', 'oral');
 
-<<<<<<< HEAD
-INSERT INTO proveedor(numero_identificacion, correo, direccion, nombre, razon_social, telefono, usuario_creacion)
-VALUES ('123456789', 'proveedor1@ejemplo.com', 'Calle 1 #123', 'Proveedor Uno', 'Razón Social Uno', '3114778958', 'Admin');
-INSERT INTO proveedor(numero_identificacion, correo, direccion, nombre, razon_social, telefono, usuario_creacion)
-VALUES ('987654321', 'proveedor2@ejemplo.com', 'Calle 2 #456', 'Proveedor Dos', 'Razón Social Dos', '3114778959', 'Admin');
-INSERT INTO proveedor(numero_identificacion, correo, direccion, nombre, razon_social, telefono, usuario_creacion)
-VALUES ('111222333', 'proveedor3@ejemplo.com', 'Calle 3 #789', 'Proveedor Tres', 'Razón Social Tres', '3114778960', 'Admin');
-INSERT INTO proveedor(numero_identificacion, correo, direccion, nombre, razon_social, telefono, usuario_creacion)
-VALUES ('444555666', 'proveedor4@ejemplo.com', 'Calle 4 #012', 'Proveedor Cuatro', 'Razón Social Cuatro', '3114778991', 'Admin');
-INSERT INTO proveedor(numero_identificacion, correo, direccion, nombre, razon_social, telefono, usuario_creacion)
-VALUES ('777888999', 'proveedor5@ejemplo.com', 'Calle 5 #345', 'Proveedor Cinco', 'Razón Social Cinco', '3114778961', 'Admin');
-INSERT INTO proveedor(numero_identificacion, correo, direccion, nombre, razon_social, telefono, usuario_creacion)
-VALUES ('222333444', 'proveedor6@ejemplo.com', 'Calle 6 #678', 'Proveedor Seis', 'Razón Social Seis', '3114778962', 'Admin');
-INSERT INTO proveedor(numero_identificacion, correo, direccion, nombre, razon_social, telefono, usuario_creacion)
-VALUES ('555666777', 'proveedor7@ejemplo.com', 'Calle 7 #901', 'Proveedor Siete', 'Razón Social Siete', '3114778977', 'Admin');
-INSERT INTO proveedor(numero_identificacion, correo, direccion, nombre, razon_social, telefono, usuario_creacion)
-VALUES ('888999000', 'proveedor8@ejemplo.com', 'Calle 8 #234', 'Proveedor Ocho', 'Razón Social Ocho', '3114778998', 'Admin');
-INSERT INTO proveedor(numero_identificacion, correo, direccion, nombre, razon_social, telefono, usuario_creacion)
-VALUES ('333444555', 'proveedor9@ejemplo.com', 'Calle 9 #567', 'Proveedor Nueve', 'Razón Social Nueve', '3114778914', 'Admin');
-INSERT INTO proveedor(numero_identificacion, correo, direccion, nombre, razon_social, telefono, usuario_creacion)
-VALUES ('666777888', 'proveedor10@ejemplo.com', 'Calle 10 #890', 'Proveedor Diez', 'Razón Social Diez', '311477895812', 'Admin');
-=======
 INSERT INTO proveedor(numero_identificacion, correo, direccion, nombre, razon_social, telefono, usuario_creacion, tipo_identificacion_id_tipo_identificacion)
 VALUES ('123456789', 'proveedor1@ejemplo.com', 'Calle 1 #123', 'Proveedor Uno', 'Razón Social Uno', '3114778958', 'Admin', 1);
 INSERT INTO proveedor(numero_identificacion, correo, direccion, nombre, razon_social, telefono, usuario_creacion)
@@ -123,7 +101,6 @@ INSERT INTO proveedor(numero_identificacion, correo, direccion, nombre, razon_so
 VALUES ('333444555', 'proveedor9@ejemplo.com', 'Calle 9 #567', 'Proveedor Nueve', 'Razón Social Nueve', '3114778914', 'Admin', 1);
 INSERT INTO proveedor(numero_identificacion, correo, direccion, nombre, razon_social, telefono, usuario_creacion)
 VALUES ('666777888', 'proveedor10@ejemplo.com', 'Calle 10 #890', 'Proveedor Diez', 'Razón Social Diez', '311477895812', 'Admin', 1);
->>>>>>> develop
 
 INSERT INTO usuario (cedula, apellido, contrasena, email, nombre, telefono)
 VALUES ('1234567890', 'Ortiz', 'password123', 'perez@gmail.com', 'Juan', '3177895223');
@@ -137,10 +114,6 @@ INSERT INTO usuario (cedula, apellido, contrasena, email, nombre, telefono)
 VALUES ('5678901234', 'Rodríguez', 'password123', 'rodriguez@gmail.com', 'Diego', '3177895227');
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> develop
 INSERT INTO orden_compra (tipo_movimiento, numero_autorizacion, fecha_autorizacion, estado, fecha, total, usuario_creacion, proveedor_numero_identificacion, bodega_id_bodega)
 VALUES ('Positivo', '12345', '2023-04-23', 'Aprobada', '2023-04-23', 100.0, '0949788952', '123456789', 1);
 INSERT INTO orden_compra (tipo_movimiento, numero_autorizacion, fecha_autorizacion, estado, fecha, total, usuario_creacion, proveedor_numero_identificacion, bodega_id_bodega)
@@ -170,3 +143,32 @@ INSERT INTO detalle_orden_compra (tipo_actividad, cantidad_solicitada, valor_uni
 VALUES ('insumo', 1, 2500.0, 25000.0, 2500.0, '1094477825', 1, null, 6);
 INSERT INTO detalle_orden_compra (tipo_actividad, cantidad_solicitada, valor_unitario, subtotal, total, usuario_creacion, medicamento_id_medicamento, insumo_id_insumo, orden_compra_id_compra)
 VALUES ('medicamento', 1, 2500.0, 2500.0, 2500.0, '1094477825', 1, null, 7);
+
+
+INSERT INTO devolucion_compra (tipo_movimiento, numero_autorizacion, fecha_autorizacion, estado, fecha, usuario_creacion, bodega_id_bodega)
+VALUES ('Negativo', '9903', '2023-02-01', 'Activo', '2022-06-02', '1234567890', 1);
+INSERT INTO devolucion_compra (tipo_movimiento, numero_autorizacion, fecha_autorizacion, estado, fecha, usuario_creacion, bodega_id_bodega)
+VALUES ('Negativo', '9904', '2023-02-01', 'Activo', '2022-06-02', '1234567890', 2);
+INSERT INTO devolucion_compra (tipo_movimiento, numero_autorizacion, fecha_autorizacion, estado, fecha, usuario_creacion, bodega_id_bodega)
+VALUES ('Negativo', '9905', '2023-02-02', 'Activo', '2022-06-02', '1234567890', 1);
+INSERT INTO devolucion_compra (tipo_movimiento, numero_autorizacion, fecha_autorizacion, estado, fecha, usuario_creacion, bodega_id_bodega)
+VALUES ('Negativo', '9906', '2023-02-02', 'Activo', '2022-06-02', '1234567890', 2);
+INSERT INTO devolucion_compra (tipo_movimiento, numero_autorizacion, fecha_autorizacion, estado, fecha, usuario_creacion, bodega_id_bodega)
+VALUES ('Negativo', '9907', '2023-02-03', 'Activo', '2022-06-02', '1234567890', 3);
+INSERT INTO devolucion_compra (tipo_movimiento, numero_autorizacion, fecha_autorizacion, estado, fecha, usuario_creacion, bodega_id_bodega)
+VALUES ('Negativo', '9908', '2023-02-03', 'Activo', '2022-06-02', '1234567890', 1);
+
+INSERT INTO detalle_devolucion_compra (devolucion_compra_id_devolucion_compra, tipo_actividad, cantidad, lote, fecha_vencimiento, valor_unitario, subtotal, total, usuario_creacion, medicamento_id_medicamento)
+VALUES (1, 'medicamento', 3, 'Lote 1', '2022-05-01', 10000.0, 30000.0, 30000.0, '1234567890', 1);
+INSERT INTO detalle_devolucion_compra (devolucion_compra_id_devolucion_compra, tipo_actividad, cantidad, lote, fecha_vencimiento, valor_unitario, subtotal, total, usuario_creacion, insumo_id_insumo)
+VALUES (1, 'insumo', 1, 'Lote 1', '2022-05-01', 10000.0, 10000.0, 10000.0, '1234567890', 1);
+INSERT INTO detalle_devolucion_compra (devolucion_compra_id_devolucion_compra, tipo_actividad, cantidad, lote, fecha_vencimiento, valor_unitario, subtotal, total, usuario_creacion, medicamento_id_medicamento)
+VALUES (2, 'medicamento', 2, 'Lote 1', '2022-05-01', 10000.0, 20000.0, 20000.0, '1234567890', 2);
+INSERT INTO detalle_devolucion_compra (devolucion_compra_id_devolucion_compra, tipo_actividad, cantidad, lote, fecha_vencimiento, valor_unitario, subtotal, total, usuario_creacion, medicamento_id_medicamento)
+VALUES (3, 'medicamento', 1, 'Lote 1', '2022-05-01', 10000.0, 10000.0, 30000.0, '1234567890', 2);
+INSERT INTO detalle_devolucion_compra (devolucion_compra_id_devolucion_compra, tipo_actividad, cantidad, lote, fecha_vencimiento, valor_unitario, subtotal, total, usuario_creacion, insumo_id_insumo)
+VALUES (4, 'insumo', 1, 'Lote 1', '2022-05-01', 10000.0, 10000.0, 10000.0, '1234567890', 1);
+INSERT INTO detalle_devolucion_compra (devolucion_compra_id_devolucion_compra, tipo_actividad, cantidad, lote, fecha_vencimiento, valor_unitario, subtotal, total, usuario_creacion, insumo_id_insumo)
+VALUES (5, 'insumo', 1, 'Lote 1', '2022-05-01', 10000.0, 10000.0, 10000.0, '1234567890', 3);
+INSERT INTO detalle_devolucion_compra (devolucion_compra_id_devolucion_compra, tipo_actividad, cantidad, lote, fecha_vencimiento, valor_unitario, subtotal, total, usuario_creacion, medicamento_id_medicamento)
+VALUES (6, 'medicamento', 1, 'Lote 1', '2022-05-01', 10000.0, 10000.0, 30000.0, '1234567890', 4);

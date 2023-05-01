@@ -101,8 +101,8 @@
                                          actionListener="#{detalleDevolucionCompraBean.dialogoSeleccionDetalleDevolucionCompra(detalle)}"/>
                         <p:tooltip for="agregar-detalle" value="Agregar detalle" showEffect="clip" hideEffect="fold"/>
 
+                        <p:growl id="message" showDetail="true"/>
                         <p:commandButton id="realizar-devolucion" icon="pi pi-check" styleClass="ui-button-raised ui-button-success ui-button-flat"
-                                         action="#{ordenCompraBean.dialogoSeleccionOrdenCompra(ordenCompra)}"
                                          onclick="PF('confirmDevolucion').show()"/>
                         <p:tooltip for="realizar-devolucion" value="Realizar devolución" showEffect="clip" hideEffect="fold"/>
 
@@ -112,14 +112,11 @@
                                          header="Realizar Devolución"
                                          message="¿Está seguro de realizar la devolución?">
                             <p:commandButton value="Sí" icon="pi pi-check" iconPos="left"
-                                             styleClass="ui-button-raised ui-button-success"
+                                             styleClass="ui-button-raised ui-button-danger"
                                              oncomplete="PF('confirmDevolucion').hide()"
-                                             action="#{detalleOrdenCompraBean.eliminarDetallesCompra}"/>
-                            <!--
-                                                                         update="crud-detalle:lista-detalles, @this crud-detalle:btn-borrar-detalle"
-                            -->
+                                             action="#{devolucionCompraBean.dialogoConfirmacionDevolucion}" update="message"/>
                             <p:commandButton value="No" icon="pi pi-times"
-                                             styleClass=""
+                                             styleClass="ui-confirmdialog-no ui-button-flat"
                                              onclick="PF('confirmDevolucion').hide()"
                                              type="button" />
                         </p:confirmDialog>

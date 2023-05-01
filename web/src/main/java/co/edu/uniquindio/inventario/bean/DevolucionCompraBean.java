@@ -1,6 +1,8 @@
 package co.edu.uniquindio.inventario.bean;
 
-import co.edu.uniquindio.inventario.entidades.*;
+import co.edu.uniquindio.inventario.entidades.Bodega;
+import co.edu.uniquindio.inventario.entidades.DetalleDevolucionCompra;
+import co.edu.uniquindio.inventario.entidades.DevolucionCompra;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +13,6 @@ import org.springframework.web.context.annotation.SessionScope;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -106,6 +107,11 @@ public class DevolucionCompraBean implements Serializable {
             }
         });
         devolucionesComprasSeleccionadas.clear();
+    }
+
+    public void dialogoConfirmacionDevolucion() {
+        FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Devolución de compra", "¡Se ha realizado la devolución de su compra con éxito!");
+        FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
     }
 
     public String getMensajeEliminar() {

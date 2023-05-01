@@ -99,7 +99,7 @@ public class DetalleDevolucionCompraBean implements Serializable {
                 DetalleDevolucionCompra nuevoDetalleDevolucionCompra = usuarioServicio.crearDetalleDevolucionCompra(detalleDevolucionCompra);
                 detalleDevolucionesCompras.add(nuevoDetalleDevolucionCompra);
 
-                setTotalDetallesDevolucion();
+                getTotalDetallesDevolucion();
                 detalleDevolucionCompra = new DetalleDevolucionCompra();
                 medicamento = new Medicamento();
                 insumo = new Insumo();
@@ -129,13 +129,13 @@ public class DetalleDevolucionCompraBean implements Serializable {
 
                 usuarioServicio.actualizarDetalleDevolucionCompra(detalleDevolucionCompra);
 
-                setTotalDetallesDevolucion();
+                getTotalDetallesDevolucion();
                 detalleDevolucionCompra = new DetalleDevolucionCompra();
                 medicamento = new Medicamento();
                 insumo = new Insumo();
 
                 FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Detalle devolución compra", "¡Se ha actualizado el detalle de la devolución de su compra con éxito!");
-                FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
+                FacesContext.getCurrentInstance().addMessage(null, fm);
             }
         } catch (Exception e) {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Detalle Devolución Compra", e.getMessage());
@@ -231,7 +231,7 @@ public class DetalleDevolucionCompraBean implements Serializable {
         return nombreInsumos;
     }
 
-    private void setTotalDetallesDevolucion() {
+    private void getTotalDetallesDevolucion() {
         List<DetalleDevolucionCompra> detalles = usuarioServicio.listarDetallesDevolucionesCompra(idDevolucionCompra);
         double total = detalles.stream().mapToDouble(DetalleDevolucionCompra::getSubtotal).sum();
 
