@@ -17,7 +17,7 @@
 </h:head>
 <h:body>
     <div class="flex-shrink-0 p-3 navbar-collapse navbar">
-        <a href="" class="align-content-center link-body-emphasis text-decoration-none border-bottom">
+        <a href="/" class="align-content-center link-body-emphasis text-decoration-none border-bottom">
             <span class="fw-semibold text-black title">Inventario</span>
         </a>
         <ul class="list-unstyled ps-0">
@@ -31,6 +31,8 @@
                         <li><a href="/parametricas/crud_medicamento.xhtml" class="link-body-emphasis nav-link text-black-50">Medicamentos</a></li>
                         <li><a href="/parametricas/crud_insumo.xhtml" class="link-body-emphasis nav-link text-black-50">Insumos</a></li>
                         <li><a href="/parametricas/crud_proveedor.xhtml" class="link-body-emphasis nav-link text-black-50">Proveedores</a></li>
+                        <li><a href="/parametricas/crud_usuarios.xhtml" class="link-dark nav-link text-black-50">Usuarios</a></li>
+
                     </ul>
                 </div>
             </li>
@@ -68,7 +70,6 @@
                 <div class="collapse show" id="account-collapse">
                     <h:form>
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a href="/registro.xhtml" class="link-dark nav-link text-black-50">Nuevo registro</a></li>
                         <li><p:commandButton rendered="#{seguridadBean.autenticado}" value="Hola, #{seguridadBean.usuario.nombre}" styleClass="ui-button-secondary ui-button-flat"/></li>
                         <li><p:commandButton rendered="#{!seguridadBean.autenticado}" value="Iniciar Sesión" oncomplete="PF('login').show()" styleClass="ui-button-secondary ui-button-flat"/></li>
                         <li><p:commandButton rendered="#{seguridadBean.autenticado}" value="Cerrar Sesión" action="#{seguridadBean.cerrarSesion}" styleClass="ui-button-secondary ui-button-flat"/></li>
