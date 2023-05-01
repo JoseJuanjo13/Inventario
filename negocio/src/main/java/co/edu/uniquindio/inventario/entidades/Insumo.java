@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -22,15 +23,19 @@ public class Insumo implements Serializable {
     @Column
     private Integer idInsumo;
 
+    @Length(max = 150)
     @Column(nullable = true)
     private String nombre;
 
+    @Length(max = 150)
     @Column(nullable = true)
     private String presentacion;
 
+    @Length(max = 150)
     @Column(nullable = true)
     private String tipoInsumo;
 
+    @Length(max = 5)
     @Column(nullable = true)
     private Integer vidaUtil;
 
@@ -40,9 +45,14 @@ public class Insumo implements Serializable {
     @Column(nullable = true)
     private LocalDate fecha;
 
+    @Length(max = 15)
     @Column(nullable = true)
     private String usuarioCreacion;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "insumo")
     private List<DetalleOrdenCompra> detalleOrdenCompras;
+
+
+    public Insumo() {}
 }

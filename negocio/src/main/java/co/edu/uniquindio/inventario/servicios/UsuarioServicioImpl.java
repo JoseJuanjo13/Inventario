@@ -1,13 +1,7 @@
 package co.edu.uniquindio.inventario.servicios;
 
-import co.edu.uniquindio.inventario.entidades.Bodega;
-import co.edu.uniquindio.inventario.entidades.Insumo;
-import co.edu.uniquindio.inventario.entidades.Medicamento;
-import co.edu.uniquindio.inventario.entidades.Usuario;
-import co.edu.uniquindio.inventario.repo.BodegaRepo;
-import co.edu.uniquindio.inventario.repo.InsumoRepo;
-import co.edu.uniquindio.inventario.repo.MedicamentoRepo;
-import co.edu.uniquindio.inventario.repo.UsuarioRepo;
+import co.edu.uniquindio.inventario.entidades.*;
+import co.edu.uniquindio.inventario.repo.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,13 +17,28 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     private final BodegaRepo bodegaRepo;
     private final InsumoRepo insumoRepo;
     private final MedicamentoRepo medicamentoRepo;
+    private final ProveedorRepo proveedorRepo;
+    private final OrdenCompraRepo ordenCompraRepo;
+    private final DetalleOrdenCompraRepo detalleOrdenCompraRepo;
+    private final DevolucionCompraRepo devolucionCompraRepo;
+    private final DetalleDevolucionCompraRepo detalleDevolucionCompraRepo;
+
+    private final TiposIdentificacionRepo tiposIdentificacionRepo;
 
     public UsuarioServicioImpl(UsuarioRepo usuarioRepo, BodegaRepo bodegaRepo, InsumoRepo insumoRepo,
-                               MedicamentoRepo medicamentoRepo) {
+                               MedicamentoRepo medicamentoRepo, ProveedorRepo proveedorRepo, OrdenCompraRepo ordenCompraRepo,
+                               DetalleOrdenCompraRepo detalleOrdenCompraRepo, DevolucionCompraRepo devolucionCompraRepo,
+                               DetalleDevolucionCompraRepo detalleDevolucionCompraRepo, TiposIdentificacionRepo tiposIdentificacionRepo) {
         this.usuarioRepo = usuarioRepo;
         this.bodegaRepo = bodegaRepo;
         this.insumoRepo = insumoRepo;
         this.medicamentoRepo = medicamentoRepo;
+        this.proveedorRepo = proveedorRepo;
+        this.ordenCompraRepo = ordenCompraRepo;
+        this.detalleOrdenCompraRepo = detalleOrdenCompraRepo;
+        this.devolucionCompraRepo = devolucionCompraRepo;
+        this.detalleDevolucionCompraRepo = detalleDevolucionCompraRepo;
+        this.tiposIdentificacionRepo = tiposIdentificacionRepo;
     }
 
     @Override
@@ -44,7 +53,7 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     @Override
     public Usuario crearUsuario(Usuario usuario) throws Exception {
         if(esRepetido(usuario.getEmail(), usuario.getCedula())){
-            throw new Exception("El correo o la cedula se encuentran registrados");
+            throw new Exception("El correo o la cédula se encuentran registrados");
         }else {
             return usuarioRepo.save(usuario);
         }
@@ -77,7 +86,7 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     }
 
     @Override
-    public List<Usuario> listarUsuario(Usuario usuario) {
+    public List<Usuario> listarUsuario() {
         return usuarioRepo.findAll();
     }
 
@@ -117,7 +126,7 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     }
 
     @Override
-    public List<Bodega> listarBodegas(Bodega bodega) {
+    public List<Bodega> listarBodegas() {
         return bodegaRepo.findAll();
     }
 
@@ -156,7 +165,7 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     }
 
     @Override
-    public List<Insumo> listarInsumo(Insumo insumo) {
+    public List<Insumo> listarInsumo() {
         return insumoRepo.findAll();
     }
 
@@ -195,8 +204,190 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     }
 
     @Override
-    public List<Medicamento> listarMedicamento(Medicamento medicamento) {
+    public List<Medicamento> listarMedicamento() {
         return medicamentoRepo.findAll();
     }
+
+
+    @Override
+    public Proveedor crearProveedor(Proveedor proveedor) throws Exception {
+        if(proveedorRepetido( proveedor.getNumeroIdentificacion() )){
+            throw new Exception("El proveedor ya se encuentra registrado");
+        }else {
+            return proveedorRepo.save(proveedor);
+        }
+    }
+
+    private boolean proveedorRepetido(String identificacion) {
+        Proveedor proveedorRegistrado = proveedorRepo.comprobarIdentificacion(identificacion);
+        return proveedorRegistrado != null;
+    }
+
+    @Override
+    public Proveedor actualizarProveedor(Proveedor proveedor) throws Exception {
+        Optional<Proveedor> guardado = proveedorRepo.findById(String.valueOf(proveedor.getNumeroIdentificacion()));
+        if (guardado.isEmpty()){
+            throw new Exception("El proveedor no existe");
+        }
+        return proveedorRepo.save(proveedor);
+    }
+
+    @Override
+    public Boolean eliminarProveedor(Proveedor proveedor) throws Exception {
+        Optional<Proveedor> guardado = proveedorRepo.findById(String.valueOf(proveedor.getNumeroIdentificacion()));
+        if (guardado.isEmpty()){
+            throw new Exception("El proveedor no existe");
+        }else {
+            proveedorRepo.delete(guardado.get());
+            return true;
+        }
+    }
+
+    @Override
+    public List<Proveedor> listarProveedores() {
+        return proveedorRepo.findAll();
+    }
+
+    @Override
+    public OrdenCompra crearOrdenCompra(OrdenCompra ordenCompra) throws Exception {
+        return ordenCompraRepo.save(ordenCompra);
+    }
+
+    @Override
+    public OrdenCompra actualizarOrdenCompra(OrdenCompra ordenCompra) throws Exception {
+        Optional<OrdenCompra> guardado = ordenCompraRepo.findById(ordenCompra.getIdCompra());
+        if (guardado.isEmpty()){
+            throw new Exception("La orden de compra no existe");
+        }
+        return ordenCompraRepo.save(ordenCompra);
+    }
+
+    @Override
+    public Boolean eliminarOrdenCompra(OrdenCompra ordenCompra) throws Exception {
+        Optional<OrdenCompra> guardado = ordenCompraRepo.findById(ordenCompra.getIdCompra());
+        if (guardado.isEmpty()){
+            throw new Exception("La orden de compra no existe");
+        }else {
+            ordenCompraRepo.delete(guardado.get());
+            return true;
+        }
+    }
+
+    @Override
+    public List<OrdenCompra> listarOrdenesCompra() {
+        return ordenCompraRepo.findAll();
+    }
+
+    //Detalle Orden Compra
+    @Override
+    public DetalleOrdenCompra crearDetalleOrdenCompra(DetalleOrdenCompra detalleOrdenCompra) throws Exception {
+        return detalleOrdenCompraRepo.save(detalleOrdenCompra);
+    }
+
+    @Override
+    public DetalleOrdenCompra actualizarOrdenCompra(DetalleOrdenCompra detalleOrdenCompra) throws Exception {
+        Optional<DetalleOrdenCompra> guardado = detalleOrdenCompraRepo.findById(detalleOrdenCompra.getIdDetalleOrdenCompra());
+        if (guardado.isEmpty()){
+            throw new Exception("La orden de compra no existe");
+        }
+        return detalleOrdenCompraRepo.save(detalleOrdenCompra);
+    }
+
+    @Override
+    public Boolean eliminarOrdenCompra(DetalleOrdenCompra detalleOrdenCompra) throws Exception {
+        Optional<DetalleOrdenCompra> guardado = detalleOrdenCompraRepo.findById(detalleOrdenCompra.getIdDetalleOrdenCompra());
+        if (guardado.isEmpty()){
+            throw new Exception("La orden de compra no existe");
+        }else {
+            detalleOrdenCompraRepo.delete(guardado.get());
+            return true;
+        }
+    }
+
+    @Override
+    public List<DetalleOrdenCompra> listarDetallesOrdenesCompra(Integer idOrdenCompra) {
+        if (idOrdenCompra == null) {
+            throw new IllegalArgumentException("El id de la orden de compra no puede ser nulo");
+        }
+        return detalleOrdenCompraRepo.detallesCompra(idOrdenCompra);
+    }
+
+    @Override
+    public DevolucionCompra crearDevolucionCompra(DevolucionCompra devolucionCompra) throws Exception {
+        return devolucionCompraRepo.save(devolucionCompra);
+    }
+
+    @Override
+    public DevolucionCompra actualizarDevolucionCompra(DevolucionCompra devolucionCompra) throws Exception {
+        Optional<DevolucionCompra> guardado = devolucionCompraRepo.findById(devolucionCompra.getIdDevolucionCompra());
+        if (guardado.isEmpty()){
+            throw new Exception("La devolucion de la compra no existe");
+        }
+        return devolucionCompraRepo.save(devolucionCompra);
+    }
+
+    @Override
+    public Boolean eliminarDevolucionCompra(DevolucionCompra devolucionCompra) throws Exception {
+        Optional<DevolucionCompra> guardado = devolucionCompraRepo.findById(devolucionCompra.getIdDevolucionCompra());
+        if (guardado.isEmpty()){
+            throw new Exception("La devolucion de la compra no existe");
+        }else {
+            devolucionCompraRepo.delete(guardado.get());
+            return true;
+        }
+    }
+
+    @Override
+    public List<DevolucionCompra> listarDevolucionesCompra() {
+        return devolucionCompraRepo.findAll();
+    }
+
+    @Override
+    public DetalleDevolucionCompra crearDetalleDevolucionCompra(DetalleDevolucionCompra detalleDevolucionCompra) throws Exception {
+        return detalleDevolucionCompraRepo.save(detalleDevolucionCompra);
+    }
+
+    @Override
+    public DetalleDevolucionCompra actualizarDetalleDevolucionCompra(DetalleDevolucionCompra detalleDevolucionCompra) throws Exception {
+        Optional<DetalleDevolucionCompra> guardado = detalleDevolucionCompraRepo.findById(detalleDevolucionCompra.getIdDetalleDevolucionCompra());
+        if (guardado.isEmpty()){
+            throw new Exception("El detalle de la devolucion de la compra no existe");
+        }
+        return detalleDevolucionCompraRepo.save(detalleDevolucionCompra);
+    }
+
+    @Override
+    public Boolean eliminarDetalleDevolucionCompra(DetalleDevolucionCompra detalleDevolucionCompra) throws Exception {
+        Optional<DetalleDevolucionCompra> guardado = detalleDevolucionCompraRepo.findById(detalleDevolucionCompra.getIdDetalleDevolucionCompra());
+        if (guardado.isEmpty()){
+            throw new Exception("El detalle de la devolucion de la compra no existe");
+        }else {
+            detalleDevolucionCompraRepo.delete(guardado.get());
+            return true;
+        }
+    }
+
+    @Override
+    public List<DetalleDevolucionCompra> listarDetallesDevolucionesCompra(Integer idDevolucionCompra) {
+        if (idDevolucionCompra == null) {
+            throw new IllegalArgumentException("El id de la devolucion de compra no puede ser nulo");
+        }
+        return detalleDevolucionCompraRepo.detallesDevolucion(idDevolucionCompra);
+    }
+
+    @Override
+    public List<TiposIdentificacion> listarTiposIdentificacion() {
+        return tiposIdentificacionRepo.findAll();
+    }
+
+    @Override
+    public TiposIdentificacion obtenerTipoIdentificacion(Integer idIdentificacion) throws Exception {
+        if (idIdentificacion == null || idIdentificacion < 0) {
+            throw new IllegalArgumentException("El ID de identificación es inválido: " + idIdentificacion);
+        }
+        return tiposIdentificacionRepo.findById(idIdentificacion)
+                .orElseThrow(() -> new Exception("No se encontró el tipo de identificación con el ID: " + idIdentificacion));
+    }
+
 
 }

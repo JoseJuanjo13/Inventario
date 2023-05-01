@@ -1,9 +1,6 @@
 package co.edu.uniquindio.inventario.servicios;
 
-import co.edu.uniquindio.inventario.entidades.Bodega;
-import co.edu.uniquindio.inventario.entidades.Insumo;
-import co.edu.uniquindio.inventario.entidades.Medicamento;
-import co.edu.uniquindio.inventario.entidades.Usuario;
+import co.edu.uniquindio.inventario.entidades.*;
 
 import java.util.List;
 
@@ -18,7 +15,7 @@ public interface UsuarioServicio {
 
     Boolean eliminarUsuario(Usuario usuario) throws Exception;
 
-    List<Usuario> listarUsuario(Usuario usuario);
+    List<Usuario> listarUsuario();
 
 
     // Bodega
@@ -28,7 +25,7 @@ public interface UsuarioServicio {
 
     Boolean eliminarBodega(Bodega bodega) throws Exception;
 
-    List<Bodega> listarBodegas(Bodega bodega);
+    List<Bodega> listarBodegas();
 
     // Insumos
 
@@ -38,7 +35,7 @@ public interface UsuarioServicio {
 
     Boolean eliminarInsumo(Insumo insumo) throws Exception;
 
-    List<Insumo> listarInsumo(Insumo insumo);
+    List<Insumo> listarInsumo();
 
     // Medicamento
 
@@ -48,7 +45,62 @@ public interface UsuarioServicio {
 
     Boolean eliminarMedicamento(Medicamento medicamento) throws Exception;
 
-    List<Medicamento> listarMedicamento(Medicamento medicamento);
+    List<Medicamento> listarMedicamento();
 
-    //
+    // Proveedor
+
+    Proveedor crearProveedor(Proveedor proveedor) throws Exception;
+
+    Proveedor actualizarProveedor(Proveedor proveedor) throws Exception;
+
+    Boolean eliminarProveedor(Proveedor proveedor) throws Exception;
+
+    List<Proveedor> listarProveedores();
+
+
+    // Compras
+
+    OrdenCompra crearOrdenCompra(OrdenCompra ordenCompra) throws Exception;
+
+    OrdenCompra actualizarOrdenCompra(OrdenCompra ordenCompra) throws Exception;
+
+    Boolean eliminarOrdenCompra(OrdenCompra ordenCompra) throws Exception;
+
+    List<OrdenCompra> listarOrdenesCompra();
+
+
+    // Detalles Compra
+
+    DetalleOrdenCompra crearDetalleOrdenCompra(DetalleOrdenCompra detalleOrdenCompra) throws Exception;
+
+    DetalleOrdenCompra actualizarOrdenCompra(DetalleOrdenCompra detalleOrdenCompra) throws Exception;
+
+    Boolean eliminarOrdenCompra(DetalleOrdenCompra detalleOrdenCompra) throws Exception;
+
+    List<DetalleOrdenCompra> listarDetallesOrdenesCompra(Integer idOrdenCompra);
+
+    // Devoluciones Compra
+
+    DevolucionCompra crearDevolucionCompra(DevolucionCompra devolucionCompra) throws Exception;
+
+    DevolucionCompra actualizarDevolucionCompra(DevolucionCompra devolucionCompra) throws Exception;
+
+    Boolean eliminarDevolucionCompra(DevolucionCompra devolucionCompra) throws Exception;
+
+    List<DevolucionCompra> listarDevolucionesCompra();
+
+    //Detalles Devolucion compra
+
+    DetalleDevolucionCompra crearDetalleDevolucionCompra(DetalleDevolucionCompra detalleDevolucionCompra) throws Exception;
+
+    DetalleDevolucionCompra actualizarDetalleDevolucionCompra(DetalleDevolucionCompra detalleDevolucionCompra) throws Exception;
+
+    Boolean eliminarDetalleDevolucionCompra(DetalleDevolucionCompra detalleDevolucionCompra) throws Exception;
+
+    List<DetalleDevolucionCompra> listarDetallesDevolucionesCompra(Integer idDevolucionCompra);
+
+
+    List<TiposIdentificacion> listarTiposIdentificacion();
+
+    TiposIdentificacion obtenerTipoIdentificacion(Integer idIdentificacion) throws Exception;
 }

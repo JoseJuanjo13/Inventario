@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <h:outputStylesheet name="bootstrap.min.css" library="css" />
+    <h:outputStylesheet name="styles.css" library="css" />
+    <h:outputScript name="bootstrap.bundle.min.js" library="js" />
+    <h:outputStylesheet name="sidebar.css" library="css" />
+    <title>Página de Inicio</title>
+</h:head>
+<h:body>
+    <div class="flex-shrink-0 p-3 navbar-collapse navbar">
+        <a href="/" class="align-content-center link-body-emphasis text-decoration-none border-bottom">
+            <span class="fw-semibold text-black title">Inventario</span>
+        </a>
+        <ul class="list-unstyled ps-0">
+            <li class="mb-1">
+                <button class="btn-toggle align-items-center rounded border-0 button-link" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
+                    Paramétricas
+                </button>
+                <div class="collapse" id="home-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="/parametricas/crud_bodega.xhtml" class="link-body-emphasis nav-link text-black-50">Bodegas</a></li>
+                        <li><a href="/parametricas/crud_medicamento.xhtml" class="link-body-emphasis nav-link text-black-50">Medicamentos</a></li>
+                        <li><a href="/parametricas/crud_insumo.xhtml" class="link-body-emphasis nav-link text-black-50">Insumos</a></li>
+                        <li><a href="/parametricas/crud_proveedor.xhtml" class="link-body-emphasis nav-link text-black-50">Proveedores</a></li>
+                        <li><a href="/parametricas/crud_usuarios.xhtml" class="link-dark nav-link text-black-50">Usuarios</a></li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="mb-1">
+                <button class="btn-toggle align-items-center rounded border-0 collapsed button-link" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+                    Dispensación
+                </button>
+                <div class="collapse" id="dashboard-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="/dispensacion/orden_compra.xhtml" class="link-body-emphasis nav-link text-black-50">Ordenes de compras</a></li>
+                        <li><a href="/dispensacion/devolucion_compra.xhtml" class="link-body-emphasis nav-link text-black-50">Devoluciones de compra</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="border-top my-3"></li>
+            <li class="mb-1">
+                <button class="btn-toggle d-inline-flex align-items-center rounded border-0 collapsed button-link" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+                    Cuenta
+                </button>
+                <div class="collapse show" id="account-collapse">
+                    <h:form>
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><p:commandButton rendered="#{seguridadBean.autenticado}" value="Hola, #{seguridadBean.usuario.nombre}" styleClass="ui-button-secondary ui-button-flat"/></li>
+                        <li><p:commandButton rendered="#{!seguridadBean.autenticado}" value="Iniciar Sesión" oncomplete="PF('login').show()" styleClass="ui-button-secondary ui-button-flat"/></li>
+                        <li><p:commandButton rendered="#{seguridadBean.autenticado}" value="Cerrar Sesión" action="#{seguridadBean.cerrarSesion}" styleClass="ui-button-secondary ui-button-flat"/></li>
+                    </ul>
+                    </h:form>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div id="contenido" class="content">
+        <ui:insert name="content"></ui:insert>
+    </div>
+    <p:dialog header="Iniciar sesión" showEffect="fade" widgetVar="login" modal="true"
+              rendered="#{!seguridadBean.autenticado}">
+        <h:form>
+            <h:panelGrid columns="3" cellpadding="5">
+                <p:outputLabel for="email_login" value="Email:"/>
+                <p:inputText id="email_login" value="#{seguridadBean.email}" required="true"/>
+                <p:message for="email_login"/>
+                <p:outputLabel for="password_login" value="Password:"/>
+                <p:password id="password_login" value="#{seguridadBean.password}" required="true" toggleMask="true" redisplay="true"
+                />
+                <p:message for="password_login"/>
+            </h:panelGrid>
+            <p:commandButton value="Iniciar Sesión" action="#{seguridadBean.iniciarSesion}"
+                             styleClass="mt-4" update="@form" icon="pi pi-sign-in" iconPos="left"/>
+            <p:growl for="login-bean" showDetail="true"/>
+        </h:form>
+    </p:dialog>
+</h:body>
+</html>

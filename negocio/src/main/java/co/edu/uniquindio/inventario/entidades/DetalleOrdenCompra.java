@@ -52,7 +52,10 @@ public class DetalleOrdenCompra implements Serializable {
     @ManyToOne
     private OrdenCompra ordenCompra;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "detalleOrdenCompra")
     private List<Historial> historialdetalleOrdenCompra;
+
+    public DetalleOrdenCompra() {}
 
 }

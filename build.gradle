@@ -30,3 +30,7 @@ subprojects{
 test {
     useJUnitPlatform()
 }
+
+dependencies {
+    implementation 'org.primefaces:primefaces:11.0.0'
+}

@@ -1,0 +1,9 @@
+plugins {
+    id 'org.joinfaces' version '4.7.3'
+}
+dependencies {
+    implementation project(":negocio")
+    implementation 'org.joinfaces:jsf-spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.primefaces:primefaces:11.0.0'
+}
