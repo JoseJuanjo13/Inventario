@@ -3,6 +3,7 @@ package co.edu.uniquindio.inventario.bean;
 import co.edu.uniquindio.inventario.entidades.DetalleOrdenCompra;
 import co.edu.uniquindio.inventario.entidades.Insumo;
 import co.edu.uniquindio.inventario.entidades.Medicamento;
+import co.edu.uniquindio.inventario.entidades.OrdenCompra;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
 import lombok.Getter;
 import lombok.Setter;
@@ -71,17 +72,20 @@ public class DetalleOrdenCompraBean implements Serializable {
         medicamento = new Medicamento();
         insumo = new Insumo();
         editarDetalle = false;
+        habButtonMedicamento = false;
+        habButtonInsumo = true;
         detallesCompraSeleccionados = new ArrayList<>();
-       tiposActividad = new ArrayList<>(Arrays.asList("Medicamento", "Insumo"));
-       listaMedicamentos = usuarioServicio.listarMedicamento();
-       listaInsumos = usuarioServicio.listarInsumo();
+        tiposActividad = new ArrayList<>(Arrays.asList("Medicamento", "Insumo"));
+        listaMedicamentos = usuarioServicio.listarMedicamento();
+        listaInsumos = usuarioServicio.listarInsumo();
     }
 
     public void gestionarDetalleOrdenCompra() {
+        double subtotalCompra = agregarSubtotalCompra();
+        detalleOrdenCompra.setSubtotal(subtotalCompra);
+
         try {
             if(!editarDetalle) {
-                double subtotalCompra = agregarSubtotalCompra();
-                detalleOrdenCompra.setSubtotal(subtotalCompra);
 
                 medicamento = buscarMedicamento(medicamento.getPrincipioActivo());
                 detalleOrdenCompra.setMedicamento(medicamento);
@@ -89,29 +93,74 @@ public class DetalleOrdenCompraBean implements Serializable {
                 insumo = buscarInsumo(insumo.getNombre());
                 detalleOrdenCompra.setInsumo(insumo);
 
-                System.out.println(detalleOrdenCompra);
+                if(!habButtonMedicamento) {
+                    detalleOrdenCompra.setTipoActividad("Medicamento");
+                } else {
+                    detalleOrdenCompra.setTipoActividad("Insumo");
+                }
 
+                OrdenCompra ordenCompra = buscarOrdenCompra(idOrdenCompra);
+                detalleOrdenCompra.setOrdenCompra(ordenCompra);
 
                 DetalleOrdenCompra nuevoDetalleOrdenCompra = usuarioServicio.crearDetalleOrdenCompra(detalleOrdenCompra);
                 detallesCompra.add(nuevoDetalleOrdenCompra);
 
                 setTotalDetallesCompra();
                 detalleOrdenCompra = new DetalleOrdenCompra();
-
-
+                medicamento = new Medicamento();
+                insumo = new Insumo();
 
                 FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Detalle de la compra", "¡Se ha registrado el detalle de la orden de su compra con éxito!");
                 FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
             } else {
+
+                medicamento = buscarMedicamento(medicamento.getPrincipioActivo());
+                if(medicamento != null) {
+                    detalleOrdenCompra.setMedicamento(medicamento);
+                }
+
+                insumo = buscarInsumo(insumo.getNombre());
+                if(insumo != null) {
+                    detalleOrdenCompra.setInsumo(insumo);
+                }
+
+                if(!habButtonMedicamento) {
+                    detalleOrdenCompra.setTipoActividad("Medicamento");
+                } else {
+                    detalleOrdenCompra.setTipoActividad("Insumo");
+                }
+
+                OrdenCompra ordenCompra = buscarOrdenCompra(idOrdenCompra);
+                detalleOrdenCompra.setOrdenCompra(ordenCompra);
+
                 usuarioServicio.actualizarOrdenCompra(detalleOrdenCompra);
+
+                setTotalDetallesCompra();
+                detalleOrdenCompra = new DetalleOrdenCompra();
+                medicamento = new Medicamento();
+                insumo = new Insumo();
 
                 FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Detalle de la compra", "¡Se ha actualizado el detalle de la orden de su compra con éxito!");
                 FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
             }
         } catch (Exception e) {
+            System.out.println(e);
+            System.out.println(detalleOrdenCompra);
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Detalle Orden de compra", e.getMessage());
             FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
         }
+    }
+
+    private OrdenCompra buscarOrdenCompra(int idOrdenCompra) {
+        final OrdenCompra[] ordenCompraEncontrada = new OrdenCompra[1];
+        List<OrdenCompra> ordenes = usuarioServicio.listarOrdenesCompra();
+
+        ordenes.forEach(ordenCompra -> {
+            if(ordenCompra.getIdCompra() == idOrdenCompra) {
+                ordenCompraEncontrada[0] = ordenCompra;
+            }
+        });
+        return ordenCompraEncontrada[0];
     }
 
     private Medicamento buscarMedicamento(String nombreMedicamento) {
@@ -192,10 +241,11 @@ public class DetalleOrdenCompraBean implements Serializable {
     }
 
     private void setTotalDetallesCompra() {
-        double totalCompra;
         List<DetalleOrdenCompra> detalles = usuarioServicio.listarDetallesOrdenesCompra(idOrdenCompra);
-        totalCompra = detalles.stream().mapToDouble(DetalleOrdenCompra::getSubtotal).sum();
-        ordenCompraBean.setTotalCompra(totalCompra);
+        double totalCompra = detalles.stream().mapToDouble(DetalleOrdenCompra::getSubtotal).sum();
+
+        OrdenCompra ordenCompra = buscarOrdenCompra(idOrdenCompra);
+        ordenCompra.setTotal(totalCompra);
     }
 
     public void habilitarOpcion() {

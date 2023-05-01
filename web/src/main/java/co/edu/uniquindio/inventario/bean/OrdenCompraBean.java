@@ -70,6 +70,7 @@ public class OrdenCompraBean implements Serializable {
                 proveedor = validarProveedor(nombreProveedor);
                 bodega = validarBodega(nombreBodega);
 
+                ordenCompra.setTipoMovimiento("Positivo");
                 ordenCompra.setFecha(LocalDate.now());
                 ordenCompra.setEstado("Activo");
                 ordenCompra.setProveedor(proveedor);

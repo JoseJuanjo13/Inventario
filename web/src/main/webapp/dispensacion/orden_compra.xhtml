@@ -111,11 +111,29 @@
                                          action="#{ordenCompraBean.navegarListaDetalleCompra(ordenCompra.idCompra)}"
                                          actionListener="#{detalleOrdenCompraBean.dialogoSeleccionDetalleOrdenCompra(detalle)}"/>
                         <p:tooltip for="agregar-detalle" value="Agregar detalle" showEffect="clip" hideEffect="fold"/>
+
                         <p:commandButton id="realizar-compra" icon="pi pi-check" styleClass="ui-button-raised ui-button-success ui-button-flat"
                                          action="#{ordenCompraBean.dialogoSeleccionOrdenCompra(ordenCompra)}"
-                                         oncomplete="PF('crear-orden-compra').show()"
-                                         update="dialogo-gestion-orden-compra"/>
+                                         onclick="PF('confirmCompra').show()"/>
                         <p:tooltip for="realizar-compra" value="Realizar compra" showEffect="clip" hideEffect="fold"/>
+
+                        <p:confirmDialog widgetVar="confirmCompra" responsive="true"
+                                         hideEffect="fade" showEffect="fade"
+                                         header="Realizar Compra"
+                                         message="¿Está seguro de realizar la compra?">
+                            <p:commandButton value="Sí" icon="pi pi-check" iconPos="left"
+                                             styleClass="ui-button-raised ui-button-success"
+                                             oncomplete="PF('confirmCompra').hide()"
+                                             action="#{detalleOrdenCompraBean.eliminarDetallesCompra}"/>
+<!--
+                                             update="crud-detalle:lista-detalles, @this crud-detalle:btn-borrar-detalle"
+-->
+                            <p:commandButton value="No" icon="pi pi-times"
+                                             styleClass=""
+                                             onclick="PF('confirmDialog').hide()"
+                                             type="button" />
+                        </p:confirmDialog>
+
                     </p:column>
                 </p:dataTable>
             </h:form>
@@ -124,10 +142,6 @@
                       modal="true" showEffect="fade" closable="true">
                 <h:form>
                     <h:panelGrid columns="3" cellpadding="5">
-
-                        <p:outputLabel for="tipo-movimiento" value="Tipo de movimiento: "/>
-                        <p:inputText id="tipo-movimiento" value="#{ordenCompraBean.ordenCompra.tipoMovimiento}" required="true"/>
-                        <p:message for="tipo-movimiento"/>
 
                         <p:outputLabel for="numero-numero-autorizacion" value="Número de autorización: "/>
                         <p:inputText id="numero-numero-autorizacion" value="#{ordenCompraBean.ordenCompra.numeroAutorizacion}" required="true"/>

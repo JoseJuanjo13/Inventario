@@ -10,7 +10,7 @@
     <ui:define name="content">
 
         <div class="content-body">
-            <h2>Ordenes de compra</h2>
+            <h2>Devoluciones de compra</h2>
             <h:form id="crud-devolucion-compra">
                 <p:toolbar>
                     <p:toolbarGroup>
@@ -86,6 +86,9 @@
                         <h:outputText value="#{devolucionCompra.estado}"/>
                     </p:column>
 
+                    <p:column headerText="Bodega" sortBy="#{devolucionCompra.bodega.nombre}">
+                        <h:outputText value="#{devolucionCompra.bodega.nombre}"/>
+                    </p:column>
 
                     <p:column headerText="Acciones" width="120" styleClass="flex flex-column-reverse align-content-start">
                         <p:commandButton id="editar" icon="pi pi-pencil" styleClass="ui-button-raised ui-button-secondary ui-button-flat"
@@ -94,8 +97,8 @@
                                          update="dialogo-gestion-devolucion-compra"/>
                         <p:tooltip for="editar" value="Editar" showEffect="clip" hideEffect="fold"/>
                         <p:commandButton id="agregar-detalle" icon="pi pi-plus" styleClass="ui-button-raised ui-button-text-icon-primary ui-button-flat"
-                                         action="#{ordenCompraBean.navegarListaDetalleCompra(ordenCompra.idCompra)}"
-                                         actionListener="#{detalleOrdenCompraBean.dialogoSeleccionDetalleOrdenCompra(detalle)}"/>
+                                         action="#{devolucionCompraBean.navegarListaDetalleDevolucion(devolucionCompra.idDevolucionCompra)}"
+                                         actionListener="#{detalleDevolucionCompraBean.dialogoSeleccionDetalleDevolucionCompra(detalle)}"/>
                         <p:tooltip for="agregar-detalle" value="Agregar detalle" showEffect="clip" hideEffect="fold"/>
                         <p:commandButton id="realizar-compra" icon="pi pi-check" styleClass="ui-button-raised ui-button-success ui-button-flat"
                                          action="#{ordenCompraBean.dialogoSeleccionOrdenCompra(ordenCompra)}"
@@ -120,9 +123,16 @@
                         <p:message for="fecha-autorizacion"/>
 
                         <p:outputLabel for="estado" value="Estado: "/>
-                        <p:autoComplete id="estado" dropdown="true" value="#{ordenCompraBean.nombreProveedor}"  required="true"
-                                        completeMethod="#{ordenCompraBean.filtroProveedor}" scrollHeight="200"/>
+                        <p:inputText id="estado" value="#{devolucionCompraBean.devolucionCompra.estado}" required="true"/>
                         <p:message for="estado"/>
+
+                        <p:outputLabel for="bodega" value="Bodega: "/>
+                        <p:selectOneMenu id="bodega" value="#{devolucionCompraBean.bodega.nombre}"
+                                         required="true" style="width: 195px">
+                            <f:selectItem itemLabel="Selecciona uno" itemValue=""/>
+                            <f:selectItems value="#{devolucionCompraBean.bodegas}"/>
+                        </p:selectOneMenu>
+                        <p:message for="bodega"/>
 
                     </h:panelGrid>
 

@@ -1,7 +1,6 @@
 package co.edu.uniquindio.inventario.bean;
 
-import co.edu.uniquindio.inventario.entidades.DevolucionCompra;
-import co.edu.uniquindio.inventario.entidades.OrdenCompra;
+import co.edu.uniquindio.inventario.entidades.*;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +12,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import java.io.IOException;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,10 +31,19 @@ public class DevolucionCompraBean implements Serializable {
     @Getter @Setter
     private List<DevolucionCompra> devolucionesComprasSeleccionadas;
 
+    @Getter @Setter
+    private List<Bodega> listaBodegas;
+
+    @Getter @Setter
+    Bodega bodega;
+
     private boolean editarDevolucion;
 
     @Autowired
     private UsuarioServicio usuarioServicio;
+
+    @Autowired
+    private DetalleDevolucionCompraBean detalleDevolucionCompraBean;
 
     @PostConstruct
     public void init() {
@@ -41,11 +51,19 @@ public class DevolucionCompraBean implements Serializable {
         editarDevolucion = false;
         devolucionesComprasSeleccionadas = new ArrayList<>();
         devolucionesCompras = usuarioServicio.listarDevolucionesCompra();
+        listaBodegas = usuarioServicio.listarBodegas();
+        bodega = new Bodega();
     }
 
     public void geationarDevolucionesCompras() {
         try {
             if(!editarDevolucion) {
+
+                devolucionCompra.setTipoMovimiento("Negativo");
+                devolucionCompra.setFecha(LocalDate.now());
+
+                bodega = buscarBodega(bodega.getNombre());
+                devolucionCompra.setBodega(bodega);
 
                 DevolucionCompra nuevaDevolucionCompra = usuarioServicio.crearDevolucionCompra(devolucionCompra);
                 devolucionesCompras.add(nuevaDevolucionCompra);
@@ -65,6 +83,17 @@ public class DevolucionCompraBean implements Serializable {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Devolución de compra", e.getMessage());
             FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
         }
+    }
+
+    private Bodega buscarBodega(String nombre) {
+        final Bodega[] bodegaEncontrada = {new Bodega()};
+
+        listaBodegas.forEach(b -> {
+            if(b.getNombre().equalsIgnoreCase(nombre)) {
+                bodegaEncontrada[0] = b;
+            }
+        });
+        return bodegaEncontrada[0];
     }
 
     public void eliminarDevolucionesCompras() {
@@ -100,4 +129,27 @@ public class DevolucionCompraBean implements Serializable {
             editarDevolucion = false;
         }
     }
+
+    public List<String> getBodegas() {
+        List<String> nombreBodegas = new ArrayList<>();
+        listaBodegas.forEach(b -> {
+            nombreBodegas.add(b.getNombre());
+        });
+        return nombreBodegas;
+    }
+
+    public void navegarListaDetalleDevolucion(int idDevolucion) {
+        try {
+            detalleDevolucionCompraBean.setIdDevolucionCompra(idDevolucion);
+
+            List<DetalleDevolucionCompra> detalles = usuarioServicio.listarDetallesDevolucionesCompra(idDevolucion);
+            detalleDevolucionCompraBean.setDetalleDevolucionesCompras(detalles);
+
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/dispensacion/detalle_devolucion_compra.xhtml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }
