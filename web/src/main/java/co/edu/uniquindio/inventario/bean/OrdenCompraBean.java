@@ -1,6 +1,7 @@
 package co.edu.uniquindio.inventario.bean;
 
 import co.edu.uniquindio.inventario.entidades.Bodega;
+import co.edu.uniquindio.inventario.entidades.DetalleOrdenCompra;
 import co.edu.uniquindio.inventario.entidades.OrdenCompra;
 import co.edu.uniquindio.inventario.entidades.Proveedor;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
@@ -8,11 +9,13 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.SessionScope;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,7 +24,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 @Component
-@ViewScoped
+@SessionScope
 public class OrdenCompraBean implements Serializable {
 
     @Getter @Setter
@@ -46,6 +49,9 @@ public class OrdenCompraBean implements Serializable {
 
     @Getter @Setter
     private double totalCompra = 0.0;
+
+    @Autowired
+    private DetalleOrdenCompraBean detalleOrdenCompraBean;
 
     @PostConstruct
     public void init() {
@@ -184,4 +190,18 @@ public class OrdenCompraBean implements Serializable {
         }
         return listaNombreBodegas.stream().filter(t -> t.toLowerCase().contains(queryLowerCase)).collect(Collectors.toList());
     }
+
+    public void navegarListaDetalleCompra(int idCompra) {
+        try {
+            detalleOrdenCompraBean.setIdOrdenCompra(idCompra);
+
+            List<DetalleOrdenCompra> detalles = usuarioServicio.listarDetallesOrdenesCompra(idCompra);
+            detalleOrdenCompraBean.setDetallesCompra(detalles);
+
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/dispensacion/detalle_orden_compra.xhtml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

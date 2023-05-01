@@ -56,4 +56,6 @@ public class DetalleOrdenCompra implements Serializable {
     @OneToMany(mappedBy = "detalleOrdenCompra")
     private List<Historial> historialdetalleOrdenCompra;
 
+    public DetalleOrdenCompra() {}
+
 }

@@ -10,7 +10,7 @@
     <ui:define name="content">
 
         <div class="content-body">
-            <h2>Gestión de ordenes de compra</h2>
+            <h2>Ordenes de compra</h2>
             <h:form id="crud-orden-compra">
                 <p:toolbar>
                     <p:toolbarGroup>
@@ -108,9 +108,8 @@
                                          update="dialogo-gestion-orden-compra"/>
                         <p:tooltip for="editar" value="Editar" showEffect="clip" hideEffect="fold"/>
                         <p:commandButton id="agregar-detalle" icon="pi pi-plus" styleClass="ui-button-raised ui-button-text-icon-primary ui-button-flat"
-                                         action="#{detalleOrdenCompraBean.dialogoSeleccionDetalleOrdenCompra(detalle)}"
-                                         oncomplete="PF('crear-detalle').show()"
-                                         update="dialogo-detalle-compra"/>
+                                         action="#{ordenCompraBean.navegarListaDetalleCompra(ordenCompra.idCompra)}"
+                                         actionListener="#{detalleOrdenCompraBean.dialogoSeleccionDetalleOrdenCompra(detalle)}"/>
                         <p:tooltip for="agregar-detalle" value="Agregar detalle" showEffect="clip" hideEffect="fold"/>
                         <p:commandButton id="realizar-compra" icon="pi pi-check" styleClass="ui-button-raised ui-button-success ui-button-flat"
                                          action="#{ordenCompraBean.dialogoSeleccionOrdenCompra(ordenCompra)}"
@@ -153,147 +152,6 @@
                                      action="#{ordenCompraBean.gestionarOrdenCompra}" update="@form, crud-orden-compra:lista-ordenes-compras"/>
                     <p:growl for="mensaje_bean" showDetail="true"/>
                 </h:form>
-            </p:dialog>
-
-            <p:dialog id="dialogo-detalle-compra" header="#{detalleOrdenCompraBean.textoDialogo}" widgetVar="crear-detalle"
-                      modal="true" showEffect="fade" height="650px" closable="true">
-
-                <h2>Detalle de la compra</h2>
-                <h:form id="crud-detalle">
-
-                    <p:toolbar>
-                        <p:toolbarGroup>
-                            <p:commandButton value="Agregar" icon="pi pi-plus" styleClass="ui-button-raised ui-button-success me-3" oncomplete="PF('crear-detalle').show()"
-                                             action="#{detalleOrdenCompraBean.dialogoSeleccionDetalleOrdenCompra(null)}" update="dialogo-gestion-detalle"/>
-
-                            <p:commandButton id="btn-borrar-detalle" value="#{detalleOrdenCompraBean.mensajeEliminar} " icon="pi pi-trash" styleClass="ui-button-raised ui-button-danger"
-                                             disabled="#{detalleOrdenCompraBean.detallesCompraSeleccionados.size() == 0}"
-                                             onclick="PF('confirmDialog').show()"  update="crud-detalle:lista-detalles, @this"/>
-
-                            <p:confirmDialog widgetVar="confirmDialog" responsive="true"
-                                             hideEffect="fade" showEffect="fade"
-                                             header="Eliminar el detalle"
-                                             message="¿Eliminar los detalles de la compra seleccionados?">
-                                <p:commandButton value="Sí" icon="pi pi-check" iconPos="left"
-                                                 styleClass="ui-button-raised ui-button-danger"
-                                                 oncomplete="PF('confirmDialog').hide()"
-                                                 action="#{detalleOrdenCompraBean.eliminarDetallesCompra}"
-                                                 update="crud-detalle:lista-detalles, @this crud-detalle:btn-borrar-detalle"/>
-                                <p:commandButton value="No" icon="pi pi-times"
-                                                 styleClass="ui-button-raised ui-button-primary"
-                                                 onclick="PF('confirmDialog').hide()"
-                                                 type="button" />
-                            </p:confirmDialog>
-
-                        </p:toolbarGroup>
-                    </p:toolbar>
-
-                    <p:dataTable id="lista-detalles" widgetVar="listaDetalles" value="#{detalleOrdenCompraBean.detallesCompra}"
-                                 var="detalle" rowKey="#{detalle.idDetalleOrdenCompra}" scrollable="true"
-                                 paginator="true" rows="10" paginatorPosition="bottom"
-                                 selection="#{detalleOrdenCompraBean.detallesCompraSeleccionados}" rowSelectMode="add">
-
-                        <f:facet name="header">
-                            <div class="products-table-header">
-                            <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"/>
-                        <p:inputText id="globalFilterDetalle" onkeyup="PF('listaDetalles').filter()" placeholder="Busca un detalle de la orden de compra"  style="width: 500px"/>
-                            </span>
-                            </div>
-
-                            <div class="button-columns">
-                                <p:commandButton id="togglerDetalle" type="button" value="Columnas" icon="pi pi-align-justify"/>
-                                <p:columnToggler datasource="lista-detalles" trigger="togglerDetalle">
-                                    <p:ajax />
-                                </p:columnToggler>
-                            </div>
-                        </f:facet>
-
-                        <p:column selectionMode="multiple"/>
-
-                        <p:ajax event="rowSelect" update="crud-detalle:btn-borrar-detalle" />
-                        <p:ajax event="rowUnselect" update="crud-detalle:btn-borrar-detalle" />
-                        <p:ajax event="rowSelectCheckbox" update="crud-detalle:btn-borrar-detalle" />
-                        <p:ajax event="rowUnselectCheckbox" update="crud-detalle:btn-borrar-detalle" />
-                        <p:ajax event="toggleSelect" update="crud-detalle:btn-borrar-detalle" />
-
-                        <p:column headerText="Tipo actividad" sortBy="#{detalle.tipoActividad}" filterBy="#{detalle.tipoActividad}" filterMatchMode="contains" styleClass="no-filter">
-                            <h:outputText value="#{detalle.tipoActividad}"/>
-                        </p:column>
-
-                        <p:column headerText="Cantidad" sortBy="#{detalle.cantidadSolicitada}" filterBy="#{detalle.cantidadSolicitada}" filterMatchMode="contains" styleClass="no-filter">
-                            <h:outputText value="#{detalle.cantidadSolicitada}"/>
-                        </p:column>
-
-                        <p:column headerText="Valor Unitario" sortBy="#{detalle.valorUnitario}" filterBy="#{detalle.valorUnitario}" filterMatchMode="contains" styleClass="no-filter">
-                            <h:outputText value="#{detalle.valorUnitario}"/>
-                        </p:column>
-
-                        <p:column headerText="Subtotal" sortBy="#{detalle.subtotal}" filterBy="#{detalle.subtotal}" filterMatchMode="contains" styleClass="no-filter">
-                            <h:outputText value="#{detalle.subtotal}"/>
-                        </p:column>
-
-                        <p:column headerText="Total" sortBy="#{detalle.total}" filterBy="#{detalle.total}" filterMatchMode="contains" styleClass="no-filter">
-                            <h:outputText value="#{detalle.total}"/>
-                        </p:column>
-
-                        <p:column headerText="Medicamento" sortBy="#{detalle.medicamento.principioActivo}" filterBy="#{detalle.medicamento.principioActivo}" filterMatchMode="contains" styleClass="no-filter">
-                            <h:outputText value="#{detalle.medicamento.principioActivo}"/>
-                        </p:column>
-
-                        <p:column headerText="Insumo" sortBy="#{detalle.insumo.nombre}" filterBy="#{detalle.insumo.nombre}" filterMatchMode="contains" styleClass="no-filter">
-                            <h:outputText value="#{detalle.insumo.nombre}"/>
-                        </p:column>
-
-                        <p:column headerText="Editar">
-                            <p:commandButton icon="pi pi-pencil" styleClass="edit-button rounded-button ui-button-secondary"
-                                             action="#{detalleOrdenCompraBean.dialogoSeleccionDetalleOrdenCompra(detalle)}" oncomplete="PF('crear-detalle').show()"
-                                             update="dialogo-gestion-detalle"/>
-                        </p:column>
-                    </p:dataTable>
-                </h:form>
-            </p:dialog>
-
-            <p:dialog id="dialogo-gestion-detalle" header="#{detalleOrdenCompraBean.textoDialogo}" widgetVar="crear-detalle"
-                      modal="true" showEffect="fade" style="margin-bottom: 20px" closable="true">
-
-                <h:form>
-                    <h:panelGrid columns="3" cellpadding="5">
-
-                        <p:outputLabel for="tipo-actividad" value="Tipo actividad: " />
-                        <p:inputText id="tipo-actividad" value="#{detalleOrdenCompraBean.detalleOrdenCompra.tipoActividad}" required="true" />
-                        <p:message for="tipo-actividad"/>
-
-                        <p:outputLabel for="cantidad-solicitada" value="Cantidad solicitada: " />
-                        <p:inputText id="cantidad-solicitada" value="#{detalleOrdenCompraBean.detalleOrdenCompra.cantidadSolicitada}" required="true" />
-                        <p:message for="cantidad-solicitada"/>
-
-                        <p:outputLabel for="valor-unitario" value="Valor unitario: " />
-                        <p:inputText id="valor-unitario" value="#{detalleOrdenCompraBean.detalleOrdenCompra.valorUnitario}" required="true" />
-                        <p:message for="valor-unitario"/>
-
-                        <p:outputLabel for="subtotal" value="Subtotal: " />
-                        <p:inputText id="subtotal" value="#{detalleOrdenCompraBean.detalleOrdenCompra.subtotal}" required="true" />
-                        <p:message for="subtotal"/>
-
-                        <p:outputLabel for="total" value="Total: " />
-                        <p:inputText id="total" value="#{detalleOrdenCompraBean.detalleOrdenCompra.total}" required="true" />
-                        <p:message for="total"/>
-
-                        <p:outputLabel for="medicamento" value="Medicamento: " />
-                        <p:inputText id="medicamento" value="#{detalleOrdenCompraBean.detalleOrdenCompra.medicamento.principioActivo}" required="true" />
-                        <p:message for="medicamento"/>
-
-                        <p:outputLabel for="insumo" value="Insumo: " />
-                        <p:inputText id="insumo" value="#{detalleOrdenCompraBean.detalleOrdenCompra.insumo.nombre}" required="true" />
-                        <p:message for="insumo"/>
-
-                    </h:panelGrid>
-
-                    <p:commandButton value="#{detalleOrdenCompraBean.textoDialogo}"  styleClass="ui-button-raised"
-                                     action="#{detalleOrdenCompraBean.gestionarOrdenCompra}" update="@form, crud-detalle:lista-detalles" />
-                    <p:growl for="mensaje_bean" showDetail="true"/>
-                </h:form>
-
             </p:dialog>
         </div>
 

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/WEB-INF/template.xhtml">
+    <ui:define name="content">
+
+        <div class="content-body">
+            <h2>Ordenes de compra</h2>
+            <h:form id="crud-devolucion-compra">
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="Agregar" icon="pi pi-plus"
+                                         styleClass="ui-button-raised ui-button-success me-3"
+                                         oncomplete="PF('crear-devolucion-compra').show()"
+                                         action="#{devolucionCompraBean.dialogoSeleccionDevolucionCompra(null)}"
+                                         update="dialogo-gestion-devolucion-compra"/>
+
+                        <p:commandButton id="btn-borrar" value="#{devolucionCompraBean.mensajeEliminar} " icon="pi pi-trash"
+                                         styleClass="ui-button-raised ui-button-danger"
+                                         disabled="#{devolucionCompraBean.devolucionesComprasSeleccionadas.size() == 0}"
+                                         onclick="PF('confirmDialog').show()"  update="crud-devolucion-compra:lista-devoluciones-compras, @this"/>
+
+                        <p:confirmDialog widgetVar="confirmDialog" responsive="true"
+                                         hideEffect="fade" showEffect="fade"
+                                         header="Eliminar Devolución Compra"
+                                         message="¿Eliminar las devoluciones de compras seleccionadas?">
+                            <p:commandButton value="Sí" icon="pi pi-check" iconPos="left"
+                                             styleClass="ui-button-raised ui-button-danger"
+                                             oncomplete="PF('confirmDialog').hide()"
+                                             action="#{devolucionCompraBean.eliminarDevolucionesCompras}"
+                                             update="crud-devolucion-compra:lista-devoluciones-compras, @this crud-devolucion-compra:btn-borrar"/>
+                            <p:commandButton value="No" icon="pi pi-times"
+                                             styleClass="ui-button-raised ui-button-primary"
+                                             onclick="PF('confirmDialog').hide()"
+                                             type="button" />
+                        </p:confirmDialog>
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+                <p:dataTable id="lista-devoluciones-compras" widgetVar="listaDevolucionesCompras" value="#{devolucionCompraBean.devolucionesCompras}"
+                             var="devolucionCompra" rowKey="#{devolucionCompra.idDevolucionCompra}" reflow="true"
+                             paginator="true" rows="10" paginatorPosition="bottom"
+                             selection="#{devolucionCompraBean.devolucionesComprasSeleccionadas}" rowSelectMode="add">
+
+                    <f:facet name="header">
+                        <div class="products-table-header">
+                            <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"/>
+                        <p:inputText id="globalFilter" onkeyup="PF('listaDevolucionesCompras').filter()" placeholder="Busca una devolución de compra" style="width: 500px"/>
+                            </span>
+                        </div>
+
+                        <div class="button-columns">
+                            <p:commandButton id="toggler" type="button" value="Columnas" icon="pi pi-align-justify"/>
+                            <p:columnToggler datasource="lista-devoluciones-compras" trigger="toggler">
+                                <p:ajax />
+                            </p:columnToggler>
+                        </div>
+                    </f:facet>
+
+                    <p:column selectionMode="multiple" exportable="false" width="40"/>
+
+                    <p:ajax event="rowSelect" update="crud-devolucion-compra:btn-borrar"/>
+                    <p:ajax event="rowUnselect" update="crud-devolucion-compra:btn-borrar"/>
+                    <p:ajax event="rowSelectCheckbox" update="crud-devolucion-compra:btn-borrar"/>
+                    <p:ajax event="rowUnselectCheckbox" update="crud-devolucion-compra:btn-borrar"/>
+                    <p:ajax event="toggleSelect" update="crud-devolucion-compra:btn-borrar"/>
+
+                    <p:column headerText="Fecha"  sortBy="#{devolucionCompra.fecha}" filterBy="#{devolucionCompra.fecha}" filterMatchMode="contains" styleClass="no-filter" width="150">
+                        <h:outputText value="#{devolucionCompra.fecha}"/>
+                    </p:column>
+
+                    <p:column headerText="Número autorización"  sortBy="#{devolucionCompra.numeroAutorizacion}" filterBy="#{devolucionCompra.numeroAutorizacion}" filterMatchMode="contains" styleClass="no-filter" width="150">
+                        <h:outputText value="#{devolucionCompra.numeroAutorizacion}"/>
+                    </p:column>
+
+                    <p:column headerText="Fecha autorización"  sortBy="#{devolucionCompra.fechaAutorizacion}" filterBy="#{devolucionCompra.fechaAutorizacion}" filterMatchMode="contains" styleClass="no-filter" width="150">
+                        <h:outputText value="#{devolucionCompra.fechaAutorizacion}"/>
+                    </p:column>
+
+                    <p:column headerText="Estado" sortBy="#{devolucionCompra.estado}" filterBy="#{devolucionCompra.estado}" filterMatchMode="contains" styleClass="no-filter">
+                        <h:outputText value="#{devolucionCompra.estado}"/>
+                    </p:column>
+
+
+                    <p:column headerText="Acciones" width="120" styleClass="flex flex-column-reverse align-content-start">
+                        <p:commandButton id="editar" icon="pi pi-pencil" styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                         action="#{devolucionCompraBean.dialogoSeleccionDevolucionCompra(devolucionCompra)}"
+                                         oncomplete="PF('crear-devolucion-compra').show()"
+                                         update="dialogo-gestion-devolucion-compra"/>
+                        <p:tooltip for="editar" value="Editar" showEffect="clip" hideEffect="fold"/>
+                        <p:commandButton id="agregar-detalle" icon="pi pi-plus" styleClass="ui-button-raised ui-button-text-icon-primary ui-button-flat"
+                                         action="#{ordenCompraBean.navegarListaDetalleCompra(ordenCompra.idCompra)}"
+                                         actionListener="#{detalleOrdenCompraBean.dialogoSeleccionDetalleOrdenCompra(detalle)}"/>
+                        <p:tooltip for="agregar-detalle" value="Agregar detalle" showEffect="clip" hideEffect="fold"/>
+                        <p:commandButton id="realizar-compra" icon="pi pi-check" styleClass="ui-button-raised ui-button-success ui-button-flat"
+                                         action="#{ordenCompraBean.dialogoSeleccionOrdenCompra(ordenCompra)}"
+                                         oncomplete="PF('crear-devolucion-compra').show()"
+                                         update="dialogo-gestion-devolucion-compra"/>
+                        <p:tooltip for="realizar-compra" value="Realizar compra" showEffect="clip" hideEffect="fold"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+
+            <p:dialog id="dialogo-gestion-devolucion-compra" header="#{devolucionCompraBean.textoDialogo}" widgetVar="crear-devolucion-compra"
+                      modal="true" showEffect="fade" closable="true">
+                <h:form>
+                    <h:panelGrid columns="3" cellpadding="5">
+
+                        <p:outputLabel for="numero-autorizacion" value="Número de autorización: "/>
+                        <p:inputText id="numero-autorizacion" value="#{devolucionCompraBean.devolucionCompra.numeroAutorizacion}" required="true"/>
+                        <p:message for="numero-autorizacion"/>
+
+                        <p:outputLabel for="fecha-autorizacion" value="Fecha de autorización: " />
+                        <p:datePicker id="fecha-autorizacion" value="#{devolucionCompraBean.devolucionCompra.fechaAutorizacion}" required="true" monthNavigator="true" yearNavigator="true" showWeek="true" />
+                        <p:message for="fecha-autorizacion"/>
+
+                        <p:outputLabel for="estado" value="Estado: "/>
+                        <p:autoComplete id="estado" dropdown="true" value="#{ordenCompraBean.nombreProveedor}"  required="true"
+                                        completeMethod="#{ordenCompraBean.filtroProveedor}" scrollHeight="200"/>
+                        <p:message for="estado"/>
+
+                    </h:panelGrid>
+
+                    <p:commandButton value="#{devolucionCompraBean.textoDialogo}" styleClass="ui-button-raised"
+                                     action="#{devolucionCompraBean.geationarDevolucionesCompras}" update="@form, crud-devolucion-compra:lista-devoluciones-compras"/>
+                    <p:growl for="mensaje_bean" showDetail="true"/>
+                </h:form>
+            </p:dialog>
+        </div>
+
+    </ui:define>
+</ui:composition>
+</html>

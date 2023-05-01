@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-public class  Medicamento implements Serializable {
+public class Medicamento implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,5 +59,7 @@ public class  Medicamento implements Serializable {
     @ToString.Exclude
     @OneToMany(mappedBy = "medicamento")
     private List<DetalleOrdenCompra> detalleOrdenCompras;
+
+    public Medicamento() {}
 
 }

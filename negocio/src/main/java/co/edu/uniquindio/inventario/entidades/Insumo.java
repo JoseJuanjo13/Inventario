@@ -52,4 +52,7 @@ public class Insumo implements Serializable {
     @ToString.Exclude
     @OneToMany(mappedBy = "insumo")
     private List<DetalleOrdenCompra> detalleOrdenCompras;
+
+
+    public Insumo() {}
 }
