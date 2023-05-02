@@ -9,6 +9,6 @@ RUN gradle bootJar
 
 FROM openjdk:11-jdk-slim
 ARG JAR_FILE=build/libs/*.jar
-COPY --from=build /negocio/build/libs/*.jar app.jar
+COPY --from=build /home/web/build/libs/*.jar app.jar
 EXPOSE ${PORT}
 ENTRYPOINT ["java", "-jar", "/app.jar"]
