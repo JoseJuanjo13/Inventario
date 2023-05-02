@@ -7,7 +7,7 @@ WORKDIR /home/gradle/src
 RUN gradle clean
 RUN gradle bootJar
 
-FROM openjdk:11-jdk-slim
+FROM eclipse-temurin:11
 ARG JAR_FILE=build/libs/*.jar
 COPY --from=build /home/gradle/src/build/libs/*.jar app.jar
 EXPOSE ${PORT}
