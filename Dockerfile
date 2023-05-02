@@ -9,6 +9,6 @@
 
 FROM openjdk:11-jdk-slim
 ARG JAR_FILE=web/build/libs/*.jar
-COPY --from=build /home/negocio/build/libs/*.jar app.jar
+COPY ${JAR_FILE} app.jar
 EXPOSE ${PORT}
 ENTRYPOINT ["java", "-jar", "/app.jar"]
