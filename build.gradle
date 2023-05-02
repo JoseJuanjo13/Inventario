@@ -29,10 +29,3 @@ dependencies {
     implementation 'org.primefaces:primefaces:11.0.0'
     runtimeOnly 'mysql:mysql-connector-java'
 }
-
-bootJar{
-    enabled = false
-}
-jar{
-    enabled = true
-}
