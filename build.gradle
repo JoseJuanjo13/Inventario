@@ -28,6 +28,13 @@ subprojects{
     }
 }
 
+bootJar{
+    enabled = false
+}
+jar{
+    enabled = true
+}
+
 dependencies {
     implementation 'org.primefaces:primefaces:11.0.0'
 }
