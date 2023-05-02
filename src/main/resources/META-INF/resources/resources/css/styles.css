@@ -1,0 +1,50 @@
+
+/* Body */
+.content-body {
+    color: #0a53be;
+    width: 81%;
+    position: absolute;
+    right: 23px;
+    top: 35px;
+}
+
+h1, h2 {
+    color: black;
+}
+
+img, svg .logo {
+    align-content: center;
+    width: 700px;
+}
+
+.ui-datatable .no-filter .ui-column-filter {
+    display: none;
+}
+
+.content-body {
+    align-content: center;
+}
+
+.button-columns {
+    display: inline-block;
+    float: right;
+    margin-top: -40px;
+}
+
+body .ui-chkbox .ui-chkbox-box .ui-chkbox-icon {
+   top: 35%;
+}
+
+.speeddial-linear-demo .ui-speeddial-direction-left {
+    right: 0;
+    top: calc(50% - 2rem);
+}
+
+
+
+
+
+
+
+
+

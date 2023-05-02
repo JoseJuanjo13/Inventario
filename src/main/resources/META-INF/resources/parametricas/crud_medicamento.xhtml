@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+
+        <div class="content-body">
+            <h2>Gestión de los medicamentos</h2>
+            <h:form id="crud-medicamento">
+
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="Agregar" icon="pi pi-plus" styleClass="ui-button-raised ui-button-success me-3"
+                                         oncomplete="PF('crear-medicamento').show()"
+                                         action="#{medicamentoBean.dialogoSeleccionMedicamento(null)}" update="dialogo-gestion-medicamento"/>
+
+                        <p:commandButton id="btn-borrar" value="#{medicamentoBean.mensajeEliminar} " icon="pi pi-trash" styleClass="ui-button-raised ui-button-danger"
+                                         disabled="#{medicamentoBean.medicamentosSeleccionados.size() == 0}"
+                                         onclick="PF('confirmDialog').show()" update="crud-medicamento:lista-medicamentos, @this"/>
+
+                            <p:confirmDialog widgetVar="confirmDialog" responsive="true"
+                                             hideEffect="fade" showEffect="fade"
+                                             header="Eliminar Medicamento"
+                                             message="¿Eliminar los medicamentos seleccionados?">
+                                <p:commandButton value="Sí" icon="pi pi-check" iconPos="left"
+                                                 styleClass="ui-button-raised ui-button-danger"
+                                                 oncomplete="PF('confirmDialog').hide()"
+                                                 action="#{medicamentoBean.eliminarMedicamento}"
+                                                 update="crud-medicamento:lista-medicamentos, @this crud-medicamento:btn-borrar"/>
+                                <p:commandButton value="No" icon="pi pi-times"
+                                                 styleClass="ui-button-raised ui-button-primary"
+                                                 onclick="PF('confirmDialog').hide()"
+                                                 type="button" />
+                            </p:confirmDialog>
+
+
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+                <p:dataTable id="lista-medicamentos" widgetVar="listaMedicamentos" value="#{medicamentoBean.medicamentos}"
+                             var="medicamento" rowKey="#{medicamento.idMedicamento}"
+                             paginator="true" rows="10" paginatorPosition="bottom"
+                             selection="#{medicamentoBean.medicamentosSeleccionados}" rowSelectMode="add">
+
+                    <f:facet name="header">
+                        <div class="products-table-header">
+                            <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"/>
+                        <p:inputText id="globalFilter" onkeyup="PF('listaMedicamentos').filter()" placeholder="Busca un medicamento"
+                                     style="width: 500px"/>
+                    </span>
+                        </div>
+
+                        <div class="button-columns">
+                            <p:commandButton id="toggler" type="button" value="Columnas" icon="pi pi-align-justify"/>
+                            <p:columnToggler datasource="lista-medicamentos" trigger="toggler">
+                                <p:ajax />
+                            </p:columnToggler>
+                        </div>
+                    </f:facet>
+
+                    <p:column selectionMode="multiple" exportable="false" width="40" styleClass="fc-icon-x"/>
+
+                    <p:ajax event="rowSelect" update="crud-medicamento:btn-borrar" />
+                    <p:ajax event="rowUnselect" update="crud-medicamento:btn-borrar" />
+                    <p:ajax event="rowSelectCheckbox" update="crud-medicamento:btn-borrar" />
+                    <p:ajax event="rowUnselectCheckbox" update="crud-medicamento:btn-borrar" />
+                    <p:ajax event="toggleSelect" update="crud-medicamento:btn-borrar" />
+
+                    <p:column headerText="Principio activo" sortBy="#{medicamento.principioActivo}"
+                              filterBy="#{medicamento.principioActivo}" filterMatchMode="contains"
+                              styleClass="no-filter align-content-center">
+                        <h:outputText value="#{medicamento.principioActivo}"/>
+                    </p:column>
+
+                    <p:column headerText="Concentración" sortBy="#{medicamento.concentracion}"
+                              filterBy="#{medicamento.concentracion}" filterMatchMode="contains"
+                              styleClass="no-filter">
+                        <h:outputText value="#{medicamento.concentracion}"/>
+                    </p:column>
+
+                    <p:column headerText="Unidad" sortBy="#{medicamento.unidad}"
+                              filterBy="#{medicamento.unidad}" filterMatchMode="contains"
+                              styleClass="no-filter">
+                        <h:outputText value="#{medicamento.unidad}"/>
+                    </p:column>
+
+                    <p:column headerText="Presentación" sortBy="#{medicamento.presentacion}"
+                              filterBy="#{medicamento.presentacion}" filterMatchMode="contains"
+                              styleClass="no-filter">
+                        <h:outputText value="#{medicamento.presentacion}"/>
+                    </p:column>
+
+                    <p:column headerText="Vía de administración" sortBy="#{medicamento.viaAdministracion}"
+                              filterBy="#{medicamento.viaAdministracion}" filterMatchMode="contains"
+                              styleClass="no-filter">
+                        <h:outputText value="#{medicamento.viaAdministracion}"/>
+                    </p:column>
+
+                    <p:column headerText="Fecha vencimiento" sortBy="#{medicamento.fechaVencimiento}"
+                              filterBy="#{medicamento.fechaVencimiento}" filterMatchMode="contains"
+                              styleClass="no-filter">
+                        <h:outputText value="#{medicamento.fechaVencimiento}"/>
+                    </p:column>
+
+                    <p:column headerText="Estado" sortBy="#{medicamento.estado}"
+                              filterBy="#{medicamento.estado}" filterMatchMode="contains"
+                              styleClass="no-filter">
+                        <h:outputText value="#{medicamento.estado}"/>
+                    </p:column>
+
+                    <p:column headerText="Editar" width="40">
+                        <p:commandButton icon="pi pi-pencil" styleClass="edit-button rounded-button ui-button-secondary"
+                                         action="#{medicamentoBean.dialogoSeleccionMedicamento(medicamento)}" oncomplete="PF('crear-medicamento').show()"
+                                         update="dialogo-gestion-medicamento"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+
+            <p:dialog id="dialogo-gestion-medicamento" header="#{medicamentoBean.textoDialogo}" widgetVar="crear-medicamento" modal="true" showEffect="fade">
+
+                <h:form>
+                    <h:panelGrid columns="3" cellpadding="5">
+
+                        <p:outputLabel for="principio-activo" value="Principio activo: " />
+                        <p:inputText id="principio-activo" value="#{medicamentoBean.medicamento.principioActivo}" required="true" />
+                        <p:message for="principio-activo"/>
+
+                        <p:outputLabel for="concentracion" value="Concentración: " />
+                        <p:inputText id="concentracion" value="#{medicamentoBean.medicamento.concentracion}" required="true" />
+                        <p:message for="concentracion"/>
+
+                        <p:outputLabel for="unidad" value="Unidad: " />
+                        <p:inputText id="unidad" value="#{medicamentoBean.medicamento.unidad}" required="true" />
+                        <p:message for="unidad"/>
+
+                        <p:outputLabel for="presentacion" value="Presentación: " />
+                        <p:inputText id="presentacion" value="#{medicamentoBean.medicamento.presentacion}" required="true" />
+                        <p:message for="presentacion"/>
+
+                        <p:outputLabel for="via-administracion" value="Vía de administración: " />
+                        <p:inputText id="via-administracion" value="#{medicamentoBean.medicamento.viaAdministracion}" required="true" />
+                        <p:message for="via-administracion"/>
+
+                        <p:outputLabel for="fecha-vencimiento" value="Fecha de vencimiento: " />
+                        <p:datePicker id="fecha-vencimiento" value="#{medicamentoBean.medicamento.fechaVencimiento}" required="true" monthNavigator="true" yearNavigator="true" showWeek="true" />
+                        <p:message for="fecha-vencimiento"/>
+
+                        <p:outputLabel for="estado" value="Estado: " />
+                        <p:inputText id="estado" value="#{medicamentoBean.medicamento.estado}" required="true" />
+                        <p:message for="estado"/>
+
+                    </h:panelGrid>
+
+                    <p:commandButton value="#{medicamentoBean.textoDialogo}"  styleClass="ui-button-raised"
+                                     action="#{medicamentoBean.gestionarMedicamento}" update="@form, crud-medicamento:lista-medicamentos" />
+                    <p:growl for="mensaje_bean" showDetail="true"/>
+                </h:form>
+
+            </p:dialog>
+        </div>
+
+    </ui:define>
+
+</ui:composition>
+</html>

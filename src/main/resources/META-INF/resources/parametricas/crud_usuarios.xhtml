@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/WEB-INF/template.xhtml">
+    <ui:define name="content">
+
+        <div class="content-body">
+            <h2>Gestión de usuarios</h2>
+            <h:form id="crud-usuario">
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="Agregar" icon="pi pi-plus"
+                                         styleClass="ui-button-raised ui-button-success me-3"
+                                         oncomplete="PF('crear-usuario').show()"
+                                         action="#{usuarioBean.dialogoSeleccionUsuario(null)}"
+                                         update="dialogo-gestion-usuario"/>
+
+                        <p:commandButton id="btn-borrar" value="#{usuarioBean.mensajeEliminar} " icon="pi pi-trash"
+                                         styleClass="ui-button-raised ui-button-danger"
+                                         disabled="#{usuarioBean.usuariosSeleccionados.size() == 0}"
+                                         onclick="PF('confirmDialog').show()"  update="crud-usuario:lista-usuarios, @this"/>
+
+                        <p:confirmDialog widgetVar="confirmDialog" responsive="true"
+                                         hideEffect="fade" showEffect="fade"
+                                         header="Eliminar Usuario"
+                                         message="¿Eliminar los usuarios seleccionados?">
+                            <p:commandButton value="Sí" icon="pi pi-check" iconPos="left"
+                                             styleClass="ui-button-raised ui-button-danger"
+                                             oncomplete="PF('confirmDialog').hide()"
+                                             action="#{usuarioBean.eliminarUsuarios}"
+                                             update="crud-usuario:lista-usuarios, @this crud-usuario:btn-borrar"/>
+                            <p:commandButton value="No" icon="pi pi-times"
+                                             styleClass="ui-button-raised ui-button-primary"
+                                             onclick="PF('confirmDialog').hide()"
+                                             type="button" />
+                        </p:confirmDialog>
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+                <p:dataTable id="lista-usuarios" widgetVar="listaUsuarios" value="#{usuarioBean.usuarios}"
+                             var="usuario" rowKey="#{usuario.cedula}" reflow="true"
+                             paginator="true" rows="10" paginatorPosition="bottom"
+                             selection="#{usuarioBean.usuariosSeleccionados}" rowSelectMode="add">
+
+                    <f:facet name="header">
+                        <div class="products-table-header">
+                            <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"/>
+                        <p:inputText id="globalFilter" onkeyup="PF('listaUsuarios').filter()" placeholder="Busca un usuario"
+                                     style="width: 500px"/>
+                    </span>
+                        </div>
+                    </f:facet>
+
+                    <p:column selectionMode="multiple" exportable="false" width="40"/>
+
+                    <p:ajax event="rowSelect" update="crud-usuario:btn-borrar"/>
+                    <p:ajax event="rowUnselect" update="crud-usuario:btn-borrar"/>
+                    <p:ajax event="rowSelectCheckbox" update="crud-usuario:btn-borrar"/>
+                    <p:ajax event="rowUnselectCheckbox" update="crud-usuario:btn-borrar"/>
+                    <p:ajax event="toggleSelect" update="crud-usuario:btn-borrar"/>
+
+                    <p:column headerText="Cédula" sortBy="#{usuario.cedula}" filterBy="#{usuario.cedula}" filterMatchMode="contains" styleClass="no-filter">
+                        <h:outputText value="#{usuario.cedula}"/>
+                    </p:column>
+
+                    <p:column headerText="Nombre" sortBy="#{usuario.nombre}" filterBy="#{usuario.nombre}" filterMatchMode="contains" styleClass="no-filter">
+                        <h:outputText value="#{usuario.nombre}"/>
+                    </p:column>
+
+                    <p:column headerText="Apellido"  sortBy="#{usuario.apellido}" filterBy="#{usuario.apellido}" filterMatchMode="contains" styleClass="no-filter" width="150">
+                        <h:outputText value="#{usuario.apellido}"/>
+                    </p:column>
+
+                    <p:column headerText="Correo Electrónico"  sortBy="#{usuario.email}" filterBy="#{usuario.email}"
+                              filterMatchMode="contains" styleClass="no-filter">
+                        <h:outputText value="#{usuario.email}"/>
+                    </p:column>
+
+                    <p:column headerText="Teléfono" sortBy="#{usuario.telefono}" filterBy="#{usuario.telefono}" filterMatchMode="contains" styleClass="no-filter">
+                        <h:outputText value="#{usuario.telefono}"/>
+                    </p:column>
+
+                    <p:column headerText="" width="40">
+                        <p:commandButton icon="pi pi-pencil" styleClass="edit-button rounded-button ui-button-secondary"
+                                         action="#{usuarioBean.dialogoSeleccionUsuario(usuario)}"
+                                         oncomplete="PF('crear-usuario').show()"
+                                         update="dialogo-gestion-usuario"/>
+                    </p:column>
+                </p:dataTable>
+
+            </h:form>
+
+
+        <p:dialog id="dialogo-gestion-usuario" header="#{usuarioBean.textoDialogo}" widgetVar="crear-usuario"
+                  modal="true" showEffect="fade">
+
+        <h:form>
+            <h:panelGrid columns="3" cellpadding="5">
+
+                <p:outputLabel for="cedula" value="Cédula: " />
+                <p:inputText id="cedula" value="#{usuarioBean.usuario.cedula}" required="true" />
+                <p:message for="cedula"/>
+
+                <p:outputLabel for="nombre" value="Nombre: " />
+                <p:inputText id="nombre" value="#{usuarioBean.usuario.nombre}" required="true" />
+                <p:message for="nombre"/>
+
+                <p:outputLabel for="apellido" value="Apellido: " />
+                <p:inputText id="apellido" value="#{usuarioBean.usuario.apellido}" required="true" />
+                <p:message for="apellido"/>
+
+                <p:outputLabel for="correo" value="Correo electrónico: " />
+                <p:inputText id="correo" value="#{usuarioBean.usuario.email}" required="true" />
+                <p:message for="correo"/>
+
+                <p:outputLabel for="contrasena" value="Contraseña: " />
+                <p:password id="contrasena" value="#{usuarioBean.usuario.contrasena}" toggleMask="true"  required="true" />
+                <p:message for="contrasena"/>
+
+                <p:outputLabel for="contrasena_confir" value="Confirmar contraseña: " />
+                <p:password id="contrasena_confir" value="#{usuarioBean.confirmarContrasena}" toggleMask="true" required="true" />
+                <p:message for="contrasena_confir"/>
+
+            </h:panelGrid>
+
+            <p:commandButton value="#{usuarioBean.textoDialogo}"  styleClass="ui-button-raised"
+                             action="#{usuarioBean.gestionUsuario}" update="@form, crud-usuario:lista-usuarios" />
+            <p:growl for="mensaje_bean" showDetail="true"/>
+        </h:form>
+    </p:dialog>
+    </div>
+
+
+    </ui:define>
+</ui:composition>
+</html>
+
