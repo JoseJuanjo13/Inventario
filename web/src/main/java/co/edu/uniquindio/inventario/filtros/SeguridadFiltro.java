@@ -19,7 +19,7 @@ public class SeguridadFiltro implements Filter {
             final HttpServletResponse response = (HttpServletResponse) servletResponse;
             final String requestURI = request.getRequestURI();
             //Aplicar el filtro a esta carpeta
-            if (requestURI.startsWith("/administracion/")) {
+            if (requestURI.startsWith("/dispensacion/") || requestURI.startsWith("/parametricas/") ) {
                 //Obtenemos el objeto seguridadBean de la sesión actual
                 SeguridadBean userManager = (SeguridadBean) request.getSession().getAttribute("seguridadBean");
                 if (userManager != null) {

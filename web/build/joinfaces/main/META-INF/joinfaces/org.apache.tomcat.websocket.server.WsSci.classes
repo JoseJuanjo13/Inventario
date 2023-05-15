@@ -1,0 +1,4 @@
+com.sun.faces.push.WebsocketEndpoint
+org.apache.tomcat.websocket.pojo.PojoEndpointBase
+org.apache.tomcat.websocket.pojo.PojoEndpointClient
+org.apache.tomcat.websocket.pojo.PojoEndpointServer
