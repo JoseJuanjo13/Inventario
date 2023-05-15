@@ -57,7 +57,9 @@ DetalleOrdenCompra implements Serializable {
     @OneToMany(mappedBy = "detalleOrdenCompra")
     private List<Historial> historialdetalleOrdenCompra;
 
-    // Contructor vacio para la implementación al momento de crear un detalle.
+    /**
+     * Contructor vacio para la implementación al momento de crear un detalle.
+     */
     public DetalleOrdenCompra() {}
 
 }
