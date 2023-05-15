@@ -14,7 +14,8 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-public class DetalleOrdenCompra implements Serializable {
+public class
+DetalleOrdenCompra implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,6 +57,7 @@ public class DetalleOrdenCompra implements Serializable {
     @OneToMany(mappedBy = "detalleOrdenCompra")
     private List<Historial> historialdetalleOrdenCompra;
 
+    // Contructor vacio para la implementación al momento de crear un detalle.
     public DetalleOrdenCompra() {}
 
 }
