@@ -3,9 +3,14 @@ plugins {
     id 'org.joinfaces' version '4.7.3'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'jacoco'
 }
 plugins {
     id "org.sonarqube" version "3.5.0.2730"
+}
+
+jacoco {
+    toolVersion = '0.8.7'
 }
 
 sonarqube {
@@ -13,6 +18,7 @@ sonarqube {
         property "sonar.projectKey", "JoseJuanjo13_Inventario"
         property "sonar.organization", "josejuanjo13"
         property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
     }
 }
 
@@ -40,4 +46,32 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.primefaces:primefaces:11.0.0'
     runtimeOnly 'mysql:mysql-connector-java'
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml {
+            enabled true
+        }
+        html {
+            enabled true
+        }
+    }
+    finalizedBy jacocoTestCoverageVerification
+}
+jacocoTestCoverageVerification {   //Verifies the code coverage rule if enabled.
+    violationRules {
+        rule {
+            enabled = true
+            limit {
+                minimum = 0.25
+            }
+        }
+    }
 }
