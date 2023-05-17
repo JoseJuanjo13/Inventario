@@ -34,7 +34,7 @@ public class PruebasTest {
     }
 
     @Test
-    @Sql("classpath:dataset.sql")
+    //@Sql("classpath:dataset.sql")
     public void eliminar(){
 
     }
