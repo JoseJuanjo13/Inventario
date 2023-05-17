@@ -1,0 +1,61 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 16%;
+    background: #ecf0f3;
+    padding: 12px;
+    box-shadow: -3px -3px 7px #ffffff, 3px 3px 5px #ceced1;
+    transition: 0.4s;
+    /* margin-left: -300px; */
+}
+
+ .title {
+    font-size: 1.95em;
+     font-weight: 600;
+    color: #31344b;
+     position: initial;
+
+}
+
+.button-link {
+    font-size: 1.25em;
+    font-weight: 600;
+    text-decoration: none;
+    display: block;
+    border-radius: 6px;
+
+}
+
+.nav-link {
+    font-size: 1.15em ;
+}
+
+.button-link:active,
+.button-link:focus,
+.button-link:hover {
+    background-color: darkgray;
+}
+
+.nav-link:active,
+.nav-link:focus,
+.nav-link:hover {
+    background-color: lightgray;
+}
+
+.navbar li {
+    color: green;
+    display: block;
+    font-size: 16px;
+}
+
+.navbar ul a {
+    color: #31344b;
+    font-weight: 400;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    border-radius: 6px;
+}
+

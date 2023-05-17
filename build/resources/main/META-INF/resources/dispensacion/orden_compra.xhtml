@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/WEB-INF/template.xhtml">
+    <ui:define name="content">
+
+        <div class="content-body">
+            <h2>Ordenes de compra</h2>
+            <h:form id="crud-orden-compra">
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="Agregar" icon="pi pi-plus"
+                                         styleClass="ui-button-raised ui-button-success me-3"
+                                         oncomplete="PF('crear-orden-compra').show()"
+                                         action="#{ordenCompraBean.dialogoSeleccionOrdenCompra(null)}"
+                                         update="dialogo-gestion-orden-compra"/>
+
+                        <p:commandButton id="btn-borrar" value="#{ordenCompraBean.mensajeEliminar} " icon="pi pi-trash"
+                                         styleClass="ui-button-raised ui-button-danger"
+                                         disabled="#{ordenCompraBean.ordenesComprasSeleccionadas.size() == 0}"
+                                         onclick="PF('confirmDialog').show()"  update="crud-orden-compra:lista-ordenes-compras, @this"/>
+
+                        <p:confirmDialog widgetVar="confirmDialog" responsive="true"
+                                         hideEffect="fade" showEffect="fade"
+                                         header="Eliminar Orden Compra"
+                                         message="¿Eliminar las ordenes de compras seleccionadas?">
+                            <p:commandButton value="Sí" icon="pi pi-check" iconPos="left"
+                                             styleClass="ui-button-raised ui-button-danger"
+                                             oncomplete="PF('confirmDialog').hide()"
+                                             action="#{ordenCompraBean.eliminarOrdenesCompras()}"
+                                             update="crud-orden-compra:lista-ordenes-compras, @this crud-orden-compra:btn-borrar"/>
+                            <p:commandButton value="No" icon="pi pi-times"
+                                             styleClass="ui-button-raised ui-button-primary"
+                                             onclick="PF('confirmDialog').hide()"
+                                             type="button" />
+                        </p:confirmDialog>
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+                <p:dataTable id="lista-ordenes-compras" widgetVar="listaOrdenesCompras" value="#{ordenCompraBean.ordenesCompras}"
+                             var="ordenCompra" rowKey="#{ordenCompra.idCompra}" reflow="true"
+                             paginator="true" rows="10" paginatorPosition="bottom"
+                             selection="#{ordenCompraBean.ordenesComprasSeleccionadas}" rowSelectMode="add">
+
+                    <f:facet name="header">
+                        <div class="products-table-header">
+                            <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"/>
+                        <p:inputText id="globalFilter" onkeyup="PF('listaOrdenesCompras').filter()" placeholder="Busca una orden de compra" style="width: 500px"/>
+                            </span>
+                        </div>
+
+                        <div class="button-columns">
+                            <p:commandButton id="toggler" type="button" value="Columnas" icon="pi pi-align-justify"/>
+                            <p:columnToggler datasource="lista-ordenes-compras" trigger="toggler">
+                                <p:ajax />
+                            </p:columnToggler>
+                        </div>
+                    </f:facet>
+
+                    <p:column selectionMode="multiple" exportable="false" width="40"/>
+
+                    <p:ajax event="rowSelect" update="crud-orden-compra:btn-borrar"/>
+                    <p:ajax event="rowUnselect" update="crud-orden-compra:btn-borrar"/>
+                    <p:ajax event="rowSelectCheckbox" update="crud-orden-compra:btn-borrar"/>
+                    <p:ajax event="rowUnselectCheckbox" update="crud-orden-compra:btn-borrar"/>
+                    <p:ajax event="toggleSelect" update="crud-orden-compra:btn-borrar"/>
+
+                    <p:column headerText="Fecha creación"  sortBy="#{ordenCompra.fecha}" filterBy="#{ordenCompra.fecha}" filterMatchMode="contains" styleClass="no-filter" width="150">
+                        <h:outputText value="#{ordenCompra.fecha}"/>
+                    </p:column>
+
+                    <p:column headerText="Número de autorización" sortBy="#{ordenCompra.numeroAutorizacion}" filterBy="#{ordenCompra.numeroAutorizacion}" filterMatchMode="contains" styleClass="no-filter">
+                        <h:outputText value="#{ordenCompra.numeroAutorizacion}"/>
+                    </p:column>
+
+                    <p:column headerText="Fecha autorización"  sortBy="#{ordenCompra.fechaAutorizacion}" filterBy="#{ordenCompra.fechaAutorizacion}" filterMatchMode="contains" styleClass="no-filter" width="150">
+                        <h:outputText value="#{ordenCompra.fechaAutorizacion}"/>
+                    </p:column>
+
+                    <p:column headerText="Estado" sortBy="#{ordenCompra.estado}" filterBy="#{ordenCompra.estado}" filterMatchMode="contains" styleClass="no-filter">
+                        <h:outputText value="#{ordenCompra.estado}"/>
+                    </p:column>
+
+                    <p:column headerText="Proveedor"  sortBy="#{ordenCompra.proveedor.nombre}" filterBy="#{ordenCompra.proveedor.nombre}"
+                              filterMatchMode="contains" styleClass="no-filter">
+                        <h:outputText value="#{ordenCompra.proveedor.nombre}"/>
+                    </p:column>
+
+                    <p:column headerText="Bodega"  sortBy="#{ordenCompra.bodega.nombre}" filterBy="#{ordenCompra.bodega.nombre}"
+                              filterMatchMode="contains" styleClass="no-filter">
+                        <h:outputText value="#{ordenCompra.bodega.nombre}"/>
+                    </p:column>
+
+                    <p:column headerText="Total"  sortBy="#{ordenCompra.total}" filterBy="#{ordenCompra.total}"
+                              filterMatchMode="contains" styleClass="no-filter">
+                        <h:outputText value="#{ordenCompra.total}"/>
+                    </p:column>
+
+                    <p:column headerText="Acciones" width="120" styleClass="flex flex-column-reverse align-content-start">
+                        <p:commandButton id="editar" icon="pi pi-pencil" styleClass="ui-button-raised ui-button-secondary ui-button-flat"
+                                         action="#{ordenCompraBean.dialogoSeleccionOrdenCompra(ordenCompra)}"
+                                         oncomplete="PF('crear-orden-compra').show()"
+                                         update="dialogo-gestion-orden-compra"/>
+                        <p:tooltip for="editar" value="Editar" showEffect="clip" hideEffect="fold"/>
+                        <p:commandButton id="agregar-detalle" icon="pi pi-plus" styleClass="ui-button-raised ui-button-text-icon-primary ui-button-flat"
+                                         action="#{ordenCompraBean.navegarListaDetalleCompra(ordenCompra.idCompra)}"
+                                         actionListener="#{detalleOrdenCompraBean.dialogoSeleccionDetalleOrdenCompra(detalle)}"/>
+                        <p:tooltip for="agregar-detalle" value="Agregar detalle" showEffect="clip" hideEffect="fold"/>
+
+                        <p:growl id="message" showDetail="true"/>
+                        <p:commandButton id="realizar-compra" icon="pi pi-check" styleClass="ui-button-raised ui-button-success ui-button-flat"
+                                         onclick="PF('confirmCompra').show()"/>
+                        <p:tooltip for="realizar-compra" value="Realizar compra" showEffect="clip" hideEffect="fold"/>
+
+                        <p:confirmDialog widgetVar="confirmCompra" responsive="true"
+                                         hideEffect="fade" showEffect="fade" header="Realizar Compra"
+                                         message="¿Está seguro de realizar la compra?">
+                            <p:commandButton value="Sí" icon="pi pi-check" iconPos="left" action="#{ordenCompraBean.dialogoConfirmacionCompra}" update="message"
+                                             styleClass="ui-button-raised ui-button-success" oncomplete="PF('confirmCompra').hide()"/>
+                            <p:commandButton value="No" icon="pi pi-times" onclick="PF('confirmDialog').hide()"
+                                             type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                        </p:confirmDialog>
+
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+
+            <p:dialog id="dialogo-gestion-orden-compra" header="#{ordenCompraBean.textoDialogo}" widgetVar="crear-orden-compra"
+                      modal="true" showEffect="fade" closable="true">
+                <h:form>
+                    <h:panelGrid columns="3" cellpadding="5">
+
+                        <p:outputLabel for="numero-numero-autorizacion" value="Número de autorización: "/>
+                        <p:inputText id="numero-numero-autorizacion" value="#{ordenCompraBean.ordenCompra.numeroAutorizacion}" required="true"/>
+                        <p:message for="numero-numero-autorizacion"/>
+
+                        <p:outputLabel for="fecha-autorizacion" value="Fecha de autorización: " />
+                        <p:datePicker id="fecha-autorizacion" value="#{ordenCompraBean.ordenCompra.fechaAutorizacion}" required="true" monthNavigator="true" yearNavigator="true" showWeek="true" />
+                        <p:message for="fecha-autorizacion"/>
+
+                        <p:outputLabel for="proveedor" value="Proveedor: "/>
+                        <p:autoComplete id="proveedor" dropdown="true" value="#{ordenCompraBean.nombreProveedor}"  required="true"
+                                        completeMethod="#{ordenCompraBean.filtroProveedor}" scrollHeight="200"/>
+                        <p:message for="proveedor"/>
+
+                        <p:outputLabel for="bodega" value="Bodega: "/>
+                        <p:autoComplete id="bodega" dropdown="true" value="#{ordenCompraBean.nombreBodega}" required="true"
+                                        completeMethod="#{ordenCompraBean.filtroBodega}" scrollHeight="200"/>
+                        <p:message for="bodega"/>
+                    </h:panelGrid>
+
+                    <p:commandButton value="#{ordenCompraBean.textoDialogo}" styleClass="ui-button-raised"
+                                     action="#{ordenCompraBean.gestionarOrdenCompra}"
+                                     update="@form, crud-orden-compra:lista-ordenes-compras"/>
+                    <p:growl for="mensaje_bean" showDetail="true"/>
+                </h:form>
+            </p:dialog>
+        </div>
+
+    </ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Devolución de la compra</title>
+</h:head>
+<h:body >
+
+    <p:panel widgetVar="crear-detalle" modal="true" showEffect="fade" height="650px">
+
+        <h2>Detalle de la devolución de la compra</h2>
+        <h:form id="crud-detalle">
+
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton value="Agregar" icon="pi pi-plus" styleClass="ui-button-raised ui-button-success m-6" oncomplete="PF('crear-detalle').show()"
+                                     action="#{detalleDevolucionCompraBean.dialogoSeleccionDetalleDevolucionCompra(null)}" update="dialogo-gestion-detalle"/>
+                    <p:separator style="width: 12px; color: transparent; border: none" />
+                    <p:commandButton id="btn-borrar-detalle" value="#{detalleDevolucionCompraBean.mensajeEliminar} " icon="pi pi-trash" styleClass="ui-button-raised ui-button-danger"
+                                     disabled="#{detalleDevolucionCompraBean.detalleDevolucionesSeleccionadas.size() == 0}"
+                                     onclick="PF('confirmDialog').show()"  update="crud-detalle:lista-detalles, @this"/>
+
+                    <p:confirmDialog widgetVar="confirmDialog" responsive="true"
+                                     hideEffect="fade" showEffect="fade"
+                                     header="Eliminar el detalle"
+                                     message="¿Eliminar los detalles de la devolución seleccionados?">
+                        <p:commandButton value="Sí" icon="pi pi-check" iconPos="left"
+                                         styleClass="ui-button-raised ui-button-danger"
+                                         oncomplete="PF('confirmDialog').hide()"
+                                         action="#{detalleDevolucionCompraBean.eliminarDetallesDevolucion}"
+                                         update="crud-detalle:lista-detalles, @this crud-detalle:btn-borrar-detalle"/>
+                        <p:commandButton value="No" icon="pi pi-times"
+                                         styleClass="ui-button-raised ui-button-primary"
+                                         onclick="PF('confirmDialog').hide()"
+                                         type="button" />
+                    </p:confirmDialog>
+
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <p:dataTable id="lista-detalles" widgetVar="listaDetalles" value="#{detalleDevolucionCompraBean.detalleDevolucionesCompras}"
+                         var="detalle" rowKey="#{detalle.idDetalleDevolucionCompra}" scrollable="true"
+                         paginator="true" rows="10" paginatorPosition="bottom"
+                         selection="#{detalleDevolucionCompraBean.detalleDevolucionesSeleccionadas}" rowSelectMode="add">
+
+                <p:column selectionMode="multiple" width="40"/>
+
+                <p:ajax event="rowSelect" update="crud-detalle:btn-borrar-detalle" />
+                <p:ajax event="rowUnselect" update="crud-detalle:btn-borrar-detalle" />
+                <p:ajax event="rowSelectCheckbox" update="crud-detalle:btn-borrar-detalle" />
+                <p:ajax event="rowUnselectCheckbox" update="crud-detalle:btn-borrar-detalle" />
+                <p:ajax event="toggleSelect" update="crud-detalle:btn-borrar-detalle" />
+
+                <p:column headerText="Tipo actividad" sortBy="#{detalle.tipoActividad}">
+                    <h:outputText value="#{detalle.tipoActividad}"/>
+                </p:column>
+
+                <p:column headerText="Fecha vencimiento" sortBy="#{detalle.fechaVencimiento}">
+                    <h:outputText value="#{detalle.fechaVencimiento}"/>
+                </p:column>
+
+                <p:column headerText="Cantidad" sortBy="#{detalle.cantidad}" >
+                    <h:outputText value="#{detalle.cantidad}"/>
+                </p:column>
+
+                <p:column headerText="Valor Unitario" sortBy="#{detalle.valorUnitario}" >
+                    <h:outputText value="#{detalle.valorUnitario}"/>
+                </p:column>
+
+                <p:column headerText="Subtotal" sortBy="#{detalle.subtotal}" >
+                    <h:outputText value="#{detalle.subtotal}"/>
+                </p:column>
+
+                <p:column headerText="Medicamento" sortBy="#{detalle.medicamento.principioActivo}">
+                    <h:outputText value="#{detalle.medicamento.principioActivo}"/>
+                </p:column>
+
+                <p:column headerText="Insumo" sortBy="#{detalle.insumo.nombre}">
+                    <h:outputText value="#{detalle.insumo.nombre}"/>
+                </p:column>
+
+                <p:column headerText="Editar" width="50">
+                    <p:commandButton icon="pi pi-pencil" styleClass="edit-button rounded-button ui-button-secondary"
+                                     action="#{detalleDevolucionCompraBean.dialogoSeleccionDetalleDevolucionCompra(detalle)}" oncomplete="PF('crear-detalle').show()"
+                                     update="dialogo-gestion-detalle" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </p:panel>
+
+    <p:dialog id="dialogo-gestion-detalle" header="#{detalleDevolucionCompraBean.textoDialogo}" widgetVar="crear-detalle"
+              modal="true" showEffect="fade" style="margin-bottom: 20px" closable="true" >
+
+        <h:form>
+            <h:panelGrid columns="3" cellpadding="5">
+
+                <p:outputLabel for="tipo-actividad" value="Tipo de actividad: "/>
+                <p:selectOneMenu id="tipo-actividad" value="#{detalleDevolucionCompraBean.detalleDevolucionCompra.tipoActividad}" required="true" style="width: 195px">
+                    <f:selectItems value="#{detalleDevolucionCompraBean.tiposActividad}"/>
+                    <p:ajax update="medicamento, insumo" listener="#{detalleDevolucionCompraBean.habilitarOpcion}" />
+                </p:selectOneMenu>
+                <p:message for="tipo-actividad"/>
+
+                <p:outputLabel for="fecha-vencimiento" value="Fecha de vencimiento: " />
+                <p:datePicker id="fecha-vencimiento" value="#{detalleDevolucionCompraBean.detalleDevolucionCompra.fechaVencimiento}" required="true" monthNavigator="true" yearNavigator="true" showWeek="true" />
+                <p:message for="fecha-vencimiento"/>
+
+                <p:outputLabel for="medicamento" value="Medicamento: "/>
+                <p:selectOneMenu id="medicamento" value="#{detalleDevolucionCompraBean.medicamento.principioActivo}"
+                                 required="#{detalleDevolucionCompraBean.habButtonMedicamento}" disabled="#{detalleDevolucionCompraBean.habButtonMedicamento}" style="width: 195px">
+                    <f:selectItem itemLabel="Selecciona uno" itemValue=""/>
+                    <f:selectItems value="#{detalleDevolucionCompraBean.medicamentos}"/>
+                </p:selectOneMenu>
+                <p:message for="medicamento"/>
+
+                <p:outputLabel for="insumo" value="Insumo: "/>
+                <p:selectOneMenu id="insumo" value="#{detalleDevolucionCompraBean.insumo.nombre}" required="#{detalleDevolucionCompraBean.habButtonInsumo}"
+                                 disabled="#{detalleDevolucionCompraBean.habButtonInsumo}" style="width: 195px">
+                    <f:selectItem itemLabel="Selecciona uno" noSelectionOption="true" itemValue=""/>
+                    <f:selectItems value="#{detalleDevolucionCompraBean.insumos}"/>
+                </p:selectOneMenu>
+                <p:message for="insumo"/>
+
+                <p:outputLabel for="cantidad" value="Cantidad: " />
+                <p:inputNumber id="cantidad" value="#{detalleDevolucionCompraBean.detalleDevolucionCompra.cantidad}" required="true" minValue="0" decimalPlaces="0" />
+                <p:message for="cantidad"/>
+
+                <p:outputLabel for="valor-unitario" value="Valor unitario: " />
+                <p:inputNumber id="valor-unitario" value="#{detalleDevolucionCompraBean.detalleDevolucionCompra.valorUnitario}"
+                               required="true" minValue="0" symbol="$" decimalSeparator="," thousandSeparator="."/>
+                <p:message for="valor-unitario"/>
+
+            </h:panelGrid>
+
+            <p:commandButton value="#{detalleDevolucionCompraBean.textoDialogo}"  styleClass="ui-button-raised"
+                             action="#{detalleDevolucionCompraBean.gestionarDetalleDevolucionCompra}" update="@form, crud-detalle:lista-detalles" />
+            <p:growl for="mensaje_bean" showDetail="true"/>
+        </h:form>
+
+    </p:dialog>
+
+</h:body>
+</html>

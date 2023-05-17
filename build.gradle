@@ -2,7 +2,22 @@ plugins {
     id 'org.springframework.boot' version '2.7.3'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id "org.sonarqube" version "3.5.0.2730"
+    id 'jacoco'
 }
+
+jacoco{
+    toolVersion = '0.8.7'
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "JoseJuanjo13_Inventario"
+        property "sonar.organization", "josejuanjo13"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
+}
+
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
@@ -33,4 +48,32 @@ test {
 
 dependencies {
     implementation 'org.primefaces:primefaces:11.0.0'
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml {
+            enabled true
+        }
+        html {
+            enabled true
+        }
+    }
+    finalizedBy jacocoTestCoverageVerification
+}
+jacocoTestCoverageVerification {   //Verifies the code coverage rule if enabled.
+    violationRules {
+        rule {
+            enabled = true
+            limit {
+                minimum = 0.25
+            }
+        }
+    }
 }
