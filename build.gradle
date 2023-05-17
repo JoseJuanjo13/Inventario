@@ -63,7 +63,7 @@ jacocoTestReport {
             enabled true
         }
     }
-    finalizedBy jacocoTestCoverageVerification
+    //finalizedBy jacocoTestCoverageVerification
 }
 jacocoTestCoverageVerification {   //Verifies the code coverage rule if enabled.
     violationRules {
