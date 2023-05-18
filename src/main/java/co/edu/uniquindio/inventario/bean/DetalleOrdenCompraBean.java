@@ -4,6 +4,8 @@ import co.edu.uniquindio.inventario.entidades.DetalleOrdenCompra;
 import co.edu.uniquindio.inventario.entidades.Insumo;
 import co.edu.uniquindio.inventario.entidades.Medicamento;
 import co.edu.uniquindio.inventario.entidades.OrdenCompra;
+import co.edu.uniquindio.inventario.excepciones.EliminarDetalleCompraException;
+import co.edu.uniquindio.inventario.filtros.SeguridadFiltro;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +20,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Component
 @SessionScope
@@ -144,8 +147,6 @@ public class DetalleOrdenCompraBean implements Serializable {
                 FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
             }
         } catch (Exception e) {
-            System.out.println(e);
-            System.out.println(detalleOrdenCompra);
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Detalle Orden de compra", e.getMessage());
             FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
         }
@@ -196,7 +197,7 @@ public class DetalleOrdenCompraBean implements Serializable {
                 usuarioServicio.eliminarOrdenCompra(dc);
                 detallesCompra.remove(dc);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                throw new EliminarDetalleCompraException(e.getMessage());
             }
         });
         detallesCompraSeleccionados.clear();

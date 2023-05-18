@@ -1,6 +1,7 @@
 package co.edu.uniquindio.inventario.bean;
 
 import co.edu.uniquindio.inventario.entidades.Bodega;
+import co.edu.uniquindio.inventario.excepciones.EliminarBodegaException;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
 import lombok.Getter;
 import lombok.Setter;
@@ -71,7 +72,7 @@ public class BodegaBean implements Serializable {
                 usuarioServicio.eliminarBodega(b);
                 bodegas.remove(b);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                throw new EliminarBodegaException(e.getMessage());
             }
         });
         bodegasSeleccionadas.clear();

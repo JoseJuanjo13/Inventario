@@ -1,6 +1,7 @@
 package co.edu.uniquindio.inventario.bean;
 
 import co.edu.uniquindio.inventario.entidades.*;
+import co.edu.uniquindio.inventario.excepciones.EliminarDetalleDevolucionException;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
 import lombok.Getter;
 import lombok.Setter;
@@ -187,7 +188,7 @@ public class DetalleDevolucionCompraBean implements Serializable {
                 usuarioServicio.eliminarDetalleDevolucionCompra(dc);
                 detalleDevolucionesCompras.remove(dc);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                throw new EliminarDetalleDevolucionException(e.getMessage());
             }
         });
         detalleDevolucionesSeleccionadas.clear();
@@ -234,9 +235,6 @@ public class DetalleDevolucionCompraBean implements Serializable {
     private void getTotalDetallesDevolucion() {
         List<DetalleDevolucionCompra> detalles = usuarioServicio.listarDetallesDevolucionesCompra(idDevolucionCompra);
         double total = detalles.stream().mapToDouble(DetalleDevolucionCompra::getSubtotal).sum();
-
-       /* DevolucionCompra devolucionCompra = buscarDevolucionCompra(idDevolucionCompra);
-        devolucionCompra.setT(total);*/
     }
 
     public void habilitarOpcion() {
