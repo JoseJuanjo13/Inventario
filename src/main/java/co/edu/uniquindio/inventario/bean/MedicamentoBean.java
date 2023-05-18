@@ -1,6 +1,5 @@
 package co.edu.uniquindio.inventario.bean;
 
-import co.edu.uniquindio.inventario.entidades.Bodega;
 import co.edu.uniquindio.inventario.entidades.Medicamento;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
 import lombok.Getter;
@@ -13,7 +12,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 

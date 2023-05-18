@@ -2,9 +2,10 @@ package co.edu.uniquindio.inventario.servicios;
 
 import co.edu.uniquindio.inventario.entidades.*;
 
+import java.io.Serializable;
 import java.util.List;
 
-public interface UsuarioServicio {
+public interface UsuarioServicio extends Serializable {
 
     Usuario login(String email, String contrasena) throws Exception;
 
