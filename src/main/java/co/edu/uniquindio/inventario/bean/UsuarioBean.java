@@ -1,6 +1,5 @@
 package co.edu.uniquindio.inventario.bean;
 
-import co.edu.uniquindio.inventario.entidades.Insumo;
 import co.edu.uniquindio.inventario.entidades.Usuario;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
 import lombok.Getter;

@@ -1,5 +1,6 @@
 package co.edu.uniquindio.inventario.bean;
 
+import co.edu.uniquindio.inventario.Excepciones.BodegaNoRegistradaException;
 import co.edu.uniquindio.inventario.entidades.Bodega;
 import co.edu.uniquindio.inventario.entidades.DetalleOrdenCompra;
 import co.edu.uniquindio.inventario.entidades.OrdenCompra;
@@ -122,7 +123,7 @@ public class OrdenCompraBean implements Serializable {
         return busqueda.get();
     }
 
-    private Bodega validarBodega(String nombreBodega) throws Exception {
+    private Bodega validarBodega(String nombreBodega) {
         List<Bodega> listaBodegas = usuarioServicio.listarBodegas();
         AtomicReference<Bodega> busqueda = new AtomicReference<>(new Bodega());
         listaBodegas.forEach(bodega -> {
@@ -131,7 +132,7 @@ public class OrdenCompraBean implements Serializable {
             }
         });
         if(busqueda.get().getIdBodega() == null) {
-            throw new Exception("La bodega no se encuentra registrada.");
+            throw new BodegaNoRegistradaException ("La bodega no se encuentra registrada.");
         }
         return busqueda.get();
     }

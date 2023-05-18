@@ -25,7 +25,7 @@ public class PruebasTest {
     private DetalleOrdenCompraRepo detalleOrdenCompraRepo;
 
     @Test
-    public void registrar(){
+    void registrar(){
         ArrayList<String> tel = new ArrayList<>();
         tel.add("3137708899");
         Bodega bodega = new Bodega("Bodega 1", "Bod1", "Centro", tel, "Activo");
@@ -35,12 +35,12 @@ public class PruebasTest {
 
     @Test
     //@Sql("classpath:dataset.sql")
-    public void eliminar(){
+    void eliminar(){
 
     }
 
     @Test
-    public void pruebaConsulta(){
+    void pruebaConsulta(){
         List<DetalleOrdenCompra> detalles = detalleOrdenCompraRepo.detallesCompra(2);
         for (DetalleOrdenCompra detalle : detalles) {
             System.out.println(detalle);
