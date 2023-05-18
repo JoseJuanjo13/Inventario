@@ -6,8 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.io.Serializable;
+
 @Repository
-public interface UsuarioRepo extends JpaRepository<Usuario, String> {
+public interface UsuarioRepo extends JpaRepository<Usuario, String>, Serializable {
 
     @Query("select u from Usuario u where u.email = :email and u.contrasena = :contrasena")
     Usuario comprobarUsuario(String email, String contrasena);

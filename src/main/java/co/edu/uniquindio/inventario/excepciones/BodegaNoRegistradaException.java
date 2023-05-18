@@ -1,4 +1,4 @@
-package co.edu.uniquindio.inventario.Excepciones;
+package co.edu.uniquindio.inventario.excepciones;
 
 public class BodegaNoRegistradaException extends RuntimeException {
     public BodegaNoRegistradaException(String mensaje) {

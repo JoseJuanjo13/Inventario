@@ -7,9 +7,12 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 @Component
 public class SeguridadFiltro implements Filter {
+
+    private static final Logger logger = Logger.getLogger(SeguridadFiltro.class.getName());
     public static final String PAGINA_INICIO = "/index.xhtml";
 
     @Override
@@ -39,7 +42,7 @@ public class SeguridadFiltro implements Filter {
                 filterChain.doFilter(servletRequest, servletResponse);
             }
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            logger.severe("Ocurrió una excepción: " + e.getMessage());
         }
     }
 }

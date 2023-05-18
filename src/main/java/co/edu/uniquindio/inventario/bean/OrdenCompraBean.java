@@ -1,10 +1,11 @@
 package co.edu.uniquindio.inventario.bean;
 
-import co.edu.uniquindio.inventario.Excepciones.BodegaNoRegistradaException;
+import co.edu.uniquindio.inventario.excepciones.BodegaNoRegistradaException;
 import co.edu.uniquindio.inventario.entidades.Bodega;
 import co.edu.uniquindio.inventario.entidades.DetalleOrdenCompra;
 import co.edu.uniquindio.inventario.entidades.OrdenCompra;
 import co.edu.uniquindio.inventario.entidades.Proveedor;
+import co.edu.uniquindio.inventario.excepciones.ProveedorNoRegistradoException;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
 import lombok.Getter;
 import lombok.Setter;
@@ -108,7 +109,7 @@ public class OrdenCompraBean implements Serializable {
         }
     }
 
-    private Proveedor validarProveedor(String nombreProveedor) throws Exception {
+    private Proveedor validarProveedor(String nombreProveedor) {
         List<Proveedor> listaProveedores = usuarioServicio.listarProveedores();
         AtomicReference<Proveedor> busqueda = new AtomicReference<>(new Proveedor());
 
@@ -118,7 +119,7 @@ public class OrdenCompraBean implements Serializable {
             }
         });
         if(busqueda.get().getNumeroIdentificacion() == null) {
-            throw new Exception("El proveedor no se encuentra registrado.");
+            throw new ProveedorNoRegistradoException("El proveedor no se encuentra registrado.");
         }
         return busqueda.get();
     }
