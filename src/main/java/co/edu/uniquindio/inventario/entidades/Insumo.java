@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import net.bytebuddy.asm.Advice;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -52,7 +53,7 @@ public class Insumo implements Serializable {
     @ToString.Exclude
     @OneToMany(mappedBy = "insumo")
     private List<DetalleOrdenCompra> detalleOrdenCompras;
-
-
-    public Insumo() {}
+    public Insumo() {
+        //
+    }
 }

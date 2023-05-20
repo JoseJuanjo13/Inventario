@@ -43,8 +43,7 @@ public class Usuario implements Serializable {
     @Length(max = 15)
     @Column(nullable = true)
     private String telefono;
-
     public Usuario() {
-
+        //
     }
 }

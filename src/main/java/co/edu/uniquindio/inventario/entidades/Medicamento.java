@@ -60,6 +60,8 @@ public class Medicamento implements Serializable {
     @OneToMany(mappedBy = "medicamento")
     private List<DetalleOrdenCompra> detalleOrdenCompras;
 
-    public Medicamento() {}
+    public Medicamento() {
+        //
+    }
 
 }
