@@ -34,6 +34,9 @@ public class BodegaBean implements Serializable {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
+    String GESTION_BODEGA = "Gestión Bodega";
+    String MENSAJE_BEAN = "mensaje_bean";
+
     @PostConstruct
     public void init() {
         bodega = new Bodega();
@@ -50,18 +53,18 @@ public class BodegaBean implements Serializable {
 
                 bodega = new Bodega();
 
-                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Gestión Bodega", "¡Se ha registrado la bodega con éxito!");
-                FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, GESTION_BODEGA, "¡Se ha registrado la bodega con éxito!");
+                FacesContext.getCurrentInstance().addMessage(MENSAJE_BEAN, fm);
             } else {
                 usuarioServicio.actualizarBodega(bodega);
 
-                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Gestión Bodega", "¡Se ha actualizado la bodega con éxito!");
-                FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, GESTION_BODEGA, "¡Se ha actualizado la bodega con éxito!");
+                FacesContext.getCurrentInstance().addMessage(MENSAJE_BEAN, fm);
             }
 
         } catch (Exception e) {
-            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Gestión Bodega", e.getMessage());
-            FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, GESTION_BODEGA, e.getMessage());
+            FacesContext.getCurrentInstance().addMessage(MENSAJE_BEAN, fm);
         }
 
     }

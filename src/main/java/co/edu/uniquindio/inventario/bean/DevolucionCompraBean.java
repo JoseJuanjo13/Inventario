@@ -3,6 +3,8 @@ package co.edu.uniquindio.inventario.bean;
 import co.edu.uniquindio.inventario.entidades.Bodega;
 import co.edu.uniquindio.inventario.entidades.DetalleDevolucionCompra;
 import co.edu.uniquindio.inventario.entidades.DevolucionCompra;
+import co.edu.uniquindio.inventario.excepciones.DetalleDevolucionException;
+import co.edu.uniquindio.inventario.excepciones.DevolucionCompraException;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,6 +48,9 @@ public class DevolucionCompraBean implements Serializable {
     @Autowired
     private DetalleDevolucionCompraBean detalleDevolucionCompraBean;
 
+    String devolucionCompraConst = "Devolución de compra";
+    String mensajeBean = "mensaje_bean";
+
     @PostConstruct
     public void init() {
         devolucionCompra = new DevolucionCompra();
@@ -71,18 +76,18 @@ public class DevolucionCompraBean implements Serializable {
 
                 devolucionCompra = new DevolucionCompra();
 
-                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Devolución de compra", "¡Se ha registrado la devolución de su compra con éxito!");
-                FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, devolucionCompraConst, "¡Se ha registrado la devolución de su compra con éxito!");
+                FacesContext.getCurrentInstance().addMessage(mensajeBean, fm);
             } else {
 
                 usuarioServicio.actualizarDevolucionCompra(devolucionCompra);
 
-                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Devolución de compra", "¡Se ha actualizado la devolución de su compra con éxito!");
-                FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, devolucionCompraConst, "¡Se ha actualizado la devolución de su compra con éxito!");
+                FacesContext.getCurrentInstance().addMessage(mensajeBean, fm);
             }
         } catch (Exception e) {
-            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Devolución de compra", e.getMessage());
-            FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, devolucionCompraConst, e.getMessage());
+            FacesContext.getCurrentInstance().addMessage(mensajeBean, fm);
         }
     }
 
@@ -103,7 +108,7 @@ public class DevolucionCompraBean implements Serializable {
                 usuarioServicio.eliminarDevolucionCompra(dc);
                 devolucionesCompras.remove(dc);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                throw new DevolucionCompraException(e.getMessage());
             }
         });
         devolucionesComprasSeleccionadas.clear();
@@ -138,9 +143,7 @@ public class DevolucionCompraBean implements Serializable {
 
     public List<String> getBodegas() {
         List<String> nombreBodegas = new ArrayList<>();
-        listaBodegas.forEach(b -> {
-            nombreBodegas.add(b.getNombre());
-        });
+        listaBodegas.forEach(b -> nombreBodegas.add(b.getNombre()));
         return nombreBodegas;
     }
 
@@ -153,7 +156,7 @@ public class DevolucionCompraBean implements Serializable {
 
             FacesContext.getCurrentInstance().getExternalContext().redirect("/dispensacion/detalle_devolucion_compra.xhtml");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new DetalleDevolucionException(e.getMessage());
         }
     }
 

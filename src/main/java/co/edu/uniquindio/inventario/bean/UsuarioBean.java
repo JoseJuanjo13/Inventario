@@ -1,6 +1,7 @@
 package co.edu.uniquindio.inventario.bean;
 
 import co.edu.uniquindio.inventario.entidades.Usuario;
+import co.edu.uniquindio.inventario.excepciones.UsuarioException;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,6 +37,9 @@ public class UsuarioBean implements Serializable {
     @Getter @Setter
     private String confirmarContrasena;
 
+    String registroUsuario = "Registro usuario";
+    String mensajeBean = "Mensaje Bean";
+
 
     @PostConstruct
     public void init() {
@@ -54,23 +58,23 @@ public class UsuarioBean implements Serializable {
 
                     usuario = new Usuario();
 
-                    FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro Usuario", "¡Registro Exitoso!");
-                    FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
+                    FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, registroUsuario, "¡Registro Exitoso!");
+                    FacesContext.getCurrentInstance().addMessage(mensajeBean, fm);
 
                 } else {
-                    FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Registro Usuario", "Las Contraseñas no coinciden.");
-                    FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
+                    FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, registroUsuario, "Las Contraseñas no coinciden.");
+                    FacesContext.getCurrentInstance().addMessage(mensajeBean, fm);
                 }
 
             } else {
                 usuarioServicio.actualizarUsuario(usuario);
 
                 FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Gestión usuario", "¡Se ha actualizado el usuario con éxito!");
-                FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
+                FacesContext.getCurrentInstance().addMessage(mensajeBean, fm);
             }
         } catch (Exception e) {
-            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Registro Usuario", e.getMessage());
-            FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, registroUsuario, e.getMessage());
+            FacesContext.getCurrentInstance().addMessage(mensajeBean, fm);
         }
     }
 
@@ -80,7 +84,7 @@ public class UsuarioBean implements Serializable {
                 usuarioServicio.eliminarUsuario(u);
                 usuarios.remove(u);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                throw new UsuarioException(e.getMessage());
             }
         });
         usuariosSeleccionados.clear();
@@ -100,7 +104,6 @@ public class UsuarioBean implements Serializable {
 
     public void dialogoSeleccionUsuario(Usuario usuarioSeleccionado) {
         if(usuarioSeleccionado != null) {
-            System.out.print(editarUsuario);
             this.usuario = usuarioSeleccionado;
             editarUsuario = true;
         } else {

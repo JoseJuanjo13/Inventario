@@ -1,6 +1,7 @@
 package co.edu.uniquindio.inventario.bean;
 
 import co.edu.uniquindio.inventario.entidades.Insumo;
+import co.edu.uniquindio.inventario.excepciones.InsumoException;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,6 +34,9 @@ public class InsumoBean implements Serializable {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
+    String gestionInsumo = "Gestión Insumo";
+    String mensajeBean = "mensaje_bean";
+
     @PostConstruct
     public void init() {
         insumo = new Insumo();
@@ -49,17 +53,17 @@ public class InsumoBean implements Serializable {
 
                 insumo = new Insumo();
 
-                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Gestión Insumo", "¡Se ha registrado el insumo con éxito!");
-                FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, gestionInsumo, "¡Se ha registrado el insumo con éxito!");
+                FacesContext.getCurrentInstance().addMessage(mensajeBean, fm);
             } else {
                 usuarioServicio.actualizarInsumo(insumo);
 
-                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Gestión Insumo", "¡Se ha actualizado el insumo con éxito!");
-                FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, gestionInsumo, "¡Se ha actualizado el insumo con éxito!");
+                FacesContext.getCurrentInstance().addMessage(mensajeBean, fm);
             }
         } catch (Exception e) {
-            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Gestión Insumo", e.getMessage());
-            FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, gestionInsumo, e.getMessage());
+            FacesContext.getCurrentInstance().addMessage(mensajeBean, fm);
         }
     }
 
@@ -69,7 +73,7 @@ public class InsumoBean implements Serializable {
                 usuarioServicio.eliminarInsumo(i);
                 insumos.remove(i);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                throw new InsumoException(e.getMessage());
             }
         });
         insumosSeleccionados.clear();
