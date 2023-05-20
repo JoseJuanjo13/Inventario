@@ -1,18 +1,15 @@
 package co.edu.uniquindio.inventario.test;
 
 import co.edu.uniquindio.inventario.entidades.Bodega;
-import co.edu.uniquindio.inventario.entidades.DetalleOrdenCompra;
 import co.edu.uniquindio.inventario.repo.BodegaRepo;
-import co.edu.uniquindio.inventario.repo.DetalleOrdenCompraRepo;
+import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.jdbc.Sql;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -22,7 +19,7 @@ public class PruebasTest {
     private BodegaRepo bodegaRepo;
 
     @Autowired
-    private DetalleOrdenCompraRepo detalleOrdenCompraRepo;
+    private UsuarioServicio usuarioServicio;
 
     @Test
     void registrar(){
@@ -33,5 +30,20 @@ public class PruebasTest {
         Assertions.assertEquals(bodega.getNombre(), guardado.getNombre());
     }
 
+    @Test
+    void crearBodega(){
+
+        try {
+            ArrayList<String> tel = new ArrayList<>();
+            tel.add("3137708899");
+            Bodega bodega = new Bodega("Bodega 1", "Bod1", "Centro", tel, "Activo");
+            Bodega guardo = usuarioServicio.crearBodega(bodega);
+            Assertions.assertEquals(bodega.getNombre(), guardo.getNombre());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
 
 }
