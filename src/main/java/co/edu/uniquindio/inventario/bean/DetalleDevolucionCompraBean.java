@@ -51,13 +51,19 @@ public class DetalleDevolucionCompraBean implements Serializable {
     private List<String> tiposActividad;
 
     @Getter @Setter
-    private boolean habButtonMedicamento, habButtonInsumo;
+    private boolean habButtonMedicamento;
+
+    @Getter @Setter
+    private boolean habButtonInsumo;
 
     @Getter @Setter
     Medicamento medicamento;
 
     @Getter @Setter
     Insumo insumo;
+
+    String medicamentoConst = "Medicamento";
+    String insumoConst = "Insumo";
 
     @PostConstruct
     public void init() {
@@ -70,7 +76,7 @@ public class DetalleDevolucionCompraBean implements Serializable {
         habButtonMedicamento = false;
         habButtonInsumo = true;
         detalleDevolucionesSeleccionadas = new ArrayList<>();
-        tiposActividad = new ArrayList<>(Arrays.asList("Medicamento", "Insumo"));
+        tiposActividad = new ArrayList<>(Arrays.asList(medicamentoConst, insumoConst));
         listaMedicamentos = usuarioServicio.listarMedicamento();
         listaInsumos = usuarioServicio.listarInsumo();
     }
@@ -89,9 +95,9 @@ public class DetalleDevolucionCompraBean implements Serializable {
                 detalleDevolucionCompra.setInsumo(insumo);
 
                 if(!habButtonMedicamento) {
-                    detalleDevolucionCompra.setTipoActividad("Medicamento");
+                    detalleDevolucionCompra.setTipoActividad(medicamentoConst);
                 } else {
-                    detalleDevolucionCompra.setTipoActividad("Insumo");
+                    detalleDevolucionCompra.setTipoActividad(insumoConst);
                 }
 
                 DevolucionCompra devolucionCompra = buscarDevolucionCompra(idDevolucionCompra);
@@ -157,25 +163,25 @@ public class DetalleDevolucionCompraBean implements Serializable {
     }
 
     private Medicamento buscarMedicamento(String nombreMedicamento) {
-        final Medicamento[] medicamento = new Medicamento[1];
+        final Medicamento[] medicamentoEncontrado = new Medicamento[1];
 
         listaMedicamentos.forEach(m -> {
             if(m.getPrincipioActivo().equalsIgnoreCase(nombreMedicamento)) {
-                medicamento[0] = m;
+                medicamentoEncontrado[0] = m;
             }
         });
-        return medicamento[0];
+        return medicamentoEncontrado[0];
     }
 
     private Insumo buscarInsumo(String nombre) {
-        final Insumo[] insumo = new Insumo[1];
+        final Insumo[] insumoEncontrado = new Insumo[1];
 
         listaInsumos.forEach(i -> {
             if(i.getNombre().equalsIgnoreCase(nombre)) {
-                insumo[0] = i;
+                insumoEncontrado[0] = i;
             }
         });
-        return insumo[0];
+        return insumoEncontrado[0];
     }
 
     private double agregarSubtotalDevolucion() {
@@ -218,27 +224,25 @@ public class DetalleDevolucionCompraBean implements Serializable {
 
     public List<String> getMedicamentos() {
         List<String> nombreMedicamentos = new ArrayList<>();
-        listaMedicamentos.forEach(medicamento -> {
-            nombreMedicamentos.add(medicamento.getPrincipioActivo());
-        });
+        listaMedicamentos.forEach(getMedicamento -> nombreMedicamentos.add(getMedicamento.getPrincipioActivo()));
         return nombreMedicamentos;
     }
 
     public List<String> getInsumos() {
         List<String> nombreInsumos = new ArrayList<>();
-        listaInsumos.forEach(insumo -> {
-            nombreInsumos.add(insumo.getNombre());
-        });
+        listaInsumos.forEach(ins ->
+            nombreInsumos.add(ins.getNombre())
+        );
         return nombreInsumos;
     }
 
     private void getTotalDetallesDevolucion() {
         List<DetalleDevolucionCompra> detalles = usuarioServicio.listarDetallesDevolucionesCompra(idDevolucionCompra);
-        double total = detalles.stream().mapToDouble(DetalleDevolucionCompra::getSubtotal).sum();
+        detalles.stream().mapToDouble(DetalleDevolucionCompra::getSubtotal).sum();
     }
 
     public void habilitarOpcion() {
-        if (habButtonMedicamento == true) {
+        if (habButtonMedicamento) {
             habButtonMedicamento = false;
             habButtonInsumo = true;
         } else {

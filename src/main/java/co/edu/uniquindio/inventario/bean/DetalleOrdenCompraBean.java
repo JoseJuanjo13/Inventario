@@ -5,7 +5,6 @@ import co.edu.uniquindio.inventario.entidades.Insumo;
 import co.edu.uniquindio.inventario.entidades.Medicamento;
 import co.edu.uniquindio.inventario.entidades.OrdenCompra;
 import co.edu.uniquindio.inventario.excepciones.EliminarDetalleCompraException;
-import co.edu.uniquindio.inventario.filtros.SeguridadFiltro;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +19,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Component
 @SessionScope
@@ -59,13 +57,20 @@ public class DetalleOrdenCompraBean implements Serializable {
     private List<String> tiposActividad;
 
     @Getter @Setter
-    private boolean habButtonMedicamento, habButtonInsumo;
+    private boolean habButtonInsumo;
+
+    @Getter @Setter
+    private boolean habButtonMedicamento;
 
     @Getter @Setter
     Medicamento medicamento;
 
     @Getter @Setter
     Insumo insumo;
+
+    String medicamentoVar = "Medicamento";
+    String insumoVar = "Insumo";
+    String mensajeBean = "mensaje_bean";
 
     @PostConstruct
     public void init() {
@@ -78,7 +83,7 @@ public class DetalleOrdenCompraBean implements Serializable {
         habButtonMedicamento = false;
         habButtonInsumo = true;
         detallesCompraSeleccionados = new ArrayList<>();
-        tiposActividad = new ArrayList<>(Arrays.asList("Medicamento", "Insumo"));
+        tiposActividad = new ArrayList<>(Arrays.asList(medicamentoVar, insumoVar));
         listaMedicamentos = usuarioServicio.listarMedicamento();
         listaInsumos = usuarioServicio.listarInsumo();
     }
@@ -97,9 +102,9 @@ public class DetalleOrdenCompraBean implements Serializable {
                 detalleOrdenCompra.setInsumo(insumo);
 
                 if(!habButtonMedicamento) {
-                    detalleOrdenCompra.setTipoActividad("Medicamento");
+                    detalleOrdenCompra.setTipoActividad(medicamentoVar);
                 } else {
-                    detalleOrdenCompra.setTipoActividad("Insumo");
+                    detalleOrdenCompra.setTipoActividad(insumoVar);
                 }
 
                 OrdenCompra ordenCompra = buscarOrdenCompra(idOrdenCompra);
@@ -114,7 +119,7 @@ public class DetalleOrdenCompraBean implements Serializable {
                 insumo = new Insumo();
 
                 FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Detalle de la compra", "¡Se ha registrado el detalle de la orden de su compra con éxito!");
-                FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
+                FacesContext.getCurrentInstance().addMessage(mensajeBean, fm);
             } else {
 
                 medicamento = buscarMedicamento(medicamento.getPrincipioActivo());
@@ -128,9 +133,9 @@ public class DetalleOrdenCompraBean implements Serializable {
                 }
 
                 if(!habButtonMedicamento) {
-                    detalleOrdenCompra.setTipoActividad("Medicamento");
+                    detalleOrdenCompra.setTipoActividad(medicamentoVar);
                 } else {
-                    detalleOrdenCompra.setTipoActividad("Insumo");
+                    detalleOrdenCompra.setTipoActividad(insumoVar);
                 }
 
                 OrdenCompra ordenCompra = buscarOrdenCompra(idOrdenCompra);
@@ -144,11 +149,11 @@ public class DetalleOrdenCompraBean implements Serializable {
                 insumo = new Insumo();
 
                 FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Detalle de la compra", "¡Se ha actualizado el detalle de la orden de su compra con éxito!");
-                FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
+                FacesContext.getCurrentInstance().addMessage(mensajeBean, fm);
             }
         } catch (Exception e) {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Detalle Orden de compra", e.getMessage());
-            FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
+            FacesContext.getCurrentInstance().addMessage(mensajeBean, fm);
         }
     }
 
@@ -165,30 +170,29 @@ public class DetalleOrdenCompraBean implements Serializable {
     }
 
     private Medicamento buscarMedicamento(String nombreMedicamento) {
-        final Medicamento[] medicamento = new Medicamento[1];
+        final Medicamento[] medicamentoEncontrado = new Medicamento[1];
 
         listaMedicamentos.forEach(m -> {
             if(m.getPrincipioActivo().equalsIgnoreCase(nombreMedicamento)) {
-                medicamento[0] = m;
+                medicamentoEncontrado[0] = m;
             }
         });
-        return medicamento[0];
+        return medicamentoEncontrado[0];
     }
 
     private Insumo buscarInsumo(String nombre) {
-        final Insumo[] insumo = new Insumo[1];
+        final Insumo[] insumoEncontrado = new Insumo[1];
 
         listaInsumos.forEach(i -> {
             if(i.getNombre().equalsIgnoreCase(nombre)) {
-                insumo[0] = i;
+                insumoEncontrado[0] = i;
             }
         });
-        return insumo[0];
+        return insumoEncontrado[0];
     }
 
     private double agregarSubtotalCompra() {
-        double subtotal = 0.0;
-        return subtotal = detalleOrdenCompra.getCantidadSolicitada() * detalleOrdenCompra.getValorUnitario();
+        return detalleOrdenCompra.getCantidadSolicitada() * detalleOrdenCompra.getValorUnitario();
     }
 
     public void eliminarDetallesCompra() {
@@ -227,17 +231,17 @@ public class DetalleOrdenCompraBean implements Serializable {
 
     public List<String> getMedicamentos() {
         List<String> nombreMedicamentos = new ArrayList<>();
-        listaMedicamentos.forEach(medicamento -> {
-            nombreMedicamentos.add(medicamento.getPrincipioActivo());
-        });
+        listaMedicamentos.forEach(med ->
+            nombreMedicamentos.add(med.getPrincipioActivo())
+        );
         return nombreMedicamentos;
     }
 
     public List<String> getInsumos() {
         List<String> nombreInsumos = new ArrayList<>();
-        listaInsumos.forEach(insumo -> {
-            nombreInsumos.add(insumo.getNombre());
-        });
+        listaInsumos.forEach(getInsumo ->
+            nombreInsumos.add(getInsumo.getNombre())
+        );
         return nombreInsumos;
     }
 
@@ -251,7 +255,7 @@ public class DetalleOrdenCompraBean implements Serializable {
     }
 
     public void habilitarOpcion() {
-        if (habButtonMedicamento == true) {
+        if (habButtonMedicamento) {
             habButtonMedicamento = false;
             habButtonInsumo = true;
         } else {

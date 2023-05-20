@@ -5,6 +5,8 @@ import co.edu.uniquindio.inventario.entidades.Bodega;
 import co.edu.uniquindio.inventario.entidades.DetalleOrdenCompra;
 import co.edu.uniquindio.inventario.entidades.OrdenCompra;
 import co.edu.uniquindio.inventario.entidades.Proveedor;
+import co.edu.uniquindio.inventario.excepciones.DevolucionCompraException;
+import co.edu.uniquindio.inventario.excepciones.OrdenCompraException;
 import co.edu.uniquindio.inventario.excepciones.ProveedorNoRegistradoException;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
 import lombok.Getter;
@@ -54,6 +56,9 @@ public class OrdenCompraBean implements Serializable {
     @Autowired
     private DetalleOrdenCompraBean detalleOrdenCompraBean;
 
+    String ordenCompraConst = "Orden de compra";
+    String mensajeBean = "mensaje_bean";
+
     @PostConstruct
     public void init() {
         ordenCompra = new OrdenCompra();
@@ -85,8 +90,8 @@ public class OrdenCompraBean implements Serializable {
                 nombreBodega = "";
                 nombreProveedor = "";
 
-                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Orden de compra", "¡Se ha registrado la orden de compra con éxito!");
-                FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, ordenCompraConst, "¡Se ha registrado la orden de compra con éxito!");
+                FacesContext.getCurrentInstance().addMessage(mensajeBean, fm);
             } else {
 
                 proveedor = validarProveedor(nombreProveedor);
@@ -100,12 +105,12 @@ public class OrdenCompraBean implements Serializable {
 
                 usuarioServicio.actualizarOrdenCompra(ordenCompra);
 
-                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Orden de compra", "¡Se ha actualizado la orden de compra con éxito!");
-                FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, ordenCompraConst, "¡Se ha actualizado la orden de compra con éxito!");
+                FacesContext.getCurrentInstance().addMessage(mensajeBean, fm);
             }
         } catch (Exception e) {
-            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Orden de compra", e.getMessage());
-            FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, ordenCompraConst, e.getMessage());
+            FacesContext.getCurrentInstance().addMessage(mensajeBean, fm);
         }
     }
 
@@ -144,7 +149,7 @@ public class OrdenCompraBean implements Serializable {
                 usuarioServicio.eliminarOrdenCompra(oc);
                 ordenesCompras.remove(oc);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                throw new OrdenCompraException(e.getMessage());
             }
         });
         ordenesComprasSeleccionadas.clear();
@@ -207,7 +212,7 @@ public class OrdenCompraBean implements Serializable {
 
             FacesContext.getCurrentInstance().getExternalContext().redirect("/dispensacion/detalle_orden_compra.xhtml");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new DevolucionCompraException(e.getMessage());
         }
     }
 

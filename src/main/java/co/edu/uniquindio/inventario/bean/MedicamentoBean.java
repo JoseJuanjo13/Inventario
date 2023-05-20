@@ -1,6 +1,7 @@
 package co.edu.uniquindio.inventario.bean;
 
 import co.edu.uniquindio.inventario.entidades.Medicamento;
+import co.edu.uniquindio.inventario.excepciones.MedicamentoException;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,6 +34,8 @@ public class MedicamentoBean implements Serializable {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
+    String gestionMedicamento = "Gestión Medicamento";
+
     @PostConstruct
     public void init() {
         medicamento = new Medicamento();
@@ -49,17 +52,17 @@ public class MedicamentoBean implements Serializable {
 
                 medicamento = new Medicamento();
 
-                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Gestión Medicamento", "¡Se ha registrado el medicamento con éxito!");
-                FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, gestionMedicamento, "¡Se ha registrado el medicamento con éxito!");
+                FacesContext.getCurrentInstance().addMessage(gestionMedicamento, fm);
             } else {
                 usuarioServicio.actualizarMedicamento(medicamento);
 
-                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Gestión Medicamento", "¡Se ha actualizado el medicamento con éxito!");
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, gestionMedicamento, "¡Se ha actualizado el medicamento con éxito!");
                 FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
             }
 
         } catch (Exception e) {
-            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Gestión Medicamento", e.getMessage());
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, gestionMedicamento, e.getMessage());
             FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
         }
     }
@@ -70,7 +73,7 @@ public class MedicamentoBean implements Serializable {
                 usuarioServicio.eliminarMedicamento(m);
                 medicamentos.remove(m);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                throw new MedicamentoException(e.getMessage());
             }
         });
         medicamentosSeleccionados.clear();

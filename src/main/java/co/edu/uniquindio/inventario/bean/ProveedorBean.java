@@ -2,6 +2,7 @@ package co.edu.uniquindio.inventario.bean;
 
 import co.edu.uniquindio.inventario.entidades.Proveedor;
 import co.edu.uniquindio.inventario.entidades.TiposIdentificacion;
+import co.edu.uniquindio.inventario.excepciones.ProveedorException;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +38,9 @@ public class ProveedorBean implements Serializable {
     @Getter @Setter
     private List<TiposIdentificacion> tiposIdentificacion;
 
+    String gestionProveedor = "Gestión Proveedor";
+    String mensajeBean = "mensaje_bean";
+
     @PostConstruct
     public void init() {
         proveedor = new Proveedor();
@@ -54,17 +58,17 @@ public class ProveedorBean implements Serializable {
 
                 proveedor = new Proveedor();
 
-                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Gestión Proveedor", "¡Se ha registrado el proveedor con éxito!");
-                FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, gestionProveedor, "¡Se ha registrado el proveedor con éxito!");
+                FacesContext.getCurrentInstance().addMessage(mensajeBean, fm);
             } else {
                 usuarioServicio.actualizarProveedor(proveedor);
 
-                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Gestión Proveedor", "¡Se ha actualizado el proveedor con éxito!");
-                FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, gestionProveedor, "¡Se ha actualizado el proveedor con éxito!");
+                FacesContext.getCurrentInstance().addMessage(mensajeBean, fm);
             }
         } catch (Exception e) {
-            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Gestión Proveedor", e.getMessage());
-            FacesContext.getCurrentInstance().addMessage("mensaje_bean", fm);
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, gestionProveedor, e.getMessage());
+            FacesContext.getCurrentInstance().addMessage(mensajeBean, fm);
         }
     }
 
@@ -74,7 +78,7 @@ public class ProveedorBean implements Serializable {
                 usuarioServicio.eliminarProveedor(p);
                 proveedores.remove(p);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                throw new ProveedorException(e.getMessage());
             }
         });
         proveedoresSeleccionados.clear();
