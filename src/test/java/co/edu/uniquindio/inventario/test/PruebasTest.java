@@ -33,17 +33,5 @@ public class PruebasTest {
         Assertions.assertEquals(bodega.getNombre(), guardado.getNombre());
     }
 
-    @Test
-    //@Sql("classpath:dataset.sql")
-    void eliminar(){
 
-    }
-
-    @Test
-    void pruebaConsulta(){
-        List<DetalleOrdenCompra> detalles = detalleOrdenCompraRepo.detallesCompra(2);
-        for (DetalleOrdenCompra detalle : detalles) {
-            System.out.println(detalle);
-        }
-    }
 }
