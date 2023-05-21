@@ -517,9 +517,16 @@ class PruebasTest {
        Bodega creada =usuarioServicio.crearBodega(bodega);
 
        bodega = new Bodega();
-
        assertNotNull(creada);
     }
 
+    @Test
+    void testCrearBodegaFalse() {
+        boolean editarBodega = false;
+        Bodega actualizar = usuarioServicio.obtenerBodega(2);
+        Bodega bodega =usuarioServicio.actualizarBodega(actualizar);
+
+        assertNotNull(bodega);
+    }
 
 }
