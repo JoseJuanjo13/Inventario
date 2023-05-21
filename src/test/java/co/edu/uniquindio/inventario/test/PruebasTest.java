@@ -333,4 +333,65 @@ class PruebasTest {
         assertNotNull(detalleDevolucionCompras);
         assertFalse(detalleDevolucionCompras.isEmpty());
     }
+
+    @Test
+    void obtenerTipoIdentificacion() {
+        TiposIdentificacion tiposIdentificacion = usuarioServicio.obtenerTipoIdentificacion(1);
+        assertNotNull(tiposIdentificacion);
+    }
+
+    @Test
+    void obtenerBodega() {
+        Bodega bodega = usuarioServicio.obtenerBodega(1);
+        assertNotNull(bodega);
+    }
+
+    @Test
+    void obtenerUsuario() {
+        Usuario usuario = usuarioServicio.obtenerUsuario("1094973943");
+        assertNotNull(usuario);
+    }
+
+    @Test
+    void obtenerInsumo() {
+        Insumo insumo = usuarioServicio.obtenerInsumo(1);
+        assertNotNull(insumo);
+    }
+
+    @Test
+    void obtenerMedicamento() {
+        Medicamento medicamento = usuarioServicio.obtenerMedicamento(1);
+        assertNotNull(medicamento);
+    }
+
+    @Test
+    void obtenerProveedor() {
+        Proveedor proveedor = usuarioServicio.obtenerProveedor("111222333");
+        assertNotNull(proveedor);
+    }
+
+    @Test
+    void obtenerOrdenCompra() {
+        OrdenCompra ordenCompra = usuarioServicio.obtenerOrdenCompra(1);
+        assertNotNull(ordenCompra);
+    }
+
+    @Test
+    void obtenerDevolucionCompra() {
+        DevolucionCompra devolucionCompra = usuarioServicio.obtenerDevolucionCompra(1);
+        assertNotNull(devolucionCompra);
+    }
+
+    @Test
+    void obtenerDetalleOrdenCompra() {
+        DetalleOrdenCompra detalleOrdenCompra = usuarioServicio.obtenerDetalleOrdenCompra(1);
+        assertNotNull(detalleOrdenCompra);
+    }
+
+    @Test
+    void obtenerDetalleDevolucionCompra() {
+        DetalleDevolucionCompra detalleDevolucionCompra = usuarioServicio.obtenerDetalleDevolucionCompra(1);
+        assertNotNull(detalleDevolucionCompra);
+    }
+
 }
