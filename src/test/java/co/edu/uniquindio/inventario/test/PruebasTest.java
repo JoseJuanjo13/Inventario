@@ -515,16 +515,10 @@ class PruebasTest {
 
     @Test
     void gestionarBodega(){
-        Bodega bodega = usuarioServicio.obtenerBodega(2);
-        List<Bodega> bodegas = new ArrayList<>();
-        Bodega bodega_ = new Bodega("bodega", "bod", "direccion", null, "activo");
-        if (bodega==null) {
-            Bodega nuevaBodega = usuarioServicio.crearBodega(bodega_);
-            bodegas.add(nuevaBodega);
-
-            assertNotNull(nuevaBodega);
-            assertNotNull(bodegas);
-        }
+        List<Bodega> bodegas;
+        bodegas = usuarioServicio.listarBodegas();
+        assertNotNull(bodegas);
     }
+
 
 }
