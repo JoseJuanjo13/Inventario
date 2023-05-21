@@ -14,7 +14,7 @@ public interface UsuarioServicio extends Serializable {
 
     Usuario actualizarUsuario(Usuario usuario);
 
-    Boolean eliminarUsuario(Usuario usuario);
+    void eliminarUsuario(Usuario usuario);
 
     List<Usuario> listarUsuario();
 
@@ -24,7 +24,7 @@ public interface UsuarioServicio extends Serializable {
 
     Bodega actualizarBodega(Bodega bodega);
 
-    Boolean eliminarBodega(Bodega bodega);
+    void eliminarBodega(Bodega bodega);
 
     List<Bodega> listarBodegas();
 
@@ -34,7 +34,7 @@ public interface UsuarioServicio extends Serializable {
 
     Insumo actualizarInsumo(Insumo insumo);
 
-    Boolean eliminarInsumo(Insumo insumo);
+    void eliminarInsumo(Insumo insumo);
 
     List<Insumo> listarInsumo();
 
@@ -44,7 +44,7 @@ public interface UsuarioServicio extends Serializable {
 
     Medicamento actualizarMedicamento(Medicamento medicamento);
 
-    Boolean eliminarMedicamento(Medicamento medicamento);
+    void eliminarMedicamento(Medicamento medicamento);
 
     List<Medicamento> listarMedicamento();
 
@@ -54,7 +54,7 @@ public interface UsuarioServicio extends Serializable {
 
     Proveedor actualizarProveedor(Proveedor proveedor);
 
-    Boolean eliminarProveedor(Proveedor proveedor);
+    void eliminarProveedor(Proveedor proveedor);
 
     List<Proveedor> listarProveedores();
 
@@ -65,7 +65,7 @@ public interface UsuarioServicio extends Serializable {
 
     OrdenCompra actualizarOrdenCompra(OrdenCompra ordenCompra);
 
-    Boolean eliminarOrdenCompra(OrdenCompra ordenCompra);
+    void eliminarOrdenCompra(OrdenCompra ordenCompra);
 
     List<OrdenCompra> listarOrdenesCompra();
 
@@ -76,7 +76,7 @@ public interface UsuarioServicio extends Serializable {
 
     DetalleOrdenCompra actualizarOrdenCompra(DetalleOrdenCompra detalleOrdenCompra);
 
-    Boolean eliminarOrdenCompra(DetalleOrdenCompra detalleOrdenCompra);
+    void eliminarOrdenCompra(DetalleOrdenCompra detalleOrdenCompra);
 
     List<DetalleOrdenCompra> listarDetallesOrdenesCompra(Integer idOrdenCompra);
 
@@ -86,7 +86,7 @@ public interface UsuarioServicio extends Serializable {
 
     DevolucionCompra actualizarDevolucionCompra(DevolucionCompra devolucionCompra);
 
-    Boolean eliminarDevolucionCompra(DevolucionCompra devolucionCompra);
+    void eliminarDevolucionCompra(DevolucionCompra devolucionCompra);
 
     List<DevolucionCompra> listarDevolucionesCompra();
 
@@ -96,7 +96,7 @@ public interface UsuarioServicio extends Serializable {
 
     DetalleDevolucionCompra actualizarDetalleDevolucionCompra(DetalleDevolucionCompra detalleDevolucionCompra);
 
-    Boolean eliminarDetalleDevolucionCompra(DetalleDevolucionCompra detalleDevolucionCompra);
+    void eliminarDetalleDevolucionCompra(DetalleDevolucionCompra detalleDevolucionCompra);
 
     List<DetalleDevolucionCompra> listarDetallesDevolucionesCompra(Integer idDevolucionCompra);
 

@@ -23,8 +23,15 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     private final DetalleOrdenCompraRepo detalleOrdenCompraRepo;
     private final DevolucionCompraRepo devolucionCompraRepo;
     private final DetalleDevolucionCompraRepo detalleDevolucionCompraRepo;
-
     private final TiposIdentificacionRepo tiposIdentificacionRepo;
+
+    private static final String USUARIO_NO_EXISTE = "El usuario no existe";
+    private static final String ORDEN_COMPRA_NO_EXISTE = "La orden de compra no existe";
+    private static final String BODEGA_NO_EXISTE = "La bodega no existe";
+    private static final String INSUMO_NO_EXISTE = "El insumo no existe";
+    private static final String MEDICAMENTO_NO_EXISTE = "El medicamento no existe";
+    private static final String PROVEEDOR_NO_EXISTE = "El proveedor no existe";
+
 
     public UsuarioServicioImpl(UsuarioRepo usuarioRepo, BodegaRepo bodegaRepo, InsumoRepo insumoRepo,
                                MedicamentoRepo medicamentoRepo, ProveedorRepo proveedorRepo, OrdenCompraRepo ordenCompraRepo,
@@ -70,19 +77,18 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     public Usuario actualizarUsuario(Usuario usuario) {
         Optional<Usuario> guardado = usuarioRepo.findById(usuario.getCedula());
         if (guardado.isEmpty()){
-            throw new UsuarioServicioException("El usuario no existe");
+            throw new UsuarioServicioException(USUARIO_NO_EXISTE);
         }
         return usuarioRepo.save(usuario);
     }
 
     @Override
-    public Boolean eliminarUsuario(Usuario usuario) {
+    public void eliminarUsuario(Usuario usuario) {
         Optional<Usuario> guardado = usuarioRepo.findById(usuario.getCedula());
         if (guardado.isEmpty()){
-            throw new UsuarioServicioException("El usuario no existe");
+            throw new UsuarioServicioException(USUARIO_NO_EXISTE);
         }else {
             usuarioRepo.delete(guardado.get());
-            return true;
         }
     }
 
@@ -110,19 +116,18 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     public Bodega actualizarBodega(Bodega bodega) {
         Optional<Bodega> guardado = bodegaRepo.findById(bodega.getIdBodega());
         if (guardado.isEmpty()){
-            throw new UsuarioServicioException("La bodega no existe");
+            throw new UsuarioServicioException(BODEGA_NO_EXISTE);
         }
         return bodegaRepo.save(bodega);
     }
 
     @Override
-    public Boolean eliminarBodega(Bodega bodega) {
+    public void eliminarBodega(Bodega bodega) {
         Optional<Bodega> guardado = bodegaRepo.findById(bodega.getIdBodega());
         if (guardado.isEmpty()){
-            throw new UsuarioServicioException("La bodega no existe");
+            throw new UsuarioServicioException(BODEGA_NO_EXISTE);
         }else {
             bodegaRepo.delete(guardado.get());
-            return true;
         }
     }
 
@@ -149,19 +154,18 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     public Insumo actualizarInsumo(Insumo insumo) {
         Optional<Insumo> guardado = insumoRepo.findById(insumo.getIdInsumo());
         if (guardado.isEmpty()){
-            throw new UsuarioServicioException("El insumo no existe");
+            throw new UsuarioServicioException(INSUMO_NO_EXISTE);
         }
         return insumoRepo.save(insumo);
     }
 
     @Override
-    public Boolean eliminarInsumo(Insumo insumo) {
+    public void eliminarInsumo(Insumo insumo) {
         Optional<Insumo> guardado = insumoRepo.findById(insumo.getIdInsumo());
         if (guardado.isEmpty()){
-            throw new UsuarioServicioException("El insumo no existe");
+            throw new UsuarioServicioException(INSUMO_NO_EXISTE);
         }else {
             insumoRepo.delete(guardado.get());
-            return true;
         }
     }
 
@@ -188,19 +192,18 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     public Medicamento actualizarMedicamento(Medicamento medicamento) {
         Optional<Medicamento> guardado = medicamentoRepo.findById(medicamento.getIdMedicamento());
         if (guardado.isEmpty()){
-            throw new UsuarioServicioException("El medicamento no existe");
+            throw new UsuarioServicioException(MEDICAMENTO_NO_EXISTE);
         }
         return medicamentoRepo.save(medicamento);
     }
 
     @Override
-    public Boolean eliminarMedicamento(Medicamento medicamento) {
+    public void eliminarMedicamento(Medicamento medicamento) {
         Optional<Medicamento> guardado = medicamentoRepo.findById(medicamento.getIdMedicamento());
         if (guardado.isEmpty()){
-            throw new UsuarioServicioException("El medicamento no existe");
+            throw new UsuarioServicioException(MEDICAMENTO_NO_EXISTE);
         }else {
             medicamentoRepo.delete(guardado.get());
-            return true;
         }
     }
 
@@ -228,19 +231,18 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     public Proveedor actualizarProveedor(Proveedor proveedor) {
         Optional<Proveedor> guardado = proveedorRepo.findById(String.valueOf(proveedor.getNumeroIdentificacion()));
         if (guardado.isEmpty()){
-            throw new UsuarioServicioException("El proveedor no existe");
+            throw new UsuarioServicioException(PROVEEDOR_NO_EXISTE);
         }
         return proveedorRepo.save(proveedor);
     }
 
     @Override
-    public Boolean eliminarProveedor(Proveedor proveedor) {
+    public void eliminarProveedor(Proveedor proveedor) {
         Optional<Proveedor> guardado = proveedorRepo.findById(String.valueOf(proveedor.getNumeroIdentificacion()));
         if (guardado.isEmpty()){
-            throw new UsuarioServicioException("El proveedor no existe");
+            throw new UsuarioServicioException(PROVEEDOR_NO_EXISTE);
         }else {
             proveedorRepo.delete(guardado.get());
-            return true;
         }
     }
 
@@ -258,19 +260,18 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     public OrdenCompra actualizarOrdenCompra(OrdenCompra ordenCompra){
         Optional<OrdenCompra> guardado = ordenCompraRepo.findById(ordenCompra.getIdCompra());
         if (guardado.isEmpty()){
-            throw new UsuarioServicioException("La orden de compra no existe");
+            throw new UsuarioServicioException(ORDEN_COMPRA_NO_EXISTE);
         }
         return ordenCompraRepo.save(ordenCompra);
     }
 
     @Override
-    public Boolean eliminarOrdenCompra(OrdenCompra ordenCompra) {
+    public void eliminarOrdenCompra(OrdenCompra ordenCompra) {
         Optional<OrdenCompra> guardado = ordenCompraRepo.findById(ordenCompra.getIdCompra());
         if (guardado.isEmpty()){
-            throw new UsuarioServicioException("La orden de compra no existe");
+            throw new UsuarioServicioException(ORDEN_COMPRA_NO_EXISTE);
         }else {
             ordenCompraRepo.delete(guardado.get());
-            return true;
         }
     }
 
@@ -289,19 +290,18 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     public DetalleOrdenCompra actualizarOrdenCompra(DetalleOrdenCompra detalleOrdenCompra) {
         Optional<DetalleOrdenCompra> guardado = detalleOrdenCompraRepo.findById(detalleOrdenCompra.getIdDetalleOrdenCompra());
         if (guardado.isEmpty()){
-            throw new UsuarioServicioException("La orden de compra no existe");
+            throw new UsuarioServicioException(ORDEN_COMPRA_NO_EXISTE);
         }
         return detalleOrdenCompraRepo.save(detalleOrdenCompra);
     }
 
     @Override
-    public Boolean eliminarOrdenCompra(DetalleOrdenCompra detalleOrdenCompra) {
+    public void eliminarOrdenCompra(DetalleOrdenCompra detalleOrdenCompra) {
         Optional<DetalleOrdenCompra> guardado = detalleOrdenCompraRepo.findById(detalleOrdenCompra.getIdDetalleOrdenCompra());
         if (guardado.isEmpty()){
             throw new UsuarioServicioException("El detalle de la orden de compra no existe");
         }else {
             detalleOrdenCompraRepo.delete(guardado.get());
-            return true;
         }
     }
 
@@ -328,13 +328,12 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     }
 
     @Override
-    public Boolean eliminarDevolucionCompra(DevolucionCompra devolucionCompra) {
+    public void eliminarDevolucionCompra(DevolucionCompra devolucionCompra) {
         Optional<DevolucionCompra> guardado = devolucionCompraRepo.findById(devolucionCompra.getIdDevolucionCompra());
         if (guardado.isEmpty()){
             throw new UsuarioServicioException("La devolucion de la compra no existe");
         }else {
             devolucionCompraRepo.delete(guardado.get());
-            return true;
         }
     }
 
@@ -358,13 +357,12 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     }
 
     @Override
-    public Boolean eliminarDetalleDevolucionCompra(DetalleDevolucionCompra detalleDevolucionCompra) {
+    public void eliminarDetalleDevolucionCompra(DetalleDevolucionCompra detalleDevolucionCompra) {
         Optional<DetalleDevolucionCompra> guardado = detalleDevolucionCompraRepo.findById(detalleDevolucionCompra.getIdDetalleDevolucionCompra());
         if (guardado.isEmpty()){
             throw new UsuarioServicioException("El detalle de la devolucion de la compra no existe");
         }else {
             detalleDevolucionCompraRepo.delete(guardado.get());
-            return true;
         }
     }
 
@@ -395,7 +393,7 @@ public class UsuarioServicioImpl implements UsuarioServicio{
         Optional<Bodega> guardado = bodegaRepo.findById(id);
 
         if (guardado.isEmpty()) {
-            throw new UsuarioServicioException("La bodega no existe");
+            throw new UsuarioServicioException(BODEGA_NO_EXISTE);
         }
         return guardado.get();
     }
@@ -405,7 +403,7 @@ public class UsuarioServicioImpl implements UsuarioServicio{
         Optional<Usuario> guardado = usuarioRepo.findById(id);
 
         if (guardado.isEmpty()) {
-            throw new UsuarioServicioException("El usuario no existe");
+            throw new UsuarioServicioException(USUARIO_NO_EXISTE);
         }
         return guardado.get();
     }
@@ -415,7 +413,7 @@ public class UsuarioServicioImpl implements UsuarioServicio{
         Optional<Insumo> guardado = insumoRepo.findById(id);
 
         if (guardado.isEmpty()) {
-            throw new UsuarioServicioException("El insumo no existe");
+            throw new UsuarioServicioException(INSUMO_NO_EXISTE);
         }
         return guardado.get();
     }
@@ -424,7 +422,7 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     public Medicamento obtenerMedicamento(Integer id) {
         Optional<Medicamento> guardado = medicamentoRepo.findById(id);
         if (guardado.isEmpty()) {
-            throw new UsuarioServicioException("El medicamento no existe");
+            throw new UsuarioServicioException(MEDICAMENTO_NO_EXISTE);
         }
         return guardado.get();
     }
@@ -433,7 +431,7 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     public Proveedor obtenerProveedor(String id) {
         Optional<Proveedor> guardado = proveedorRepo.findById(id);
         if (guardado.isEmpty()) {
-            throw new UsuarioServicioException("El proveedor no existe");
+            throw new UsuarioServicioException(PROVEEDOR_NO_EXISTE);
         }
         return guardado.get();
     }
@@ -442,7 +440,7 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     public OrdenCompra obtenerOrdenCompra(Integer id) {
         Optional<OrdenCompra> guardado = ordenCompraRepo.findById(id);
         if (guardado.isEmpty()) {
-            throw new UsuarioServicioException("La orden de compra no existe");
+            throw new UsuarioServicioException(ORDEN_COMPRA_NO_EXISTE);
         }
         return guardado.get();
     }
