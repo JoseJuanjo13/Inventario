@@ -1,11 +1,8 @@
 package co.edu.uniquindio.inventario.test;
 
 import co.edu.uniquindio.inventario.entidades.*;
-import co.edu.uniquindio.inventario.excepciones.BodegaNoRegistradaException;
-import co.edu.uniquindio.inventario.excepciones.ConverterException;
-import co.edu.uniquindio.inventario.excepciones.UsuarioServicioException;
+import co.edu.uniquindio.inventario.excepciones.*;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
-import co.edu.uniquindio.inventario.servicios.UsuarioServicioImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -426,6 +423,90 @@ class PruebasTest {
     void converterException() {
         String mensaje = "La bodega no está registrada";
         ConverterException exception = new ConverterException(mensaje);
+        assertEquals(mensaje, exception.getMessage());
+    }
+
+    @Test
+    void detalleCompraException() {
+        String mensaje = "Mensaje prueba";
+        DetalleCompraException exception = new DetalleCompraException(mensaje);
+        assertEquals(mensaje, exception.getMessage());
+    }
+
+    @Test
+    void detalleDevolucionException() {
+        String mensaje = "Mensaje prueba";
+        DetalleDevolucionException exception = new DetalleDevolucionException(mensaje);
+        assertEquals(mensaje, exception.getMessage());
+    }
+
+    @Test
+    void devolucionCompraException() {
+        String mensaje = "Mensaje prueba";
+        DevolucionCompraException exception = new DevolucionCompraException(mensaje);
+        assertEquals(mensaje, exception.getMessage());
+    }
+
+    @Test
+    void eliminarBodegaException() {
+        String mensaje = "Mensaje prueba";
+        EliminarBodegaException exception = new EliminarBodegaException(mensaje);
+        assertEquals(mensaje, exception.getMessage());
+    }
+
+    @Test
+    void eliminarDetalleCompraException() {
+        String mensaje = "Mensaje prueba";
+        EliminarDetalleCompraException exception = new EliminarDetalleCompraException(mensaje);
+        assertEquals(mensaje, exception.getMessage());
+    }
+
+    @Test
+    void eliminarDetalleDevolucionException() {
+        String mensaje = "Mensaje prueba";
+        EliminarDetalleDevolucionException exception = new EliminarDetalleDevolucionException(mensaje);
+        assertEquals(mensaje, exception.getMessage());
+    }
+
+    @Test
+    void insumoException() {
+        String mensaje = "Mensaje prueba";
+        InsumoException exception = new InsumoException(mensaje);
+        assertEquals(mensaje, exception.getMessage());
+    }
+
+    @Test
+    void medicamentoException() {
+        String mensaje = "Mensaje prueba";
+        MedicamentoException exception = new MedicamentoException(mensaje);
+        assertEquals(mensaje, exception.getMessage());
+    }
+
+    @Test
+    void ordenCompraException() {
+        String mensaje = "Mensaje prueba";
+        OrdenCompraException exception = new OrdenCompraException(mensaje);
+        assertEquals(mensaje, exception.getMessage());
+    }
+
+    @Test
+    void proveedorException() {
+        String mensaje = "Mensaje prueba";
+        ProveedorException exception = new ProveedorException(mensaje);
+        assertEquals(mensaje, exception.getMessage());
+    }
+
+    @Test
+    void proveedorNoRegistradoException() {
+        String mensaje = "Mensaje prueba";
+        ProveedorNoRegistradoException exception = new ProveedorNoRegistradoException(mensaje);
+        assertEquals(mensaje, exception.getMessage());
+    }
+
+    @Test
+    void usuarioException() {
+        String mensaje = "Mensaje prueba";
+        UsuarioException exception = new UsuarioException(mensaje);
         assertEquals(mensaje, exception.getMessage());
     }
 
