@@ -56,6 +56,8 @@ public class DetalleOrdenCompra implements Serializable {
     @OneToMany(mappedBy = "detalleOrdenCompra")
     private List<Historial> historialdetalleOrdenCompra;
 
-    public DetalleOrdenCompra() {}
+    public DetalleOrdenCompra() {
+        // Se implementa para crear un detalle de orden antes de agregar la información.
+    }
 
 }

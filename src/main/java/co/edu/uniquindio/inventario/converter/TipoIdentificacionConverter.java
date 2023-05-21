@@ -1,6 +1,7 @@
 package co.edu.uniquindio.inventario.converter;
 
 import co.edu.uniquindio.inventario.entidades.TiposIdentificacion;
+import co.edu.uniquindio.inventario.excepciones.ConverterException;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,7 @@ public class TipoIdentificacionConverter implements Converter<TiposIdentificacio
         try {
             tiposIdentificacion = usuarioServicio.obtenerTipoIdentificacion(Integer.parseInt(value));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new ConverterException(e.getMessage());
         }
         return tiposIdentificacion;
     }

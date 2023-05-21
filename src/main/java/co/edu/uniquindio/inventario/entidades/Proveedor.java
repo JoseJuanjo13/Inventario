@@ -60,5 +60,7 @@ public class Proveedor implements Serializable {
     @OneToMany(mappedBy = "bodega")
     private List<OrdenCompra> bodega;
 
-    public Proveedor(){}
+    public Proveedor(){
+        // Se implementa para crear un proveedor antes de agregar cierta información.
+    }
 }
