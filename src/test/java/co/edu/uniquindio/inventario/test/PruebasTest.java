@@ -342,7 +342,7 @@ class PruebasTest {
 
     @Test
     void obtenerBodega() {
-        Bodega bodega = usuarioServicio.obtenerBodega(1);
+        Bodega bodega = usuarioServicio.obtenerBodega(2);
         assertNotNull(bodega);
     }
 
