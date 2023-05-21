@@ -1,8 +1,8 @@
 package co.edu.uniquindio.inventario.test;
 
 import co.edu.uniquindio.inventario.entidades.*;
+import co.edu.uniquindio.inventario.excepciones.UsuarioServicioException;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
-import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -321,7 +321,7 @@ class PruebasTest {
     void eliminarDetalleDevolucionCompra() throws Exception {
         DetalleDevolucionCompra detalleDevolucionCompra = usuarioServicio.obtenerDetalleDevolucionCompra(1);
         usuarioServicio.eliminarDetalleDevolucionCompra(detalleDevolucionCompra);
-        Exception exception = Assertions.assertThrows(Exception.class, () -> usuarioServicio.eliminarDetalleDevolucionCompra(detalleDevolucionCompra));
+        Exception exception = Assertions.assertThrows(UsuarioServicioException.class, () -> usuarioServicio.eliminarDetalleDevolucionCompra(detalleDevolucionCompra));
         String mensajeEsperado = "El detalle de la devolucion de la compra no existe";
         String mensajeObtenido = exception.getMessage();
         Assertions.assertEquals(mensajeEsperado, mensajeObtenido);

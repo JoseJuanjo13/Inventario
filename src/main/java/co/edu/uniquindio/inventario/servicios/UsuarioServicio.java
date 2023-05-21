@@ -7,119 +7,119 @@ import java.util.List;
 
 public interface UsuarioServicio extends Serializable {
 
-    Usuario login(String email, String contrasena) throws Exception;
+    Usuario login(String email, String contrasena);
 
     // Usuario
-    Usuario crearUsuario(Usuario usuario) throws Exception;
+    Usuario crearUsuario(Usuario usuario);
 
-    Usuario actualizarUsuario(Usuario usuario) throws Exception;
+    Usuario actualizarUsuario(Usuario usuario);
 
-    Boolean eliminarUsuario(Usuario usuario) throws Exception;
+    Boolean eliminarUsuario(Usuario usuario);
 
     List<Usuario> listarUsuario();
 
 
     // Bodega
-    Bodega crearBodega(Bodega bodega) throws Exception;
+    Bodega crearBodega(Bodega bodega);
 
-    Bodega actualizarBodega(Bodega bodega) throws Exception;
+    Bodega actualizarBodega(Bodega bodega);
 
-    Boolean eliminarBodega(Bodega bodega) throws Exception;
+    Boolean eliminarBodega(Bodega bodega);
 
     List<Bodega> listarBodegas();
 
     // Insumos
 
-    Insumo crearInsumo(Insumo insumo) throws Exception;
+    Insumo crearInsumo(Insumo insumo);
 
-    Insumo actualizarInsumo(Insumo insumo) throws Exception;
+    Insumo actualizarInsumo(Insumo insumo);
 
-    Boolean eliminarInsumo(Insumo insumo) throws Exception;
+    Boolean eliminarInsumo(Insumo insumo);
 
     List<Insumo> listarInsumo();
 
     // Medicamento
 
-    Medicamento crearMedicamento(Medicamento medicamento) throws Exception;
+    Medicamento crearMedicamento(Medicamento medicamento);
 
-    Medicamento actualizarMedicamento(Medicamento medicamento) throws Exception;
+    Medicamento actualizarMedicamento(Medicamento medicamento);
 
-    Boolean eliminarMedicamento(Medicamento medicamento) throws Exception;
+    Boolean eliminarMedicamento(Medicamento medicamento);
 
     List<Medicamento> listarMedicamento();
 
     // Proveedor
 
-    Proveedor crearProveedor(Proveedor proveedor) throws Exception;
+    Proveedor crearProveedor(Proveedor proveedor);
 
-    Proveedor actualizarProveedor(Proveedor proveedor) throws Exception;
+    Proveedor actualizarProveedor(Proveedor proveedor);
 
-    Boolean eliminarProveedor(Proveedor proveedor) throws Exception;
+    Boolean eliminarProveedor(Proveedor proveedor);
 
     List<Proveedor> listarProveedores();
 
 
     // Compras
 
-    OrdenCompra crearOrdenCompra(OrdenCompra ordenCompra) throws Exception;
+    OrdenCompra crearOrdenCompra(OrdenCompra ordenCompra);
 
-    OrdenCompra actualizarOrdenCompra(OrdenCompra ordenCompra) throws Exception;
+    OrdenCompra actualizarOrdenCompra(OrdenCompra ordenCompra);
 
-    Boolean eliminarOrdenCompra(OrdenCompra ordenCompra) throws Exception;
+    Boolean eliminarOrdenCompra(OrdenCompra ordenCompra);
 
     List<OrdenCompra> listarOrdenesCompra();
 
 
     // Detalles Compra
 
-    DetalleOrdenCompra crearDetalleOrdenCompra(DetalleOrdenCompra detalleOrdenCompra) throws Exception;
+    DetalleOrdenCompra crearDetalleOrdenCompra(DetalleOrdenCompra detalleOrdenCompra);
 
-    DetalleOrdenCompra actualizarOrdenCompra(DetalleOrdenCompra detalleOrdenCompra) throws Exception;
+    DetalleOrdenCompra actualizarOrdenCompra(DetalleOrdenCompra detalleOrdenCompra);
 
-    Boolean eliminarOrdenCompra(DetalleOrdenCompra detalleOrdenCompra) throws Exception;
+    Boolean eliminarOrdenCompra(DetalleOrdenCompra detalleOrdenCompra);
 
     List<DetalleOrdenCompra> listarDetallesOrdenesCompra(Integer idOrdenCompra);
 
     // Devoluciones Compra
 
-    DevolucionCompra crearDevolucionCompra(DevolucionCompra devolucionCompra) throws Exception;
+    DevolucionCompra crearDevolucionCompra(DevolucionCompra devolucionCompra);
 
-    DevolucionCompra actualizarDevolucionCompra(DevolucionCompra devolucionCompra) throws Exception;
+    DevolucionCompra actualizarDevolucionCompra(DevolucionCompra devolucionCompra);
 
-    Boolean eliminarDevolucionCompra(DevolucionCompra devolucionCompra) throws Exception;
+    Boolean eliminarDevolucionCompra(DevolucionCompra devolucionCompra);
 
     List<DevolucionCompra> listarDevolucionesCompra();
 
     //Detalles Devolucion compra
 
-    DetalleDevolucionCompra crearDetalleDevolucionCompra(DetalleDevolucionCompra detalleDevolucionCompra) throws Exception;
+    DetalleDevolucionCompra crearDetalleDevolucionCompra(DetalleDevolucionCompra detalleDevolucionCompra);
 
-    DetalleDevolucionCompra actualizarDetalleDevolucionCompra(DetalleDevolucionCompra detalleDevolucionCompra) throws Exception;
+    DetalleDevolucionCompra actualizarDetalleDevolucionCompra(DetalleDevolucionCompra detalleDevolucionCompra);
 
-    Boolean eliminarDetalleDevolucionCompra(DetalleDevolucionCompra detalleDevolucionCompra) throws Exception;
+    Boolean eliminarDetalleDevolucionCompra(DetalleDevolucionCompra detalleDevolucionCompra);
 
     List<DetalleDevolucionCompra> listarDetallesDevolucionesCompra(Integer idDevolucionCompra);
 
 
     List<TiposIdentificacion> listarTiposIdentificacion();
 
-    TiposIdentificacion obtenerTipoIdentificacion(Integer idIdentificacion) throws Exception;
+    TiposIdentificacion obtenerTipoIdentificacion(Integer idIdentificacion);
 
-    Bodega obtenerBodega(Integer id) throws Exception;
+    Bodega obtenerBodega(Integer id);
 
-    Usuario obtenerUsuario(String id) throws Exception;
+    Usuario obtenerUsuario(String id);
 
-    Insumo obtenerInsumo(Integer id) throws Exception;
+    Insumo obtenerInsumo(Integer id);
 
-    Medicamento obtenerMedicamento(Integer id) throws Exception;
+    Medicamento obtenerMedicamento(Integer id);
 
-    Proveedor obtenerProveedor(String id) throws Exception;
+    Proveedor obtenerProveedor(String id);
 
-    OrdenCompra obtenerOrdenCompra(Integer id) throws Exception;
+    OrdenCompra obtenerOrdenCompra(Integer id);
 
-    DevolucionCompra obtenerDevolucionCompra(Integer id) throws Exception;
+    DevolucionCompra obtenerDevolucionCompra(Integer id);
 
-    DetalleOrdenCompra obtenerDetalleOrdenCompra(Integer id) throws Exception;
+    DetalleOrdenCompra obtenerDetalleOrdenCompra(Integer id);
 
-    DetalleDevolucionCompra obtenerDetalleDevolucionCompra(Integer id) throws Exception;
+    DetalleDevolucionCompra obtenerDetalleDevolucionCompra(Integer id);
 }
