@@ -8,9 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -514,10 +511,18 @@ class PruebasTest {
     }
 
     @Test
-    void gestionarBodega(){
-        List<Bodega> bodegas;
-        bodegas = usuarioServicio.listarBodegas();
-        assertNotNull(bodegas);
+    void testCrearBodegaEditarBodegaTrue() {
+        Bodega bodega = usuarioServicio.obtenerBodega(2);
+        boolean editarBodega = false;
+        if (!editarBodega){
+            Bodega bodeganueva = new Bodega("bodega", "bod", "direccion", null, "activo");
+            Bodega crear = usuarioServicio.crearBodega(bodeganueva);
+            assertNotNull(crear);
+        }else {
+            Bodega actualiza = usuarioServicio.actualizarBodega(bodega);
+            assertNotNull(actualiza);
+        }
+
     }
 
 
