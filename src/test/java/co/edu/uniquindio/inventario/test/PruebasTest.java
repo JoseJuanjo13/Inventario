@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -393,5 +394,17 @@ class PruebasTest {
         DetalleDevolucionCompra detalleDevolucionCompra = usuarioServicio.obtenerDetalleDevolucionCompra(1);
         assertNotNull(detalleDevolucionCompra);
     }
+
+    @Test
+    void bodegaBeanSeleccionada() {
+        Bodega bodega = usuarioServicio.obtenerBodega(2);
+        List<Bodega> bodegasSeleccionadas = new ArrayList<>();
+        bodegasSeleccionadas.add(bodega);
+        assertNotNull(bodegasSeleccionadas);
+
+        List<Bodega> bodegas = usuarioServicio.listarBodegas();
+        assertNotNull(bodegas);
+    }
+
 
 }
