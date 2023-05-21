@@ -4,6 +4,7 @@ import co.edu.uniquindio.inventario.entidades.DetalleOrdenCompra;
 import co.edu.uniquindio.inventario.entidades.Insumo;
 import co.edu.uniquindio.inventario.entidades.Medicamento;
 import co.edu.uniquindio.inventario.entidades.OrdenCompra;
+import co.edu.uniquindio.inventario.excepciones.DetalleCompraException;
 import co.edu.uniquindio.inventario.excepciones.EliminarDetalleCompraException;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
 import lombok.Getter;
@@ -245,7 +246,7 @@ public class DetalleOrdenCompraBean implements Serializable {
         return nombreInsumos;
     }
 
-    public void getTotalDetallesCompra() throws Exception {
+    public void getTotalDetallesCompra() throws DetalleCompraException {
         List<DetalleOrdenCompra> detalles = usuarioServicio.listarDetallesOrdenesCompra(idOrdenCompra);
         double totalCompra = detalles.stream().mapToDouble(DetalleOrdenCompra::getSubtotal).sum();
 
