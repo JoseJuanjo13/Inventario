@@ -36,7 +36,6 @@ public class Insumo implements Serializable {
     @Column(nullable = true)
     private String tipoInsumo;
 
-    @Length(max = 5)
     @Column(nullable = true)
     private Integer vidaUtil;
 

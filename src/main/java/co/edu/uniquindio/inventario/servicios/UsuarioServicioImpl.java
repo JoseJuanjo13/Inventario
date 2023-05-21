@@ -196,7 +196,7 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     public Boolean eliminarMedicamento(Medicamento medicamento) throws Exception {
         Optional<Medicamento> guardado = medicamentoRepo.findById(medicamento.getIdMedicamento());
         if (guardado.isEmpty()){
-            throw new Exception("El insumo no existe");
+            throw new Exception("El medicamento no existe");
         }else {
             medicamentoRepo.delete(guardado.get());
             return true;
@@ -387,6 +387,45 @@ public class UsuarioServicioImpl implements UsuarioServicio{
         }
         return tiposIdentificacionRepo.findById(idIdentificacion)
                 .orElseThrow(() -> new Exception("No se encontró el tipo de identificación con el ID: " + idIdentificacion));
+    }
+
+    @Override
+    public Bodega obtenerBodega(Integer id) throws Exception {
+        Optional<Bodega> guardado = bodegaRepo.findById(id);
+
+        if (guardado.isEmpty()) {
+            throw new Exception("La bodega no existe");
+        }
+        return guardado.get();
+    }
+
+    @Override
+    public Usuario obtenerUsuario(String id) throws Exception {
+        Optional<Usuario> guardado = usuarioRepo.findById(id);
+
+        if (guardado.isEmpty()) {
+            throw new Exception("El usuario no existe");
+        }
+        return guardado.get();
+    }
+
+    @Override
+    public Insumo obtenerInsumo(Integer id) throws Exception {
+        Optional<Insumo> guardado = insumoRepo.findById(id);
+
+        if (guardado.isEmpty()) {
+            throw new Exception("El insumo no existe");
+        }
+        return guardado.get();
+    }
+
+    @Override
+    public Medicamento obtenerMedicamento(Integer id) throws Exception {
+        Optional<Medicamento> guardado = medicamentoRepo.findById(id);
+        if (guardado.isEmpty()) {
+            throw new Exception("El medicamento no existe");
+        }
+        return guardado.get();
     }
 
 

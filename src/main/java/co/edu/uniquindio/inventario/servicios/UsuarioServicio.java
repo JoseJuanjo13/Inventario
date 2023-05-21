@@ -104,4 +104,12 @@ public interface UsuarioServicio extends Serializable {
     List<TiposIdentificacion> listarTiposIdentificacion();
 
     TiposIdentificacion obtenerTipoIdentificacion(Integer idIdentificacion) throws Exception;
+
+    Bodega obtenerBodega(Integer id) throws Exception;
+
+    Usuario obtenerUsuario(String id) throws Exception;
+
+    Insumo obtenerInsumo(Integer id) throws Exception;
+
+    Medicamento obtenerMedicamento(Integer id) throws Exception;
 }
