@@ -428,5 +428,23 @@ public class UsuarioServicioImpl implements UsuarioServicio{
         return guardado.get();
     }
 
+    @Override
+    public Proveedor obtenerProveedor(String id) throws Exception {
+        Optional<Proveedor> guardado = proveedorRepo.findById(id);
+        if (guardado.isEmpty()) {
+            throw new Exception("El proveedor no existe");
+        }
+        return guardado.get();
+    }
+
+    @Override
+    public OrdenCompra obtenerOrdenCompra(Integer id) throws Exception {
+        Optional<OrdenCompra> guardado = ordenCompraRepo.findById(id);
+        if (guardado.isEmpty()) {
+            throw new Exception("La orden de compra no existe");
+        }
+        return guardado.get();
+    }
+
 
 }

@@ -1,17 +1,12 @@
 package co.edu.uniquindio.inventario.test;
 
-import co.edu.uniquindio.inventario.entidades.Bodega;
-import co.edu.uniquindio.inventario.entidades.Insumo;
-import co.edu.uniquindio.inventario.entidades.Medicamento;
-import co.edu.uniquindio.inventario.entidades.Usuario;
+import co.edu.uniquindio.inventario.entidades.*;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -43,9 +38,7 @@ class PruebasTest {
     void eliminarBodega() throws Exception {
         Bodega bodega = usuarioServicio.obtenerBodega(2);
         usuarioServicio.eliminarBodega(bodega);
-        Exception exception = Assertions.assertThrows(Exception.class, () -> {
-            usuarioServicio.eliminarBodega(bodega);
-        });
+        Exception exception = Assertions.assertThrows(Exception.class, () -> usuarioServicio.eliminarBodega(bodega));
         String mensajeEsperado = "La bodega no existe";
         String mensajeObtenido = exception.getMessage();
         Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
@@ -79,9 +72,7 @@ class PruebasTest {
     void eliminarUsuario() throws Exception {
         Usuario usuario = usuarioServicio.obtenerUsuario("1094973943");
         usuarioServicio.eliminarUsuario(usuario);
-        Exception exception = Assertions.assertThrows(Exception.class, () -> {
-            usuarioServicio.eliminarUsuario(usuario);
-        });
+        Exception exception = Assertions.assertThrows(Exception.class, () -> usuarioServicio.eliminarUsuario(usuario));
         String mensajeEsperado = "El usuario no existe";
         String mensajeObtenido = exception.getMessage();
         Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
@@ -116,9 +107,7 @@ class PruebasTest {
     void eliminarInsumo() throws Exception {
         Insumo insumo = usuarioServicio.obtenerInsumo(1);
         usuarioServicio.eliminarInsumo(insumo);
-        Exception exception = Assertions.assertThrows(Exception.class, () -> {
-            usuarioServicio.eliminarInsumo(insumo);
-        });
+        Exception exception = Assertions.assertThrows(Exception.class, () -> usuarioServicio.eliminarInsumo(insumo));
         String mensajeEsperado = "El insumo no existe";
         String mensajeObtenido = exception.getMessage();
         Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
@@ -152,9 +141,7 @@ class PruebasTest {
     void eliminarMedicamento() throws Exception {
         Medicamento medicamento = usuarioServicio.obtenerMedicamento(1);
         usuarioServicio.eliminarMedicamento(medicamento);
-        Exception exception = Assertions.assertThrows(Exception.class, () -> {
-            usuarioServicio.eliminarMedicamento(medicamento);
-        });
+        Exception exception = Assertions.assertThrows(Exception.class, () -> usuarioServicio.eliminarMedicamento(medicamento));
         String mensajeEsperado = "El medicamento no existe";
         String mensajeObtenido = exception.getMessage();
         Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
@@ -165,5 +152,75 @@ class PruebasTest {
         List<Medicamento> medicamentos = usuarioServicio.listarMedicamento();
         assertNotNull(medicamentos);
         assertFalse(medicamentos.isEmpty());
+    }
+
+    @Test
+    void crearProveedor() throws Exception {
+        Proveedor proveedor = new Proveedor();
+        proveedor.setNombre("nombreProv"); proveedor.setNumeroIdentificacion("1094973"); proveedor.setRazonSocial("razonPrueba");
+        proveedor.setDireccion("carrera prueba"); proveedor.setCorreo("correo@correo.com"); proveedor.setTelefono("313774");
+        proveedor.setUsuarioCreacion("10947788");
+        Proveedor creado = usuarioServicio.crearProveedor(proveedor);
+        assertNotNull(creado);
+    }
+
+    @Test
+    void actualizarProveedor() throws Exception {
+        Proveedor proveedor = usuarioServicio.obtenerProveedor("111222333");
+        proveedor.setNombre("prueba");
+        Proveedor actualizar = usuarioServicio.actualizarProveedor(proveedor);
+        assertNotNull(actualizar);
+    }
+
+    @Test
+    void eliminarProveedor() throws Exception {
+        Proveedor proveedor = usuarioServicio.obtenerProveedor("111222333");
+        usuarioServicio.eliminarProveedor(proveedor);
+        Exception exception = Assertions.assertThrows(Exception.class, () -> usuarioServicio.eliminarProveedor(proveedor));
+        String mensajeEsperado = "El proveedor no existe";
+        String mensajeObtenido = exception.getMessage();
+        Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
+    }
+
+    @Test
+    void listarProveedores() {
+        List<Proveedor> proveedores = usuarioServicio.listarProveedores();
+        assertNotNull(proveedores);
+        assertFalse(proveedores.isEmpty());
+    }
+
+    @Test
+    void crearOrdenCompra() throws Exception {
+        OrdenCompra ordenCompra = new OrdenCompra();
+        ordenCompra.setDetalleOrdenCompras(null); ordenCompra.setFecha(LocalDate.now()); ordenCompra.setNumeroAutorizacion("12345");
+        ordenCompra.setTipoMovimiento("positivo"); ordenCompra.setTotal(0.0); ordenCompra.setFechaAutorizacion(LocalDate.now());
+        ordenCompra.setUsuarioCreacion("10947788");
+        OrdenCompra creado = usuarioServicio.crearOrdenCompra(ordenCompra);
+        assertNotNull(creado);
+    }
+
+    @Test
+    void actualizarOrdenCompra() throws Exception {
+        OrdenCompra ordenCompra = usuarioServicio.obtenerOrdenCompra(1);
+        ordenCompra.setEstado("inactivo");
+        OrdenCompra actualizar = usuarioServicio.actualizarOrdenCompra(ordenCompra);
+        assertNotNull(actualizar);
+    }
+
+    @Test
+    void eliminarOrdenCompra() throws Exception {
+        OrdenCompra ordenCompra = usuarioServicio.obtenerOrdenCompra(1);
+        usuarioServicio.eliminarOrdenCompra(ordenCompra);
+        Exception exception = Assertions.assertThrows(Exception.class, () -> usuarioServicio.eliminarOrdenCompra(ordenCompra));
+        String mensajeEsperado = "La orden de compra no existe";
+        String mensajeObtenido = exception.getMessage();
+        Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
+    }
+
+    @Test
+    void listarOrdenesCompra() {
+        List<OrdenCompra> ordenCompras = usuarioServicio.listarOrdenesCompra();
+        assertNotNull(ordenCompras);
+        assertFalse(ordenCompras.isEmpty());
     }
 }
