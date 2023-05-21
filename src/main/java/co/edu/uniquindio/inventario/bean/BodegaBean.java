@@ -45,6 +45,9 @@ public class BodegaBean implements Serializable {
         bodegas = usuarioServicio.listarBodegas();
     }
 
+    /**
+     * Metodo para gestionar la bodega crear, eliminar, actualizar y consultar
+     */
     public void gestionarBodega() {
         try {
             if(!editarBodega) {
