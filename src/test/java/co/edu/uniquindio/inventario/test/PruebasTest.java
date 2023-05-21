@@ -511,18 +511,14 @@ class PruebasTest {
     }
 
     @Test
-    void testCrearBodegaEditarBodegaTrue() {
-        Bodega bodega = usuarioServicio.obtenerBodega(2);
-        boolean editarBodega = false;
-        if (!editarBodega){
-            Bodega bodeganueva = new Bodega("bodega", "bod", "direccion", null, "activo");
-            Bodega crear = usuarioServicio.crearBodega(bodeganueva);
-            assertNotNull(crear);
-        }else {
-            Bodega actualiza = usuarioServicio.actualizarBodega(bodega);
-            assertNotNull(actualiza);
-        }
+    void testCrearBodegaTrue() {
+       boolean editarBodega = true;
+       Bodega bodega = new Bodega("bodega", "bod", "direccion", null, "activo");
+       Bodega creada =usuarioServicio.crearBodega(bodega);
 
+       bodega = new Bodega();
+
+       assertNotNull(creada);
     }
 
 
