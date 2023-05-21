@@ -2,6 +2,7 @@ package co.edu.uniquindio.inventario.test;
 
 import co.edu.uniquindio.inventario.entidades.*;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
+import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -222,5 +223,114 @@ class PruebasTest {
         List<OrdenCompra> ordenCompras = usuarioServicio.listarOrdenesCompra();
         assertNotNull(ordenCompras);
         assertFalse(ordenCompras.isEmpty());
+    }
+
+    @Test
+    void crearDevolucionCompra() throws Exception {
+        DevolucionCompra devolucionCompra = new DevolucionCompra();
+        devolucionCompra.setDetalleOrdenCompras(null); devolucionCompra.setFecha(LocalDate.now()); devolucionCompra.setNumeroAutorizacion("12345");
+        devolucionCompra.setTipoMovimiento("negativo"); devolucionCompra.setFechaAutorizacion(LocalDate.now());
+        devolucionCompra.setUsuarioCreacion("10947788");
+        DevolucionCompra creado = usuarioServicio.crearDevolucionCompra(devolucionCompra);
+        assertNotNull(creado);
+    }
+
+    @Test
+    void actualizarDevolucionCompra() throws Exception {
+        DevolucionCompra devolucionCompra = usuarioServicio.obtenerDevolucionCompra(1);
+        devolucionCompra.setEstado("inactivo");
+        DevolucionCompra actualizar = usuarioServicio.actualizarDevolucionCompra(devolucionCompra);
+        assertNotNull(actualizar);
+    }
+
+    @Test
+    void eliminarDevolucionCompra() throws Exception {
+        DevolucionCompra devolucionCompra = usuarioServicio.obtenerDevolucionCompra(1);
+        usuarioServicio.eliminarDevolucionCompra(devolucionCompra);
+        Exception exception = Assertions.assertThrows(Exception.class, () -> usuarioServicio.eliminarDevolucionCompra(devolucionCompra));
+        String mensajeEsperado = "La devolucion de la compra no existe";
+        String mensajeObtenido = exception.getMessage();
+        Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
+    }
+
+    @Test
+    void listarDevolucionesCompra() {
+        List<DevolucionCompra> devolucionCompras = usuarioServicio.listarDevolucionesCompra();
+        assertNotNull(devolucionCompras);
+        assertFalse(devolucionCompras.isEmpty());
+    }
+
+    @Test
+    void crearDetalleOrdenCompra() throws Exception {
+        Medicamento medicamento = usuarioServicio.obtenerMedicamento(1);
+        OrdenCompra ordenCompra = usuarioServicio.obtenerOrdenCompra(1);
+        DetalleOrdenCompra detalleOrdenCompra = new DetalleOrdenCompra();
+        detalleOrdenCompra.setOrdenCompra(ordenCompra); detalleOrdenCompra.setMedicamento(medicamento);
+        detalleOrdenCompra.setTipoActividad("nuevo"); detalleOrdenCompra.setCantidadSolicitada(1);
+        detalleOrdenCompra.setValorUnitario(0.0); detalleOrdenCompra.setTotal(0.0);
+        DetalleOrdenCompra creado = usuarioServicio.crearDetalleOrdenCompra(detalleOrdenCompra);
+        assertNotNull(creado);
+    }
+
+    @Test
+    void actualizarDetalleOrdenCompra() throws Exception {
+        DetalleOrdenCompra detalleOrdenCompra = usuarioServicio.obtenerDetalleOrdenCompra(1);
+        detalleOrdenCompra.setTipoActividad("inactivo");
+        DetalleOrdenCompra actualizar = usuarioServicio.actualizarOrdenCompra(detalleOrdenCompra);
+        assertNotNull(actualizar);
+    }
+
+    @Test
+    void eliminarDetalleOrdenCompra() throws Exception {
+        DetalleOrdenCompra detalleOrdenCompra = usuarioServicio.obtenerDetalleOrdenCompra(1);
+        usuarioServicio.eliminarOrdenCompra(detalleOrdenCompra);
+        Exception exception = Assertions.assertThrows(Exception.class, () -> usuarioServicio.eliminarOrdenCompra(detalleOrdenCompra));
+        String mensajeEsperado = "El detalle de la orden de compra no existe";
+        String mensajeObtenido = exception.getMessage();
+        Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
+    }
+
+    @Test
+    void listarDetallesOrdenCompra() {
+        List<DetalleOrdenCompra> detalleOrdenCompras = usuarioServicio.listarDetallesOrdenesCompra(1);
+        assertNotNull(detalleOrdenCompras);
+        assertFalse(detalleOrdenCompras.isEmpty());
+    }
+
+    @Test
+    void crearDetalleDevolucionCompra() throws Exception {
+        Medicamento medicamento = usuarioServicio.obtenerMedicamento(1);
+        DevolucionCompra devolucionCompra = usuarioServicio.obtenerDevolucionCompra(1);
+        DetalleDevolucionCompra detalleDevolucionCompra = new DetalleDevolucionCompra();
+        detalleDevolucionCompra.setDevolucionCompra(devolucionCompra); detalleDevolucionCompra.setMedicamento(medicamento);
+        detalleDevolucionCompra.setCantidad(2); detalleDevolucionCompra.setLote("lote");
+        detalleDevolucionCompra.setValorUnitario(0.0); detalleDevolucionCompra.setTotal(0.0);
+        DetalleDevolucionCompra creado = usuarioServicio.crearDetalleDevolucionCompra(detalleDevolucionCompra);
+        assertNotNull(creado);
+    }
+
+    @Test
+    void actualizarDetalleDevolucionCompra() throws Exception {
+        DetalleDevolucionCompra detalleDevolucionCompra = usuarioServicio.obtenerDetalleDevolucionCompra(1);
+        detalleDevolucionCompra.setTipoActividad("inactivo");
+        DetalleDevolucionCompra actualizar = usuarioServicio.actualizarDetalleDevolucionCompra(detalleDevolucionCompra);
+        assertNotNull(actualizar);
+    }
+
+    @Test
+    void eliminarDetalleDevolucionCompra() throws Exception {
+        DetalleDevolucionCompra detalleDevolucionCompra = usuarioServicio.obtenerDetalleDevolucionCompra(1);
+        usuarioServicio.eliminarDetalleDevolucionCompra(detalleDevolucionCompra);
+        Exception exception = Assertions.assertThrows(Exception.class, () -> usuarioServicio.eliminarDetalleDevolucionCompra(detalleDevolucionCompra));
+        String mensajeEsperado = "El detalle de la devolucion de la compra no existe";
+        String mensajeObtenido = exception.getMessage();
+        Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
+    }
+
+    @Test
+    void listarDetallesDevolucionCompra() {
+        List<DetalleDevolucionCompra> detalleDevolucionCompras = usuarioServicio.listarDetallesDevolucionesCompra(1);
+        assertNotNull(detalleDevolucionCompras);
+        assertFalse(detalleDevolucionCompras.isEmpty());
     }
 }

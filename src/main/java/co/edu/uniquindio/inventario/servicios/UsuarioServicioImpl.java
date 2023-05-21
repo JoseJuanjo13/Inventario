@@ -297,7 +297,7 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     public Boolean eliminarOrdenCompra(DetalleOrdenCompra detalleOrdenCompra) throws Exception {
         Optional<DetalleOrdenCompra> guardado = detalleOrdenCompraRepo.findById(detalleOrdenCompra.getIdDetalleOrdenCompra());
         if (guardado.isEmpty()){
-            throw new Exception("La orden de compra no existe");
+            throw new Exception("El detalle de la orden de compra no existe");
         }else {
             detalleOrdenCompraRepo.delete(guardado.get());
             return true;
@@ -442,6 +442,33 @@ public class UsuarioServicioImpl implements UsuarioServicio{
         Optional<OrdenCompra> guardado = ordenCompraRepo.findById(id);
         if (guardado.isEmpty()) {
             throw new Exception("La orden de compra no existe");
+        }
+        return guardado.get();
+    }
+
+    @Override
+    public DevolucionCompra obtenerDevolucionCompra(Integer id) throws Exception {
+        Optional<DevolucionCompra> guardado = devolucionCompraRepo.findById(id);
+        if (guardado.isEmpty()) {
+            throw new Exception("La devolucion de compra no existe");
+        }
+        return guardado.get();
+    }
+
+    @Override
+    public DetalleOrdenCompra obtenerDetalleOrdenCompra(Integer id) throws Exception {
+        Optional<DetalleOrdenCompra> guardado = detalleOrdenCompraRepo.findById(id);
+        if (guardado.isEmpty()) {
+            throw new Exception("El detalle de la orden de compra no existe");
+        }
+        return guardado.get();
+    }
+
+    @Override
+    public DetalleDevolucionCompra obtenerDetalleDevolucionCompra(Integer id) throws Exception {
+        Optional<DetalleDevolucionCompra> guardado = detalleDevolucionCompraRepo.findById(id);
+        if (guardado.isEmpty()) {
+            throw new Exception("El detalle de la devolucion de compra no existe");
         }
         return guardado.get();
     }

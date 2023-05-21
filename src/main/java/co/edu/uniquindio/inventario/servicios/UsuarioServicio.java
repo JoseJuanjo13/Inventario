@@ -116,4 +116,10 @@ public interface UsuarioServicio extends Serializable {
     Proveedor obtenerProveedor(String id) throws Exception;
 
     OrdenCompra obtenerOrdenCompra(Integer id) throws Exception;
+
+    DevolucionCompra obtenerDevolucionCompra(Integer id) throws Exception;
+
+    DetalleOrdenCompra obtenerDetalleOrdenCompra(Integer id) throws Exception;
+
+    DetalleDevolucionCompra obtenerDetalleDevolucionCompra(Integer id) throws Exception;
 }

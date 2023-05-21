@@ -4,9 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import net.bytebuddy.asm.Advice;
 import org.hibernate.validator.constraints.Length;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
