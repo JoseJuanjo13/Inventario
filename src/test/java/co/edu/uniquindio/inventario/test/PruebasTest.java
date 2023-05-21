@@ -1,8 +1,11 @@
 package co.edu.uniquindio.inventario.test;
 
 import co.edu.uniquindio.inventario.entidades.*;
+import co.edu.uniquindio.inventario.excepciones.BodegaNoRegistradaException;
+import co.edu.uniquindio.inventario.excepciones.ConverterException;
 import co.edu.uniquindio.inventario.excepciones.UsuarioServicioException;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
+import co.edu.uniquindio.inventario.servicios.UsuarioServicioImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -406,5 +409,24 @@ class PruebasTest {
         assertNotNull(bodegas);
     }
 
+    @Test
+    void login() {
+        Usuario usuario = usuarioServicio.login("juan@hotmail.com","123");
+        assertNotNull(usuario);
+    }
+
+    @Test
+    void bodegaNoRegistradaException() {
+        String mensaje = "La bodega no está registrada";
+        BodegaNoRegistradaException exception = new BodegaNoRegistradaException(mensaje);
+        assertEquals(mensaje, exception.getMessage());
+    }
+
+    @Test
+    void converterException() {
+        String mensaje = "La bodega no está registrada";
+        ConverterException exception = new ConverterException(mensaje);
+        assertEquals(mensaje, exception.getMessage());
+    }
 
 }
