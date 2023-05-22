@@ -584,4 +584,64 @@ class PruebasTest {
         String mensajeObtenido = exception.getMessage();
         Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
     }
+
+    @Test
+    void crearBodegaFailed(){
+        Bodega bodega = usuarioServicio.obtenerBodega(2);
+        Exception exception = Assertions.assertThrows(UsuarioServicioException.class, () -> usuarioServicio.crearBodega(bodega));
+        String mensajeEsperado = "El nombre o la abreviacion ya esta registrado";
+        String mensajeObtenido = exception.getMessage();
+        Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
+    }
+
+    @Test
+    void actualizarBodegaFailed(){
+        ArrayList<String> tel = new ArrayList<>();
+        tel.add("9");
+        Bodega bodega = new Bodega();
+        bodega.setNombre("9"); bodega.setDireccion("9"); bodega.setTelefono(tel);
+        bodega.setEstado("9"); bodega.setUsuarioCreacion("9"); bodega.setIdBodega(9999);
+
+        Exception exception = Assertions.assertThrows(UsuarioServicioException.class, () -> usuarioServicio.actualizarBodega(bodega));
+        String mensajeEsperado = "La bodega no existe";
+        String mensajeObtenido = exception.getMessage();
+        Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
+    }
+
+    @Test
+    void crearProveedorFailed(){
+        Proveedor proveedor = usuarioServicio.obtenerProveedor("111222333");
+        Exception exception = Assertions.assertThrows(UsuarioServicioException.class, () -> usuarioServicio.crearProveedor(proveedor));
+        String mensajeEsperado = "El proveedor ya se encuentra registrado";
+        String mensajeObtenido = exception.getMessage();
+        Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
+    }
+
+    @Test
+    void actualizarProveedorFailed(){
+        Proveedor proveedor = new Proveedor();
+        proveedor.setNombre("9"); proveedor.setNumeroIdentificacion("9"); proveedor.setRazonSocial("9");
+        proveedor.setDireccion("9"); proveedor.setCorreo("9"); proveedor.setTelefono("9");
+        proveedor.setUsuarioCreacion("9");
+
+        Exception exception = Assertions.assertThrows(UsuarioServicioException.class, () -> usuarioServicio.actualizarProveedor(proveedor));
+        String mensajeEsperado = "El proveedor no existe";
+        String mensajeObtenido = exception.getMessage();
+        Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
+    }
+
+    @Test
+    void actualizarActualizarOrdenCompraFailed(){
+        OrdenCompra ordenCompra = new OrdenCompra();
+        ordenCompra.setDetalleOrdenCompras(null); ordenCompra.setFecha(LocalDate.now()); ordenCompra.setNumeroAutorizacion("9");
+        ordenCompra.setTipoMovimiento("9"); ordenCompra.setTotal(0.0); ordenCompra.setFechaAutorizacion(LocalDate.now());
+        ordenCompra.setUsuarioCreacion("9"); ordenCompra.setIdCompra(99999);
+
+        Exception exception = Assertions.assertThrows(UsuarioServicioException.class, () -> usuarioServicio.actualizarOrdenCompra(ordenCompra));
+        String mensajeEsperado = "La orden de compra no existe";
+        String mensajeObtenido = exception.getMessage();
+        Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
+    }
+
+
 }
