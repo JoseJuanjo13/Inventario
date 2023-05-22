@@ -643,5 +643,50 @@ class PruebasTest {
         Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
     }
 
+    @Test
+    void listarTiposIdentificacion(){
+        List<TiposIdentificacion> tiposIdentificacions = usuarioServicio.listarTiposIdentificacion();
+        assertNotNull(tiposIdentificacions);
+        assertFalse(tiposIdentificacions.isEmpty());
+    }
 
+    @Test
+    void obtenerDetalleDevolucionCompraFailed(){
+        Exception exception = Assertions.assertThrows(UsuarioServicioException.class, () -> usuarioServicio.obtenerDetalleDevolucionCompra(99999));
+        String mensajeEsperado = "El detalle de la devolucion de compra no existe";
+        String mensajeObtenido = exception.getMessage();
+        Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
+    }
+
+    @Test
+    void obtenerDetalleOrdenCompraFailed(){
+        Exception exception = Assertions.assertThrows(UsuarioServicioException.class, () -> usuarioServicio.obtenerDetalleOrdenCompra(99999));
+        String mensajeEsperado = "El detalle de la orden de compra no existe";
+        String mensajeObtenido = exception.getMessage();
+        Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
+    }
+
+    @Test
+    void obtenerDevolucionCompraFailed(){
+        Exception exception = Assertions.assertThrows(UsuarioServicioException.class, () -> usuarioServicio.obtenerDevolucionCompra(99999));
+        String mensajeEsperado = "La devolucion de compra no existe";
+        String mensajeObtenido = exception.getMessage();
+        Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
+    }
+
+    @Test
+    void obtenerOrdenCompraFailed(){
+        Exception exception = Assertions.assertThrows(UsuarioServicioException.class, () -> usuarioServicio.obtenerOrdenCompra(99999));
+        String mensajeEsperado = "La devolucion de compra no existe";
+        String mensajeObtenido = exception.getMessage();
+        Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
+    }
+
+    @Test
+    void obtenerProveedorFailed(){
+        Exception exception = Assertions.assertThrows(UsuarioServicioException.class, () -> usuarioServicio.obtenerProveedor("9999999999"));
+        String mensajeEsperado = "El proveedor no existe";
+        String mensajeObtenido = exception.getMessage();
+        Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
+    }
 }
