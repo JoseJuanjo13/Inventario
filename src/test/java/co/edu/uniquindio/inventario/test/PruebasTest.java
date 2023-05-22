@@ -23,7 +23,9 @@ class PruebasTest {
 
     @Test
     void crearBodega() {
-        Bodega bodega = new Bodega("bodega", "bod", "direccion", null, "activo");
+        ArrayList<String> tel = new ArrayList<>();
+        tel.add("3134455");
+        Bodega bodega = new Bodega("bodega", "bod", "direccion", tel, "activo");
         Bodega creada = usuarioServicio.crearBodega(bodega);
         assertNotNull(creada);
     }
@@ -509,7 +511,6 @@ class PruebasTest {
         UsuarioException exception = new UsuarioException(mensaje);
         assertEquals(mensaje, exception.getMessage());
     }
-
 
 
 }
