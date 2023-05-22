@@ -520,4 +520,68 @@ class PruebasTest {
         Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
     }
 
+    @Test
+    void crearUsuarioFailed(){
+        Usuario usuario = usuarioServicio.obtenerUsuario("1094973943");
+        Exception exception = Assertions.assertThrows(UsuarioServicioException.class, () -> usuarioServicio.crearUsuario(usuario));
+        String mensajeEsperado = "El correo o la cédula se encuentran registrados";
+        String mensajeObtenido = exception.getMessage();
+        Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
+    }
+
+    @Test
+    void actualizarUsuarioFailed(){
+        Usuario usuario = new Usuario();
+        usuario.setNombre("9"); usuario.setApellido("9"); usuario.setEmail("9");
+        usuario.setContrasena("9"); usuario.setTelefono("9"); usuario.setCedula("9");
+
+        Exception exception = Assertions.assertThrows(UsuarioServicioException.class, () -> usuarioServicio.actualizarUsuario(usuario));
+        String mensajeEsperado = "El usuario no existe";
+        String mensajeObtenido = exception.getMessage();
+        Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
+    }
+
+    @Test
+    void crearInsumoFailed(){
+        Insumo insumo = usuarioServicio.obtenerInsumo(1);
+        Exception exception = Assertions.assertThrows(UsuarioServicioException.class, () -> usuarioServicio.crearInsumo(insumo));
+        String mensajeEsperado = "El nombre ya esta registrado";
+        String mensajeObtenido = exception.getMessage();
+        Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
+    }
+
+    @Test
+    void actualizarInsumoFailed(){
+        Insumo insumo = new Insumo();
+        insumo.setNombre("9"); insumo.setTipoInsumo("9"); insumo.setEstado("9");
+        insumo.setFecha(LocalDate.now()); insumo.setPresentacion("9"); insumo.setUsuarioCreacion("9");
+        insumo.setVidaUtil(9); insumo.setIdInsumo(9999);
+
+        Exception exception = Assertions.assertThrows(UsuarioServicioException.class, () -> usuarioServicio.actualizarInsumo(insumo));
+        String mensajeEsperado = "El insumo no existe";
+        String mensajeObtenido = exception.getMessage();
+        Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
+    }
+
+    @Test
+    void crearMedicamentoFailed(){
+        Medicamento medicamento = usuarioServicio.obtenerMedicamento(1);
+        Exception exception = Assertions.assertThrows(UsuarioServicioException.class, () -> usuarioServicio.crearMedicamento(medicamento));
+        String mensajeEsperado = "El nombre ya esta registrado";
+        String mensajeObtenido = exception.getMessage();
+        Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
+    }
+
+    @Test
+    void actualizarMedicamentoFailed(){
+        Medicamento medicamento = new Medicamento();
+        medicamento.setPrincipioActivo("9"); medicamento.setConcentracion("9"); medicamento.setUnidad("9");
+        medicamento.setPresentacion("9"); medicamento.setViaAdministracion("9"); medicamento.setFecha(LocalDate.now());
+        medicamento.setIdMedicamento(9999);
+
+        Exception exception = Assertions.assertThrows(UsuarioServicioException.class, () -> usuarioServicio.actualizarMedicamento(medicamento));
+        String mensajeEsperado = "El medicamento no existe";
+        String mensajeObtenido = exception.getMessage();
+        Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
+    }
 }
