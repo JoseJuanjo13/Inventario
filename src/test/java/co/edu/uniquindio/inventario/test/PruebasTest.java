@@ -677,7 +677,7 @@ class PruebasTest {
     @Test
     void obtenerOrdenCompraFailed(){
         Exception exception = Assertions.assertThrows(UsuarioServicioException.class, () -> usuarioServicio.obtenerOrdenCompra(99999));
-        String mensajeEsperado = "La devolucion de compra no existe";
+        String mensajeEsperado = "La orden de compra no existe";
         String mensajeObtenido = exception.getMessage();
         Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
     }
