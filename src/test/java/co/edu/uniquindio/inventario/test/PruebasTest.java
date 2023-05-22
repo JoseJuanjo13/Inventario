@@ -512,5 +512,12 @@ class PruebasTest {
         assertEquals(mensaje, exception.getMessage());
     }
 
+    @Test
+    void loginFailed(){
+        Exception exception = Assertions.assertThrows(UsuarioServicioException.class, () -> usuarioServicio.login("juan@hotmail.com","6969"));
+        String mensajeEsperado = "El correo o la contraseña incorrectos";
+        String mensajeObtenido = exception.getMessage();
+        Assertions.assertEquals(mensajeEsperado, mensajeObtenido);
+    }
 
 }
