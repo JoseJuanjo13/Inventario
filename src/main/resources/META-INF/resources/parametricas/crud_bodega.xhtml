@@ -113,8 +113,9 @@
                         <p:inputText id="direccion" value="#{bodegaBean.bodega.direccion}" required="true" />
                         <p:message for="direccion"/>
 
-                        <p:outputLabel for="estado" value="Estado: " />
-                        <p:inputText id="estado" value="#{bodegaBean.bodega.estado}" required="true" />
+                        <p:outputLabel for="estado" value="Estado: "/>
+                        <p:autoComplete id="estado" dropdown="true" value="#{bodegaBean.bodega.estado}" required="true"
+                                        completeMethod="#{bodegaBean.filtroEstados}" scrollHeight="200"/>
                         <p:message for="estado"/>
 
                         <p:outputLabel for="nombre" value="Nombre: " />

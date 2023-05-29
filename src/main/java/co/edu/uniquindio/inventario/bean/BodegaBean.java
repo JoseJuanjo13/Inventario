@@ -109,5 +109,10 @@ public class BodegaBean implements Serializable {
         }
     }
 
+    public List<String> filtroEstados(String query) {
+        List<String> listaNombreEstados = new ArrayList<>();
+        listaNombreEstados.add("Activo"); listaNombreEstados.add("Inactivo");
+        return listaNombreEstados;
+    }
 
 }

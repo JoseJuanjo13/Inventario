@@ -151,8 +151,9 @@
                         <p:datePicker id="fecha-vencimiento" value="#{medicamentoBean.medicamento.fechaVencimiento}" required="true" monthNavigator="true" yearNavigator="true" showWeek="true" />
                         <p:message for="fecha-vencimiento"/>
 
-                        <p:outputLabel for="estado" value="Estado: " />
-                        <p:inputText id="estado" value="#{medicamentoBean.medicamento.estado}" required="true" />
+                        <p:outputLabel for="estado" value="Estado: "/>
+                        <p:autoComplete id="estado" dropdown="true" value="#{medicamentoBean.medicamento.estado}" required="true"
+                                        completeMethod="#{medicamentoBean.filtroEstados}" scrollHeight="200"/>
                         <p:message for="estado"/>
 
                     </h:panelGrid>
