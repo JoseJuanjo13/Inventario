@@ -1,5 +1,6 @@
 package co.edu.uniquindio.inventario.bean;
 
+import co.edu.uniquindio.inventario.entidades.Bodega;
 import co.edu.uniquindio.inventario.entidades.Insumo;
 import co.edu.uniquindio.inventario.excepciones.InsumoException;
 import co.edu.uniquindio.inventario.servicios.UsuarioServicio;
@@ -15,6 +16,7 @@ import javax.faces.view.ViewScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @ViewScoped
@@ -71,18 +73,12 @@ public class InsumoBean implements Serializable {
         insumosSeleccionados.forEach(i -> {
             try {
                 usuarioServicio.eliminarInsumo(i);
-                insumos.forEach(insumo1 -> {
-                    if (insumo1.getIdInsumo().equals(i.getIdInsumo())){
-                        insumos.remove(insumo1);
-                    }
-                });
+                insumos.remove(i);
             } catch (Exception e) {
                 throw new InsumoException(e.getMessage());
             }
         });
         insumosSeleccionados.clear();
-
-
     }
 
     public String getMensajeEliminar() {
@@ -107,6 +103,10 @@ public class InsumoBean implements Serializable {
         }
     }
 
-
+    public List<String> filtroEstados(String query) {
+        List<String> listaNombreEstados = new ArrayList<>();
+        listaNombreEstados.add("Activo"); listaNombreEstados.add("Inactivo");
+        return listaNombreEstados;
+    }
 
 }

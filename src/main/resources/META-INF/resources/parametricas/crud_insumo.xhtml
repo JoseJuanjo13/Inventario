@@ -123,12 +123,13 @@
                         <p:inputText id="tipo-insumo" value="#{insumoBean.insumo.tipoInsumo}" required="true"/>
                         <p:message for="tipo-insumo"/>
 
-                        <p:outputLabel for="vida-util" value="Vida útil: "/>
+                        <p:outputLabel for="vida-util" value="Vida útil (años): "/>
                         <p:inputNumber id="vida-util" value="#{insumoBean.insumo.vidaUtil}" required="true" minValue="0" decimalPlaces="0"/>
                         <p:message for="vida-util"/>
 
                         <p:outputLabel for="estado" value="Estado: "/>
-                        <p:inputText id="estado" value="#{insumoBean.insumo.estado}" required="true"/>
+                        <p:autoComplete id="estado" dropdown="true" value="#{insumoBean.insumo.estado}" required="true"
+                                        completeMethod="#{insumoBean.filtroEstados}" scrollHeight="200"/>
                         <p:message for="estado"/>
 
                         <p:outputLabel for="fecha" value="Fecha: "/>
