@@ -139,7 +139,8 @@
                         <p:message for="fecha-autorizacion"/>
 
                         <p:outputLabel for="estado" value="Estado: "/>
-                        <p:inputText id="estado" value="#{devolucionCompraBean.devolucionCompra.estado}" required="true"/>
+                        <p:autoComplete id="estado" dropdown="true" value="#{devolucionCompraBean.devolucionCompra.estado}" required="true"
+                                        completeMethod="#{devolucionCompraBean.filtroEstados}" scrollHeight="200"/>
                         <p:message for="estado"/>
 
                         <p:outputLabel for="bodega" value="Bodega: "/>
