@@ -11,7 +11,11 @@
     <ui:define name="content">
 
         <div class="content-body">
-            <h1>Bienvenid@</h1>
+            <h1>Bienvenid@ </h1>
+
+            <h1 style="display: #{seguridadBean.autenticado ? 'block' : 'none'}">
+                Hola, #{seguridadBean.usuario.nombre}
+            </h1>
 
             <h:graphicImage library="img" name="Logo.png" />
 
