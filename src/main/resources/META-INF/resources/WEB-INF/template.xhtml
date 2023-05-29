@@ -57,7 +57,7 @@
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                         <li><p:commandButton rendered="#{seguridadBean.autenticado}" value="Hola, #{seguridadBean.usuario.nombre}" styleClass="ui-button-secondary ui-button-flat"/></li>
                         <li><p:commandButton rendered="#{!seguridadBean.autenticado}" value="Iniciar Sesión" oncomplete="PF('login').show()" styleClass="ui-button-secondary ui-button-flat"/></li>
-                        <li><p:commandButton rendered="#{seguridadBean.autenticado}" value="Cerrar Sesión" action="#{seguridadBean.cerrarSesion}" styleClass="ui-button-secondary ui-button-flat"/></li>
+                        <li><p:commandButton rendered="#{seguridadBean.autenticado}" value="Cerrar Sesión" action="#{seguridadBean.cerrarSesion}" styleClass="ui-button-danger ui-button-flat"/></li>
                     </ul>
                     </h:form>
                 </div>
