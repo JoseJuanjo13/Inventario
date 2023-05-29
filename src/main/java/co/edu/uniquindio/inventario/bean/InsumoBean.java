@@ -71,12 +71,18 @@ public class InsumoBean implements Serializable {
         insumosSeleccionados.forEach(i -> {
             try {
                 usuarioServicio.eliminarInsumo(i);
-                insumos.remove(i);
+                insumos.forEach(insumo1 -> {
+                    if (insumo1.getIdInsumo().equals(i.getIdInsumo())){
+                        insumos.remove(insumo1);
+                    }
+                });
             } catch (Exception e) {
                 throw new InsumoException(e.getMessage());
             }
         });
         insumosSeleccionados.clear();
+
+
     }
 
     public String getMensajeEliminar() {
